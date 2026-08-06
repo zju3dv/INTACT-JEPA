@@ -1,0 +1,77 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.local
+*.pem
+*.key
+credentials*
+secrets*
+private/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+venv/
+
+# Editors and operating systems
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+
+# Datasets and caches
+/data/
+/datasets/
+/feature_cache/
+/stable-wm-cache/
+cache/
+*.h5
+*.hdf5
+*.lance
+*.npz
+
+# Runtime outputs
+checkpoints/*
+!checkpoints/*.json
+outputs/
+runs/
+results/raw/
+logs/
+lightning_logs/
+wandb/
+*.log
+*.txt.json
+.release-staging/
+paper-artifacts/
+
+# Model artifacts are distributed separately.
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Paper build products
+paper/build/
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.pdf
+
+# Local build and export artifacts
+artifacts/
+.build/
+scratch/
+*.pid

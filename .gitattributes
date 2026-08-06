@@ -1,0 +1,14 @@
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.mp4 binary
+*.pdf binary
+*.pt binary
+*.pth binary
+*.ckpt binary
+
+# The frozen compatibility runtime is byte-preserved for published checkpoints.
+paper_runtime/** whitespace=-blank-at-eol,-blank-at-eof

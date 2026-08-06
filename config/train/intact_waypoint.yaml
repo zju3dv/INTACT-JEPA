@@ -1,0 +1,61 @@
+defaults:
+  - launcher: local
+  - data: pusht
+  - model: intact
+  - _self_
+
+output_model_name: intact_waypoint_pusht_s3072
+variant: waypoint
+seed: 3072
+img_size: 224
+embed_dim: 192
+history_size: 3
+num_frames: 8
+train_split: 0.9
+init_weights_path: null
+
+model:
+  intent_mode: waypoint
+
+trainer:
+  max_epochs: 1
+  devices: 1
+  accelerator: gpu
+  precision: bf16-mixed
+  gradient_clip_val: 1.0
+  limit_val_batches: 1
+
+loader:
+  batch_size: 256
+  num_workers: 6
+  persistent_workers: true
+  prefetch_factor: 3
+  pin_memory: true
+
+optimizer:
+  type: AdamW
+  lr: 5e-4
+  weight_decay: 1e-3
+
+loss:
+  forward_weight: 1.0
+  sigreg:
+    weight: 0.02
+    kwargs:
+      knots: 17
+      num_proj: 1024
+  intent:
+    local_weight: 0.1
+    goal_weight: 0.05
+    local_start: 0
+    goal_start: 0
+
+wandb:
+  enabled: false
+  config:
+    entity: lewm
+    project: intact-shared
+    name: ${output_model_name}
+    id: ${output_model_name}
+    resume: allow
+    log_model: false

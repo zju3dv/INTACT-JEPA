@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a reproducible problem in a released INTACT artifact.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve INTACT. Do not include credentials, private paths, or non-redistributable data.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: Include the command, configuration, and smallest useful trace.
+    validations:
+      required: true
+  - type: input
+    id: revision
+    attributes:
+      label: INTACT revision
+      description: Commit or release tag.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python, PyTorch, CUDA, and relevant package versions.
+    validations:
+      required: true

@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#f4f6f8">
+    <meta name="description" content="INTACT learns action-aligned latent intent for search-free world-model control.">
+    <meta property="og:title" content="INTACT: Isomorphic Intent-to-Action Learning for Search-Free World Models">
+    <meta property="og:description" content="An end-to-end JEPA that turns latent motion intent into direct control.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zju3dv.github.io/INTACT-JEPA/">
+    <meta property="og:image" content="https://zju3dv.github.io/INTACT-JEPA/assets/intact-social-cover-2k.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="2560">
+    <meta property="og:image:height" content="1440">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="INTACT: Isomorphic Intent-to-Action Learning for Search-Free World Models">
+    <meta name="twitter:description" content="An end-to-end JEPA that turns latent motion intent into direct control.">
+    <meta name="twitter:image" content="https://zju3dv.github.io/INTACT-JEPA/assets/intact-social-cover-2k.jpg">
+    <title>INTACT | Intent-to-Action Learning</title>
+    <link rel="icon" href="assets/intact-mark.png">
+    <link rel="canonical" href="https://zju3dv.github.io/INTACT-JEPA/">
+    <link rel="stylesheet" href="site.css?v=20260731-1">
+    <script src="site.js?v=20260729-9" defer></script>
+    <script type="module" src="hero-particles.js?v=20260729-2"></script>
+    <script type="module" src="latent-viewer.js?v=20260729-6"></script>
+    <script type="module" src="action-alignment.js?v=20260729-2"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#idea">Skip to content</a>
+    <div class="read-progress" aria-hidden="true"><span></span></div>
+
+    <header class="site-header">
+      <div class="header-identity">
+        <a class="brand" href="#top" aria-label="INTACT home">
+          <img src="assets/intact-mark.png" alt="">
+          <span>INTACT</span>
+        </a>
+        <div class="header-affiliations" aria-label="Research affiliations">
+          <a class="header-affiliation-seal" href="https://www.zju.edu.cn/english/" target="_blank" rel="noopener noreferrer" aria-label="Zhejiang University" title="Zhejiang University"><img src="assets/zju-nav-mark.png" alt=""></a>
+          <a class="header-affiliation-seal" href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener noreferrer" aria-label="Tsinghua University" title="Tsinghua University"><img src="assets/tsinghua-nav-mark.png" alt=""></a>
+          <a href="https://www.inspatio.com/" target="_blank" rel="noopener noreferrer" aria-label="InSpatio" title="InSpatio"><img src="assets/inspatio-nav-mark.png" alt=""></a>
+          <a href="https://lab.roboparty.com/" target="_blank" rel="noopener noreferrer" aria-label="RoboParty Lab" title="RoboParty Lab"><img src="assets/roboparty-nav-mark.png" alt=""></a>
+        </div>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#idea">Idea</a>
+        <a href="#method">Method</a>
+        <a href="#geometry">Geometry</a>
+        <a href="#results">Results</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#community">Community</a>
+        <a class="nav-github" href="https://github.com/zju3dv/INTACT-JEPA">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <article>
+        <header class="hero-band" data-immersive-hero>
+          <canvas class="hero-particle-canvas" data-hero-particles aria-hidden="true"></canvas>
+          <div class="hero-vignette" aria-hidden="true"></div>
+          <div class="article-hero page-shell">
+            <p class="hero-overline">World models · latent intent · direct control</p>
+            <div class="hero-title">
+              <img class="hero-wordmark" src="assets/intact-wordmark-light.png?v=20260729-8" alt="INTACT">
+              <h1>Isomorphic Intent-to-Action Learning for Search-Free World Models</h1>
+            </div>
+
+            <p class="hero-deck">World models already learn what actions do. INTACT teaches the same representation which action realizes a requested latent change.</p>
+
+            <div class="hero-authors">
+              <p class="hero-author-names">Junhan Sun<sup>1,4</sup>, Hao Zhao<sup>2,4,†</sup>, Guofeng Zhang<sup>1,3,†</sup></p>
+              <p class="hero-affiliations"><sup>1</sup>State Key Laboratory of CAD&amp;CG, Zhejiang University &nbsp; <sup>2</sup>AIR, Tsinghua University &nbsp; <sup>3</sup>InSpatio &nbsp; <sup>4</sup>RoboParty Lab</p>
+            </div>
+
+            <div class="hero-actions" aria-label="Project links">
+              <a class="action-primary" href="https://arxiv.org/abs/2607.26056">Paper <span aria-hidden="true">↗</span></a>
+              <a href="https://github.com/zju3dv/INTACT-JEPA">Code <span aria-hidden="true">↗</span></a>
+              <a href="REPRODUCIBILITY.md">Reproducibility</a>
+            </div>
+          </div>
+          <a class="hero-scroll-cue" href="#project-film"><span>Watch the project film</span><b aria-hidden="true">↓</b></a>
+        </header>
+
+        <section id="project-film" class="project-film-section">
+          <figure class="hero-film reveal">
+            <video autoplay muted loop playsinline preload="auto" data-autoplay-film poster="assets/intact-hero-film-poster.jpg?v=20260730-8" aria-label="INTACT project film with synchronized four-task control, shared-encoder alignment, isomorphic local and goal calls, evolving latent geometry, controlled success rates, and headline results">
+              <source src="assets/intact-hero-film.mp4?v=20260730-8" type="video/mp4">
+            </video>
+            <button class="film-play-fallback" type="button" data-film-play hidden aria-label="Play the INTACT project film" title="Play">▶</button>
+            <figcaption>
+              <strong>INTACT in one loop.</strong> Synchronized failures and recoveries lead into the intent-to-action interface, E1–E5 correspondence, controlled shared-encoder results, and the paper's headline operating point. Demo identities and quantitative frames come from audited artifacts.
+              <span class="film-resolution-links" aria-label="Download the project film without a sharing card"><a href="assets/intact-hero-film-2k.mp4">2K</a><a href="assets/intact-hero-film-4k.mp4">4K</a></span>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section id="geometry" class="geometry-section reveal">
+          <div class="reading-shell geometry-intro">
+            <div class="section-kicker">Interactive evidence</div>
+            <h2>Unified-task JEPA representation geometry, from initialization to outcome.</h2>
+            <p class="lead">Follow the same fixed observations from PushT, Cube, Reacher, and TwoRoom through 7,075 measured training states. Compare complete collapse, partial collapse, and a well-formed outcome in independently fitted 2D and 3D t-SNE.</p>
+          </div>
+
+          <div class="geometry-lab" data-latent-viewer aria-label="Interactive four-task latent geometry viewer">
+            <div class="geometry-toolbar page-shell">
+              <div class="variant-controls" data-variant-controls aria-label="Training outcome" role="group"></div>
+              <div class="geometry-metrics" aria-label="High-dimensional representation metrics">
+                <div><span>Effective rank</span><strong data-rank>–</strong></div>
+                <div><span>Mean cosine</span><strong data-cosine>–</strong></div>
+                <div><span>Measured frame</span><strong data-frame>–</strong></div>
+              </div>
+              <div class="dimension-controls" data-dimension-controls aria-label="Projection dimensions" role="group">
+                <button type="button" data-dimensions="2" aria-pressed="false">2D</button>
+                <button type="button" data-dimensions="3" aria-pressed="true">3D</button>
+                <button type="button" data-dimensions="split" aria-pressed="false">2D + 3D</button>
+              </div>
+            </div>
+
+            <div class="geometry-stage mode-3d" data-geometry-stage>
+              <div class="geometry-view geometry-view-2d" data-geometry-view="2">
+                <canvas aria-label="Drag to pan the 2D latent geometry; scroll to zoom"></canvas>
+                <span class="view-label">2D t-SNE</span>
+              </div>
+              <div class="geometry-view geometry-view-3d" data-geometry-view="3">
+                <canvas aria-label="Drag to rotate the 3D latent geometry; scroll to zoom"></canvas>
+                <span class="view-label">3D t-SNE</span>
+              </div>
+              <div class="viewer-loading" data-viewer-loading>Preparing measured checkpoints…</div>
+              <div class="geometry-state">
+                <span>Training state</span>
+                <strong>E<span data-epoch>0.00</span></strong>
+                <small>step <span data-step>0</span></small>
+              </div>
+              <div class="task-legend" data-task-legend aria-label="Task colors"></div>
+            </div>
+
+            <div class="geometry-timeline page-shell">
+              <button class="icon-button" type="button" data-play aria-label="Play training evolution" title="Play">▶</button>
+              <div class="timeline-track">
+                <input data-timeline type="range" min="0" max="2500" value="0" step="1" aria-label="Training checkpoint">
+                <div class="epoch-ticks" aria-hidden="true"><span>E0</span><span>E1</span><span>E2</span><span>E3</span><span>E4</span><span>E5</span></div>
+              </div>
+              <button class="icon-button reset-view" type="button" data-reset-view aria-label="Reset camera view" title="Reset view">↺</button>
+            </div>
+
+            <div class="geometry-caption page-shell">
+              <div>
+                <span data-variant-title>Well-formed geometry</span>
+                <p data-variant-description>Loading trajectory metadata.</p>
+              </div>
+              <div class="geometry-contract">
+                <strong data-endpoint-label>Complete E0–E5 trajectory</strong>
+                <span>Fixed observations · real snapshots · no latent interpolation</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="reading-shell geometry-note">
+            <p><strong>Measurement note.</strong> Every colored point tracks the same fixed observation through training. Each projected frame is robustly normalized to expose morphology, so absolute projected radius is not compared. t-SNE is qualitative evidence about local neighborhoods; effective rank and mean pairwise cosine are computed in the original high-dimensional latent space.</p>
+          </div>
+        </section>
+
+        <section id="idea" class="story-section reading-shell reveal">
+          <div class="section-kicker">The idea</div>
+          <h2>A world model should not need broad search to express control knowledge it already learned.</h2>
+          <p class="lead">Forward latent models learn the conditional “given this action, what changes?” Goal-conditioned control then numerically inverts that knowledge with thousands of candidate sequences. This creates a representation-control asymmetry: action shapes the latent during training, but deployment begins again from generic proposals.</p>
+          <p>Every action-labelled transition already contains the missing supervision. It identifies a state-conditioned motion intent and the action that realizes it. INTACT exposes that relation as a first-class interface, trained end to end with the forward JEPA.</p>
+
+          <aside class="tldr" aria-label="Summary">
+            <h3>TL;DR</h3>
+            <ul>
+              <li>One shared predictor interprets observed physical change and deployable goal intent.</li>
+              <li>Asymmetric gradients preserve physical grounding without pretending that a future goal is the next frame.</li>
+              <li>The conditional mean becomes a zero-search controller; sampling remains available for diversity or local verification.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <figure class="wide-figure page-shell reveal">
+          <img src="assets/intact-teaser-v31.png" alt="INTACT v31 teaser showing matched Cube control, representation geometry, direct success rate, latency, and action-family alignment">
+          <figcaption><strong>INTACT turns action-aligned latent intent into search-free control.</strong> The matched Cube audit, one-epoch macro result, latency study, and representation correlations are distinct evaluations and are not pooled.</figcaption>
+        </figure>
+
+        <section class="metric-band reveal" aria-label="Headline metrics">
+          <div><strong>1</strong><span>full-data epoch</span></div>
+          <div><strong>95.33%</strong><span>Direct macro SR</span></div>
+          <div><strong>0</strong><span>Direct candidates</span></div>
+          <div><strong>2.9–5.5 ms</strong><span>planner latency</span></div>
+          <div><strong>23.44×</strong><span>fewer verification samples</span></div>
+        </section>
+
+        <section id="method" class="story-section reading-shell reveal">
+          <div class="section-kicker">Method</div>
+          <h2>Two intent families. One conditional action law.</h2>
+          <p class="lead">A real successor provides a physically grounded intent that is unavailable before acting. A future goal provides the condition available at deployment, but it is not a one-step successor. INTACT gives both families the same typed predictor graph while retaining their different causal roles.</p>
+
+          <div class="formula-pair" aria-label="INTACT intent definitions">
+            <div>
+              <span>Physical successor intent</span>
+              <code>m<sub>t</sub><sup>local</sup> = z<sub>t+1</sub> − z<sub>t</sub></code>
+              <small>successor attached</small>
+            </div>
+            <div>
+              <span>Deployable goal intent</span>
+              <code>m<sub>t</sub><sup>goal</sup> = sg(z<sub>g</sub>) − z<sub>t</sub></code>
+              <small>goal detached</small>
+            </div>
+          </div>
+
+          <p>The predictor receives the same four-slot grammar in both calls: current state, first-order intent, the matched state-intent interaction, and previous-action context. There is no pointwise loss forcing the local and goal endpoints to coincide.</p>
+        </section>
+
+        <figure class="wide-figure page-shell reveal">
+          <img src="assets/shared-encoder-method.png" alt="One visual encoder shared across four domains with task-specific forward and INTACT head pairs">
+          <figcaption><strong>Shared-encoder INTACT.</strong> Four visual domains update one encoder, while task-specific head pairs preserve domain dynamics. Direct control emits an action chunk; world rollout is retained for recurrent replanning and optional verification.</figcaption>
+        </figure>
+
+        <section class="concept-band reveal">
+          <div class="concept-heading">
+            <span>Why the name matters</span>
+            <h2>Isomorphic between calls. Intact across representation and control.</h2>
+          </div>
+          <div class="concept-grid">
+            <div><strong>Graph isomorphism</strong><p>Local and goal calls use the same parameter-labelled backbone-input graph.</p></div>
+            <div><strong>Family isomorphism</strong><p>Supported motion-intent families correspond through the action-law semantics induced by one predictor.</p></div>
+            <div><strong>Representation intactness</strong><p>Action-effective information survives the RGB-to-latent bottleneck without retaining every nuisance.</p></div>
+            <div><strong>Conversion intactness</strong><p>The relation between latent intent families and their action families survives direct readout.</p></div>
+          </div>
+        </section>
+
+        <section id="results" class="story-section reading-shell reveal">
+          <div class="section-kicker">Results</div>
+          <h2>One epoch makes broad action search optional.</h2>
+          <p class="lead">Task-specific INTACT is trained end to end for one full-data epoch. Direct evaluates no candidate sequence and makes no terminal latent-cost call. Guarded A keeps the coherent Direct plan as its center and verifies only a small local neighborhood.</p>
+
+          <div class="result-table-wrap" tabindex="0" aria-label="Task-specific INTACT results">
+            <table>
+              <thead><tr><th>Task</th><th>Direct · 0</th><th>Guarded A · 384</th><th>Published LeWM</th></tr></thead>
+              <tbody>
+                <tr><th>PushT</th><td>85.78 ± 1.54</td><td><strong>92.22 ± 0.69</strong></td><td>96.0 ± 4.0</td></tr>
+                <tr><th>Cube</th><td><strong>100.00 ± 0.00</strong></td><td>99.78 ± 0.19</td><td>74.0 ± 3.0</td></tr>
+                <tr><th>Reacher</th><td><strong>97.67 ± 0.00</strong></td><td>97.44 ± 0.77</td><td>86.0 ± 5.0</td></tr>
+                <tr><th>TwoRoom</th><td>97.89 ± 1.26</td><td><strong>98.00 ± 1.15</strong></td><td>87.0 ± 2.5</td></tr>
+                <tr class="macro"><th>Macro</th><td><strong>95.33 ± 0.58</strong></td><td><strong>96.86 ± 0.38</strong></td><td>85.75</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="protocol-note">INTACT values average three independently trained models per task, each evaluated with three 100-episode seeds. Published LeWM retains its own 10-epoch CEM protocol and is landscape context rather than a paired significance control.</p>
+        </section>
+
+        <figure class="controller-figure page-shell reveal" aria-labelledby="controller-title">
+          <div class="controller-figure-head">
+            <div>
+              <span class="section-kicker">Search-free control</span>
+              <h3 id="controller-title">Controller first, search second.</h3>
+            </div>
+            <p>One epoch turns a latent goal into a coherent action plan. Search becomes a small local verifier, not the controller itself.</p>
+          </div>
+
+          <div class="controller-charts">
+            <section class="controller-bar-panel" aria-label="Search-free success rate by task">
+              <div class="controller-panel-title">
+                <span>01</span>
+                <div><strong>No candidate search</strong><small>Success rate (%) · one epoch</small></div>
+              </div>
+              <div class="controller-legend" aria-label="Methods">
+                <span><i class="inverse-swatch"></i>Physical inverse only</span>
+                <span><i class="intact-swatch"></i>Goal-displacement INTACT</span>
+              </div>
+              <div class="native-bar-chart">
+                <div class="bar-grid" aria-hidden="true"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
+                <div class="bar-groups">
+                  <div class="bar-group" aria-label="PushT: physical inverse only 35.78 percent, INTACT 85.78 percent">
+                    <div class="bars"><i class="bar inverse" style="--value:35.78%"><b>35.8</b></i><i class="bar intact" style="--value:85.78%"><em>+50.0</em><b>85.8</b></i></div><span>PushT</span>
+                  </div>
+                  <div class="bar-group" aria-label="Cube: physical inverse only 64.56 percent, INTACT 100 percent">
+                    <div class="bars"><i class="bar inverse" style="--value:64.56%"><b>64.6</b></i><i class="bar intact" style="--value:100%"><em>+35.4</em><b>100</b></i></div><span>Cube</span>
+                  </div>
+                  <div class="bar-group" aria-label="Reacher: physical inverse only 74.22 percent, INTACT 97.67 percent">
+                    <div class="bars"><i class="bar inverse" style="--value:74.22%"><b>74.2</b></i><i class="bar intact" style="--value:97.67%"><em>+23.4</em><b>97.7</b></i></div><span>Reacher</span>
+                  </div>
+                  <div class="bar-group" aria-label="TwoRoom: physical inverse only 80.44 percent, INTACT 97.89 percent">
+                    <div class="bars"><i class="bar inverse" style="--value:80.44%"><b>80.4</b></i><i class="bar intact" style="--value:97.89%"><em>+17.4</em><b>97.9</b></i></div><span>TwoRoom</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="controller-search-panel" aria-label="PushT success rate against candidate sequences per solve">
+              <div class="controller-panel-title">
+                <span>02</span>
+                <div><strong>Verify locally</strong><small>Same goal-displacement checkpoints</small></div>
+              </div>
+              <svg class="native-search-chart" viewBox="0 0 640 410" role="img" aria-label="Direct reaches 85.8 percent with zero candidates, Guarded A reaches 92.2 percent with 384 candidates, and raw CEM reaches 88.4 percent with 9000 candidates">
+                <g class="search-grid" aria-hidden="true">
+                  <line x1="64" y1="330" x2="606" y2="330"></line>
+                  <line x1="64" y1="248" x2="606" y2="248"></line>
+                  <line x1="64" y1="166" x2="606" y2="166"></line>
+                  <line x1="64" y1="84" x2="606" y2="84"></line>
+                  <text x="48" y="335">84</text><text x="48" y="253">88</text><text x="48" y="171">92</text><text x="48" y="89">96</text>
+                </g>
+                <path class="search-trend" d="M92 292 C180 258 242 186 318 161 S492 214 574 236"></path>
+                <g class="search-point direct-point">
+                  <line x1="92" y1="264" x2="92" y2="320"></line><line x1="84" y1="264" x2="100" y2="264"></line><line x1="84" y1="320" x2="100" y2="320"></line>
+                  <circle cx="92" cy="292" r="10"></circle><text x="112" y="278">Direct</text><text x="112" y="298">85.8%</text>
+                </g>
+                <g class="search-point guarded-point">
+                  <line x1="318" y1="138" x2="318" y2="184"></line><line x1="310" y1="138" x2="326" y2="138"></line><line x1="310" y1="184" x2="326" y2="184"></line>
+                  <circle cx="318" cy="161" r="11"></circle><text x="318" y="113" text-anchor="middle">Guarded A</text><text x="318" y="132" text-anchor="middle">92.2%</text>
+                </g>
+                <g class="search-point cem-point">
+                  <line x1="574" y1="208" x2="574" y2="264"></line><line x1="566" y1="208" x2="582" y2="208"></line><line x1="566" y1="264" x2="582" y2="264"></line>
+                  <circle cx="574" cy="236" r="10"></circle><text x="554" y="282" text-anchor="end">Raw CEM</text><text x="554" y="302" text-anchor="end">88.4%</text>
+                </g>
+                <g class="search-axis" aria-hidden="true">
+                  <line x1="64" y1="350" x2="606" y2="350"></line>
+                  <text x="92" y="376" text-anchor="middle">0</text><text x="318" y="376" text-anchor="middle">384</text><text x="574" y="376" text-anchor="middle">9,000</text>
+                  <text x="335" y="404" text-anchor="middle">candidate sequences per solve</text>
+                </g>
+              </svg>
+              <div class="search-verdict"><strong>23.44× fewer</strong><span>candidates than broad CEM</span></div>
+            </section>
+          </div>
+          <figcaption><strong>Controller first, search second.</strong> Broad actor-on CEM spends 9,000 sequences yet trails zero-search Direct; 384-sequence local verification raises the same checkpoint family to 96.86% macro SR.</figcaption>
+        </figure>
+
+        <section class="story-section reading-shell reveal">
+          <div class="section-kicker">Unified learning</div>
+          <h2>One visual encoder, four control domains.</h2>
+          <p class="lead">At E5, Goal-displacement INTACT reaches 89.39 ± 0.77% Direct macro SR with one encoder shared across PushT, Cube, Reacher, and TwoRoom. The matched shared LeWM baseline reaches 66.17 ± 2.67% using CEM 300×30.</p>
+          <p>Disabling every INTACT action head still raises actor-off pure-CEM macro to 70.08 ± 1.13%. Representation shaping is measurable before direct readout, while restoring the learned interface supplies most of the closed-loop gain.</p>
+        </section>
+
+        <figure class="embedded-results page-shell reveal" aria-labelledby="shared-results-title">
+          <div class="embedded-results-head">
+            <div>
+              <span class="section-kicker">Shared encoder · E5</span>
+              <h3 id="shared-results-title">One controlled matrix, rendered as data.</h3>
+            </div>
+            <p>Success rate (%) · three training seeds</p>
+          </div>
+          <div class="shared-results-scroll" tabindex="0" aria-label="Controlled E5 shared-encoder success rates">
+            <table class="shared-results-table">
+              <thead>
+                <tr><th>Method</th><th>PushT</th><th>Cube</th><th>Reacher</th><th>TwoRoom</th><th>Macro</th></tr>
+              </thead>
+              <tbody>
+                <tr style="--method-color:#8f99a8"><th><span class="method-swatch"></span><strong>LeWM</strong><small>CEM 300×30</small></th><td style="--score:74.6">74.6</td><td style="--score:67.3">67.3</td><td style="--score:83.1">83.1</td><td style="--score:39.7">39.7</td><td><strong>66.18</strong></td></tr>
+                <tr style="--method-color:#527fae"><th><span class="method-swatch"></span><strong>Inverse only</strong><small>Direct</small></th><td style="--score:35.0">35.0</td><td style="--score:61.9">61.9</td><td style="--score:61.0">61.0</td><td style="--score:68.8">68.8</td><td><strong>56.68</strong></td></tr>
+                <tr style="--method-color:#a98bd0"><th><span class="method-swatch"></span><strong>Waypoint intent only</strong><small>Direct</small></th><td style="--score:58.9">58.9</td><td style="--score:100">100.0</td><td style="--score:65.9">65.9</td><td style="--score:72.1">72.1</td><td><strong>74.23</strong></td></tr>
+                <tr style="--method-color:#f0a656"><th><span class="method-swatch"></span><strong>Goal intent only</strong><small>Direct</small></th><td style="--score:70.7">70.7</td><td style="--score:100">100.0</td><td style="--score:82.3">82.3</td><td style="--score:69.4">69.4</td><td><strong>80.60</strong></td></tr>
+                <tr style="--method-color:#3b9e91"><th><span class="method-swatch"></span><strong>Waypoint INTACT</strong><small>Direct</small></th><td style="--score:71.2">71.2</td><td style="--score:99">99.0</td><td style="--score:58.2">58.2</td><td style="--score:77.2">77.2</td><td><strong>76.40</strong></td></tr>
+                <tr class="primary-result" style="--method-color:#e65358"><th><span class="method-swatch"></span><strong>Goal-displacement INTACT</strong><small>Direct · 0 candidates</small></th><td style="--score:80.2">80.2</td><td style="--score:99.6">99.6</td><td style="--score:95.7">95.7</td><td style="--score:82.1">82.1</td><td><strong>89.39</strong></td></tr>
+                <tr style="--method-color:#913a79"><th><span class="method-swatch"></span><strong>Goal-displacement INTACT</strong><small>Guarded A · 128×3</small></th><td style="--score:85">85.0</td><td style="--score:99">99.0</td><td style="--score:97.9">97.9</td><td style="--score:80">80.0</td><td><strong>90.48</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figcaption><strong>Controlled E5 shared-encoder result.</strong> Goal-displacement INTACT improves all four tasks over matched jointly trained LeWM and exceeds its goal-intent-only control by 8.78 macro points.</figcaption>
+        </figure>
+
+        <section id="evidence" class="story-section reading-shell reveal">
+          <div class="section-kicker">Theory to measurement</div>
+          <h2>Control follows action-family correspondence, not latent spread alone.</h2>
+          <p class="lead">At a fixed current state, two endpoint conditions are equivalent when they induce the same expert action law. This conditional action quotient predicts that local and global agreement between predicted and expert action families should track control.</p>
+
+          <div class="evidence-list">
+            <div><strong>0.954</strong><span>predicted–expert kNN ↔ Direct SR across 45 eligible checkpoints</span></div>
+            <div><strong>0.897</strong><span>predicted–expert linear CKA ↔ Direct SR</span></div>
+            <div><strong>0.815</strong><span>pointwise action R² ↔ Direct SR</span></div>
+          </div>
+          <p>The v31 teaser shows the matched 15-checkpoint goal-displacement cohort: INTACT kNN alignment rises with Direct SR at r = 0.981, whereas the analogous LeWM–CEM relation is negative at r = −0.873. The broader 45-checkpoint analysis above asks a distinct pooled question.</p>
+        </section>
+
+        <figure class="correspondence-viz page-shell reveal" data-correlation-viz>
+          <div class="correspondence-head">
+            <div>
+              <span class="section-kicker">Checkpoint geometry</span>
+              <h3>Correspondence becomes predictive during training.</h3>
+            </div>
+            <div class="epoch-selector" role="group" aria-label="Select training epoch">
+              <button type="button" data-correlation-epoch="1">E1</button>
+              <button type="button" data-correlation-epoch="2">E2</button>
+              <button type="button" data-correlation-epoch="3">E3</button>
+              <button type="button" data-correlation-epoch="4">E4</button>
+              <button type="button" data-correlation-epoch="5" aria-pressed="true">E5</button>
+            </div>
+          </div>
+          <div class="correspondence-grid">
+            <div class="correspondence-chart">
+              <svg viewBox="0 0 760 500" role="img" aria-label="Linear CKA against direct macro success rate across Goal-INTACT checkpoints">
+                <g class="chart-grid" aria-hidden="true">
+                  <line x1="90" y1="60" x2="90" y2="420"></line><line x1="90" y1="420" x2="710" y2="420"></line>
+                  <line x1="90" y1="300" x2="710" y2="300"></line><line x1="90" y1="180" x2="710" y2="180"></line><line x1="90" y1="60" x2="710" y2="60"></line>
+                </g>
+                <g class="chart-labels" aria-hidden="true">
+                  <text x="90" y="454" text-anchor="middle">0.40</text><text x="400" y="454" text-anchor="middle">0.48</text><text x="710" y="454" text-anchor="middle">0.56</text>
+                  <text x="70" y="425" text-anchor="end">25</text><text x="70" y="305" text-anchor="end">50</text><text x="70" y="185" text-anchor="end">75</text><text x="70" y="65" text-anchor="end">100</text>
+                  <text x="400" y="490" text-anchor="middle">Predicted–expert linear CKA</text><text x="90" y="35">Direct macro SR (%)</text>
+                </g>
+                <line class="correlation-fit" data-correlation-fit x1="90" y1="420" x2="710" y2="60"></line>
+                <g data-correlation-points></g>
+              </svg>
+            </div>
+            <div class="correspondence-readout" aria-live="polite">
+              <span>Through epoch</span><strong>E<span data-correlation-current>5</span></strong>
+              <div><span>Macro SR</span><strong data-correlation-sr>89.39%</strong></div>
+              <div><span>Mean CKA</span><strong data-correlation-cka>0.529</strong></div>
+              <div><span>Pearson r</span><strong data-correlation-r>+0.986</strong></div>
+              <small data-correlation-note>Cumulative n = 15 checkpoints</small>
+            </div>
+          </div>
+          <figcaption><strong>Native, inspectable measurement.</strong> Each epoch adds three independently trained Goal-INTACT checkpoints. Select E1–E5 to inspect Direct macro SR, mean linear CKA, and their cumulative Pearson relation; the three-point E1 estimate is marked provisional.</figcaption>
+        </figure>
+
+        <figure id="action-alignment" class="action-alignment-viz page-shell reveal" data-action-alignment>
+          <div class="action-alignment-head">
+            <div>
+              <span class="section-kicker">Measured E5 correspondence</span>
+              <h3>Intent and action families evolve together.</h3>
+            </div>
+            <span>E5 · standardized PCA-3D</span>
+          </div>
+          <div class="action-alignment-controls" data-action-controls role="group" aria-label="Select intent or task action geometry">
+            <button type="button" data-action-view="intent" aria-pressed="false">Shared intent</button>
+            <button type="button" data-action-view="pusht" aria-pressed="true">PushT</button>
+            <button type="button" data-action-view="cube" aria-pressed="false">Cube</button>
+            <button type="button" data-action-view="reacher" aria-pressed="false">Reacher</button>
+            <button type="button" data-action-view="tworoom" aria-pressed="false">TwoRoom</button>
+          </div>
+          <div class="action-alignment-stage" data-action-stage>
+            <canvas aria-label="Drag to rotate the E5 intent and action correspondence; scroll to zoom"></canvas>
+            <div class="action-alignment-loading" data-action-loading>Preparing measured E5 coordinates…</div>
+            <button class="action-reset" type="button" data-action-reset aria-label="Reset action correspondence camera" title="Reset view">↺</button>
+            <div class="action-mode-label" data-action-mode>PushT action correspondence</div>
+            <div class="action-legend" data-action-legend aria-label="Plot legend"></div>
+          </div>
+          <div class="action-alignment-metrics" aria-live="polite">
+            <div><span>Action R²</span><strong data-action-r2>—</strong></div>
+            <div><span>Predicted–expert CKA</span><strong data-action-cka>—</strong></div>
+            <div><span>kNN overlap</span><strong data-action-knn>—</strong></div>
+          </div>
+          <figcaption><strong>Interactive E5 measurement.</strong> Shared intent uses one projection across all four tasks. Task views show predicted actions, expert actions, and their paired samples in a task-specific frozen basis. Drag to rotate and scroll to zoom; no raw latent or checkpoint is shipped to the browser.</figcaption>
+        </figure>
+
+        <figure class="wide-figure page-shell reveal">
+          <img src="assets/action-family-alignment.png" alt="Action-family alignment diagnostics correlated with direct success rate">
+          <figcaption><strong>Intent–action relation, rather than task clustering, tracks control.</strong> Higher rank or cleaner task clusters do not certify a useful control representation.</figcaption>
+        </figure>
+
+        <section id="community" class="community-band reveal">
+          <div class="community-band-inner page-shell">
+            <div>
+              <span class="section-kicker">Open research exchange</span>
+              <h2>Keep the world-model conversation moving.</h2>
+              <p>Join an open community around JEPA, LeWM, INTACT, representation learning, and efficient robot control. Follow new results, compare reproductions, challenge assumptions, and bring early ideas.</p>
+              <a class="community-band-action" href="community/">Open the Community page <span aria-hidden="true">↗</span></a>
+            </div>
+            <a class="community-band-qr" href="community/" aria-label="Open the permanent INTACT World Model Community page">
+              <img src="assets/intact-community-page-qr.png" alt="Permanent QR code for the INTACT World Model Community page">
+              <span><strong>Permanent entry</strong><small>Personal WeChat and email invitation routes live behind this page.</small></span>
+            </a>
+          </div>
+        </section>
+
+        <section id="release" class="release-band reveal">
+          <div class="page-shell release-layout">
+            <div>
+              <span class="section-kicker">Reproducible release</span>
+              <h2>From the paper to runnable training and evaluation.</h2>
+            </div>
+            <div class="release-steps">
+              <div><span>Paper</span><strong>Method + audited results</strong><p>Definitions, controlled comparisons, and machine-readable result records.</p></div>
+              <div><span>Code</span><strong>Training + evaluation</strong><p>Task-specific and shared-encoder recipes with explicit inference modes.</p></div>
+              <div><span>Models</span><strong>Verified checkpoints</strong><p>Published separately with manifests and SHA-256 verification.</p></div>
+              <div><span>Reproduce</span><strong>Locked environment</strong><p>Versioned dependencies, data checks, smoke runs, and checkpoint-compatible evaluation.</p></div>
+            </div>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-affiliations page-shell">
+        <span>Research affiliations</span>
+        <div>
+          <a href="https://www.inspatio.com/" target="_blank" rel="noopener noreferrer" aria-label="InSpatio"><img src="assets/inspatio-logo.png" alt="InSpatio"></a>
+          <a href="https://lab.roboparty.com/" target="_blank" rel="noopener noreferrer" aria-label="RoboParty Lab"><img src="assets/roboparty-lab-logo.png" alt="RoboParty Lab"></a>
+        </div>
+      </div>
+      <div class="footer-main page-shell">
+        <div>
+          <img src="assets/intact-wordmark.png" alt="INTACT">
+          <p>Isomorphic Intent-to-Action Learning for Search-Free World Models</p>
+        </div>
+        <div>
+          <p>Junhan Sun · Hao Zhao · Guofeng Zhang</p>
+          <p><a href="mailto:luoliibaqi4747@gmail.com">luoliibaqi4747@gmail.com</a></p>
+        </div>
+        <div>
+          <a href="https://github.com/zju3dv/INTACT-JEPA">GitHub ↗</a>
+          <a href="METHOD.md">Method notes</a>
+          <a href="RESULTS.md">Audited results</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

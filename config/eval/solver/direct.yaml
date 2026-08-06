@@ -1,0 +1,9 @@
+_target_: direct_solver.DirectSolver
+model: ???
+batch_size: 1
+num_samples: 1
+var_scale: 0.0
+n_steps: 0
+topk: 1
+device: cuda
+seed: ${seed}

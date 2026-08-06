@@ -1,0 +1,17 @@
+_target_: abcd_solvers.GuardedCEMSolver
+model: ???
+batch_size: 1
+num_samples: 128
+var_scale: 0.25
+n_steps: 3
+topk: 16
+device: cuda
+seed: ${seed}
+update_alpha: 1.0
+std_floor: 1e-4
+std_cap: 10.0
+actor_covariance: false
+actor_cov_target_rms: 0.25
+actor_cov_min: 0.05
+actor_cov_max: 0.5
+trust_lambda: 0.0

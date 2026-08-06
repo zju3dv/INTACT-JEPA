@@ -1,0 +1,19 @@
+name: Repository quality
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  release-hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Validate release hygiene
+        env:
+          INTACT_RELEASE_ALLOW_PRIVATE_COLLAB: "1"
+        run: python tools/check_release.py

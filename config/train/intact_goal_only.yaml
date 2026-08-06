@@ -1,0 +1,11 @@
+defaults:
+  - intact_goal
+  - _self_
+
+output_model_name: intact_goal_only_pusht_s3072
+variant: goal_only
+
+loss:
+  intent:
+    local_weight: 0.0
+    goal_weight: 0.05

@@ -1,0 +1,59 @@
+{
+  "title": "Unified-task JEPA representation geometry",
+  "projection": "Fixed observations; final-frame StandardScaler and PCA-50; independently PCA-initialized, Procrustes-aligned t-SNE; robust per-frame display normalization",
+  "no_latent_interpolation": true,
+  "tasks": [
+    {
+      "key": "pusht",
+      "label": "PushT",
+      "color": "#6f42d9"
+    },
+    {
+      "key": "cube",
+      "label": "Cube",
+      "color": "#00a18a"
+    },
+    {
+      "key": "reacher",
+      "label": "Reacher",
+      "color": "#ee9a2d"
+    },
+    {
+      "key": "tworoom",
+      "label": "TwoRoom",
+      "color": "#e85d69"
+    }
+  ],
+  "variants": [
+    {
+      "key": "collapse",
+      "label": "Complete collapse",
+      "description": "The representation contracts into a low-rank state with little usable task geometry.",
+      "metadata": "collapse/metadata.json",
+      "frames": 2073,
+      "final_epoch": 5.0,
+      "final_effective_rank": 5.51002,
+      "final_mean_pairwise_cosine": 0.938178
+    },
+    {
+      "key": "partial",
+      "label": "Partial collapse",
+      "description": "Some task structure survives, but the representation remains compressed and unevenly organized.",
+      "metadata": "partial/metadata.json",
+      "frames": 2501,
+      "final_epoch": 5.0,
+      "final_effective_rank": 51.41719,
+      "final_mean_pairwise_cosine": 0.154832
+    },
+    {
+      "key": "complete",
+      "label": "Well-formed geometry",
+      "description": "A high-rank representation preserves distinct, usable geometry across all four control domains.",
+      "metadata": "complete/metadata.json",
+      "frames": 2501,
+      "final_epoch": 5.0,
+      "final_effective_rank": 73.90886,
+      "final_mean_pairwise_cosine": 0.049752
+    }
+  ]
+}

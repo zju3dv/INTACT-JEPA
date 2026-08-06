@@ -1,0 +1,3135 @@
+{
+  "complete": true,
+  "complete_eval_jobs": 216,
+  "expected_eval_jobs": 216,
+  "macro_results": [
+    {
+      "layout": "five_slot",
+      "macro_sr_percent": 95,
+      "num_complete_tasks": 4,
+      "protocol": "p75",
+      "train_seed_macro_std_percent": 0.22047927592204475,
+      "train_seed_macros_percent": [
+        94.75,
+        95.08333333333333,
+        95.16666666666666
+      ]
+    },
+    {
+      "layout": "five_slot",
+      "macro_sr_percent": 94.75,
+      "num_complete_tasks": 4,
+      "protocol": "p77",
+      "train_seed_macro_std_percent": 0.1666666666666714,
+      "train_seed_macros_percent": [
+        94.91666666666667,
+        94.75,
+        94.58333333333333
+      ]
+    },
+    {
+      "layout": "five_slot",
+      "macro_sr_percent": 95.11111111111111,
+      "num_complete_tasks": 4,
+      "protocol": "p66",
+      "train_seed_macro_std_percent": 0.048112522432461974,
+      "train_seed_macros_percent": [
+        95.08333333333334,
+        95.16666666666666,
+        95.08333333333333
+      ]
+    },
+    {
+      "layout": "four_slot",
+      "macro_sr_percent": 94.08333333333333,
+      "num_complete_tasks": 4,
+      "protocol": "p75",
+      "train_seed_macro_std_percent": 0.75,
+      "train_seed_macros_percent": [
+        93.33333333333333,
+        94.08333333333333,
+        94.83333333333333
+      ]
+    },
+    {
+      "layout": "four_slot",
+      "macro_sr_percent": 93.83333333333333,
+      "num_complete_tasks": 4,
+      "protocol": "p77",
+      "train_seed_macro_std_percent": 1.1273124382057236,
+      "train_seed_macros_percent": [
+        92.75,
+        95,
+        93.75
+      ]
+    },
+    {
+      "layout": "four_slot",
+      "macro_sr_percent": 93.27777777777777,
+      "num_complete_tasks": 4,
+      "protocol": "p66",
+      "train_seed_macro_std_percent": 1.5418543429308822,
+      "train_seed_macros_percent": [
+        91.5,
+        94.08333333333334,
+        94.25
+      ]
+    }
+  ],
+  "raw_results": [
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 85,
+      "successes": 85,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 83,
+      "successes": 83,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 80,
+      "successes": 80,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 97,
+      "successes": 97,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 84,
+      "successes": 84,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 85,
+      "successes": 85,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 83,
+      "successes": 83,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 81,
+      "successes": 81,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 89,
+      "successes": 89,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 80,
+      "successes": 80,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 94,
+      "successes": 94,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 93,
+      "successes": 93,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 80,
+      "successes": 80,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 84,
+      "successes": 84,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 77,
+      "successes": 77,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 95,
+      "successes": 95,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 97,
+      "successes": 97,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 82,
+      "successes": 82,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 83,
+      "successes": 83,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 84,
+      "successes": 84,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 84,
+      "successes": 84,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 92,
+      "successes": 92,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 85,
+      "successes": 85,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 97,
+      "successes": 97,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 97,
+      "successes": 97,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 83,
+      "successes": 83,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 85,
+      "successes": 85,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 84,
+      "successes": 84,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 97,
+      "successes": 97,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 81,
+      "successes": 81,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 87,
+      "successes": 87,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 85,
+      "successes": 85,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 84,
+      "successes": 84,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 85,
+      "successes": 85,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 83,
+      "successes": 83,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 97,
+      "successes": 97,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 95,
+      "successes": 95,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 78,
+      "successes": 78,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 87,
+      "successes": 87,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 85,
+      "successes": 85,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 97,
+      "successes": 97,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 77,
+      "successes": 77,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 85,
+      "successes": 85,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 81,
+      "successes": 81,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 86,
+      "successes": 86,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 86,
+      "successes": 86,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 80,
+      "successes": 80,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 95,
+      "successes": 95,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 97,
+      "successes": 97,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 95,
+      "successes": 95,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 79,
+      "successes": 79,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 85,
+      "successes": 85,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 80,
+      "successes": 80,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 95,
+      "successes": 95,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 95,
+      "successes": 95,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 97,
+      "successes": 97,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 97,
+      "successes": 97,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 95,
+      "successes": 95,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p75",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p75",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 97,
+      "successes": 97,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 93,
+      "successes": 93,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 93,
+      "successes": 93,
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 85,
+      "successes": 85,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 87,
+      "successes": 87,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 82,
+      "successes": 82,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 80,
+      "successes": 80,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 87,
+      "successes": 87,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 86,
+      "successes": 86,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 95,
+      "successes": 95,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 95,
+      "successes": 95,
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 82,
+      "successes": 82,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 84,
+      "successes": 84,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 86,
+      "successes": 86,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p77",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 80,
+      "successes": 80,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 81,
+      "successes": 81,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 84,
+      "successes": 84,
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 83,
+      "successes": 83,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 84,
+      "successes": 84,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 81,
+      "successes": 81,
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 99,
+      "successes": 99,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 95,
+      "successes": 95,
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 82,
+      "successes": 82,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 85,
+      "successes": 85,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 78,
+      "successes": 78,
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 96,
+      "successes": 96,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "five_slot",
+      "protocol": "p66",
+      "sr_percent": 98,
+      "successes": 98,
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 0,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 1,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "episodes": 100,
+      "eval_seed": 42,
+      "layout": "four_slot",
+      "protocol": "p66",
+      "sr_percent": 100,
+      "successes": 100,
+      "task": "cube",
+      "train_seed": 0
+    }
+  ],
+  "task_cells": [
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 83.33333333333333,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p75",
+      "raw_result_std_percent": 2.8722813232690143,
+      "task": "pusht",
+      "train_seed_std_percent": 0.6666666666666643
+    },
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p75",
+      "raw_result_std_percent": 0,
+      "task": "cube",
+      "train_seed_std_percent": 0
+    },
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 97.88888888888889,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p75",
+      "raw_result_std_percent": 1.2692955176439846,
+      "task": "reacher",
+      "train_seed_std_percent": 0.19245008972987251
+    },
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 98.77777777777777,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p75",
+      "raw_result_std_percent": 1.3017082793177757,
+      "task": "tworoom",
+      "train_seed_std_percent": 0.5091750772173145
+    },
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 83.88888888888889,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p77",
+      "raw_result_std_percent": 2.891558595482912,
+      "task": "pusht",
+      "train_seed_std_percent": 0.509175077217316
+    },
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p77",
+      "raw_result_std_percent": 0,
+      "task": "cube",
+      "train_seed_std_percent": 0
+    },
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 96,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p77",
+      "raw_result_std_percent": 1,
+      "task": "reacher",
+      "train_seed_std_percent": 0.3333333333333286
+    },
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 99.11111111111111,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p77",
+      "raw_result_std_percent": 0.927960727138337,
+      "task": "tworoom",
+      "train_seed_std_percent": 0.509175077217316
+    },
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 84.33333333333333,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p66",
+      "raw_result_std_percent": 2.5,
+      "task": "pusht",
+      "train_seed_std_percent": 0.3333333333333357
+    },
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p66",
+      "raw_result_std_percent": 0,
+      "task": "cube",
+      "train_seed_std_percent": 0
+    },
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 97.11111111111111,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p66",
+      "raw_result_std_percent": 1.4529663145135578,
+      "task": "reacher",
+      "train_seed_std_percent": 0.38490017945974503
+    },
+    {
+      "layout": "five_slot",
+      "mean_sr_percent": 99,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p66",
+      "raw_result_std_percent": 0.8660254037844386,
+      "task": "tworoom",
+      "train_seed_std_percent": 0
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 82.44444444444444,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p75",
+      "raw_result_std_percent": 2.5055493963954847,
+      "task": "pusht",
+      "train_seed_std_percent": 1.8954135676924448
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p75",
+      "raw_result_std_percent": 0,
+      "task": "cube",
+      "train_seed_std_percent": 0
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 97,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p75",
+      "raw_result_std_percent": 1.4142135623730951,
+      "task": "reacher",
+      "train_seed_std_percent": 0
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 96.88888888888889,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p75",
+      "raw_result_std_percent": 1.3642254619787417,
+      "task": "tworoom",
+      "train_seed_std_percent": 1.2619796324000592
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 82.11111111111111,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p77",
+      "raw_result_std_percent": 3.4075080500434787,
+      "task": "pusht",
+      "train_seed_std_percent": 1.6442942874387503
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p77",
+      "raw_result_std_percent": 0,
+      "task": "cube",
+      "train_seed_std_percent": 0
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 95.88888888888889,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p77",
+      "raw_result_std_percent": 0.927960727138337,
+      "task": "reacher",
+      "train_seed_std_percent": 0.6938886664887147
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 97.33333333333333,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p77",
+      "raw_result_std_percent": 2.598076211353316,
+      "task": "tworoom",
+      "train_seed_std_percent": 2.6457513110645907
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 82,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p66",
+      "raw_result_std_percent": 2.23606797749979,
+      "task": "pusht",
+      "train_seed_std_percent": 0.5773502691896257
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p66",
+      "raw_result_std_percent": 0,
+      "task": "cube",
+      "train_seed_std_percent": 0
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 96.33333333333333,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p66",
+      "raw_result_std_percent": 2.179449471770337,
+      "task": "reacher",
+      "train_seed_std_percent": 1.2018504251546618
+    },
+    {
+      "layout": "four_slot",
+      "mean_sr_percent": 94.77777777777777,
+      "num_complete_train_seeds": 3,
+      "num_results": 9,
+      "protocol": "p66",
+      "raw_result_std_percent": 6.240548408949685,
+      "task": "tworoom",
+      "train_seed_std_percent": 6.735753140545636
+    }
+  ],
+  "train_seed_means": [
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 2.516611478423583,
+      "layout": "five_slot",
+      "mean_sr_percent": 84.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 3.7859388972001824,
+      "layout": "five_slot",
+      "mean_sr_percent": 84.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 2,
+      "layout": "five_slot",
+      "mean_sr_percent": 84,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 2.0816659994661326,
+      "layout": "five_slot",
+      "mean_sr_percent": 96.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 1.1547005383792515,
+      "layout": "five_slot",
+      "mean_sr_percent": 97.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 1.5275252316519468,
+      "layout": "five_slot",
+      "mean_sr_percent": 97.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 1,
+      "layout": "five_slot",
+      "mean_sr_percent": 99,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 1,
+      "layout": "five_slot",
+      "mean_sr_percent": 99,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 1,
+      "layout": "five_slot",
+      "mean_sr_percent": 99,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 2.516611478423583,
+      "layout": "five_slot",
+      "mean_sr_percent": 82.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 1,
+      "layout": "five_slot",
+      "mean_sr_percent": 84,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 4.932882862316247,
+      "layout": "five_slot",
+      "mean_sr_percent": 83.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 1.1547005383792515,
+      "layout": "five_slot",
+      "mean_sr_percent": 97.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 2,
+      "layout": "five_slot",
+      "mean_sr_percent": 98,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 1,
+      "layout": "five_slot",
+      "mean_sr_percent": 98,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 1.5275252316519468,
+      "layout": "five_slot",
+      "mean_sr_percent": 98.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 1.5275252316519468,
+      "layout": "five_slot",
+      "mean_sr_percent": 98.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 1.1547005383792515,
+      "layout": "five_slot",
+      "mean_sr_percent": 99.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "five_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 3.0550504633038935,
+      "layout": "five_slot",
+      "mean_sr_percent": 84.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 1,
+      "layout": "five_slot",
+      "mean_sr_percent": 84,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 4.725815626252609,
+      "layout": "five_slot",
+      "mean_sr_percent": 83.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 1.1547005383792515,
+      "layout": "five_slot",
+      "mean_sr_percent": 95.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "five_slot",
+      "mean_sr_percent": 96,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 1.5275252316519468,
+      "layout": "five_slot",
+      "mean_sr_percent": 96.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 0.5773502691896257,
+      "layout": "five_slot",
+      "mean_sr_percent": 99.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 1,
+      "layout": "five_slot",
+      "mean_sr_percent": 99,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 1.1547005383792515,
+      "layout": "five_slot",
+      "mean_sr_percent": 98.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 2.0816659994661326,
+      "layout": "four_slot",
+      "mean_sr_percent": 81.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 1.5275252316519468,
+      "layout": "four_slot",
+      "mean_sr_percent": 82.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 3.511884584284246,
+      "layout": "four_slot",
+      "mean_sr_percent": 81.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 2.309401076758503,
+      "layout": "four_slot",
+      "mean_sr_percent": 97.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 2.6457513110645907,
+      "layout": "four_slot",
+      "mean_sr_percent": 95,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 1.5275252316519468,
+      "layout": "four_slot",
+      "mean_sr_percent": 96.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 4.358898943540674,
+      "layout": "four_slot",
+      "mean_sr_percent": 87,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 0.5773502691896257,
+      "layout": "four_slot",
+      "mean_sr_percent": 98.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 0.5773502691896257,
+      "layout": "four_slot",
+      "mean_sr_percent": 98.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p66",
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 3.511884584284246,
+      "layout": "four_slot",
+      "mean_sr_percent": 80.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 1,
+      "layout": "four_slot",
+      "mean_sr_percent": 83,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 1,
+      "layout": "four_slot",
+      "mean_sr_percent": 84,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 2,
+      "layout": "four_slot",
+      "mean_sr_percent": 97,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 1.7320508075688772,
+      "layout": "four_slot",
+      "mean_sr_percent": 97,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 1,
+      "layout": "four_slot",
+      "mean_sr_percent": 97,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "four_slot",
+      "mean_sr_percent": 96,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 1.5275252316519468,
+      "layout": "four_slot",
+      "mean_sr_percent": 96.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 0.5773502691896257,
+      "layout": "four_slot",
+      "mean_sr_percent": 98.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p75",
+      "task": "tworoom",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "cube",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "cube",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 0,
+      "layout": "four_slot",
+      "mean_sr_percent": 100,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "cube",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 4,
+      "layout": "four_slot",
+      "mean_sr_percent": 81,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "pusht",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 3.4641016151377544,
+      "layout": "four_slot",
+      "mean_sr_percent": 84,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "pusht",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 3.2145502536643185,
+      "layout": "four_slot",
+      "mean_sr_percent": 81.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "pusht",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 0.5773502691896257,
+      "layout": "four_slot",
+      "mean_sr_percent": 95.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "reacher",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 1.1547005383792515,
+      "layout": "four_slot",
+      "mean_sr_percent": 96.66666666666667,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "reacher",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 0.5773502691896257,
+      "layout": "four_slot",
+      "mean_sr_percent": 95.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "reacher",
+      "train_seed": 3072
+    },
+    {
+      "eval_seed_std_percent": 2.309401076758503,
+      "layout": "four_slot",
+      "mean_sr_percent": 94.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "tworoom",
+      "train_seed": 0
+    },
+    {
+      "eval_seed_std_percent": 0.5773502691896257,
+      "layout": "four_slot",
+      "mean_sr_percent": 99.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "tworoom",
+      "train_seed": 42
+    },
+    {
+      "eval_seed_std_percent": 0.5773502691896257,
+      "layout": "four_slot",
+      "mean_sr_percent": 98.33333333333333,
+      "num_eval_seeds": 3,
+      "protocol": "p77",
+      "task": "tworoom",
+      "train_seed": 3072
+    }
+  ],
+  "training_source_commit": "d9fc89095d936672088d81b8241c2fa89fcb2b7e",
+  "updated_at": "2026-08-04T06:51:54+08:00"
+}

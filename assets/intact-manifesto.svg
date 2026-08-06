@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="270" viewBox="0 0 1400 270" role="img" aria-labelledby="title description">
+  <title id="title">INTACT project statement and community invitation</title>
+  <desc id="description">A strong representation keeps important information intact. INTACT turns LeWM into a stronger world model. Issues, pull requests, and community participation are welcome.</desc>
+  <rect width="1400" height="270" fill="#ffffff"/>
+  <g text-anchor="middle" font-family="Inter, Arial, 'Noto Sans SC', sans-serif" font-weight="700">
+    <text x="700" y="42" fill="#2563eb" font-size="27">A strong representation keeps the information that matters intact.</text>
+    <text x="700" y="76" fill="#2563eb" font-size="24">强大的信息传递机制能够确保重要信息不被遗漏。</text>
+    <text x="700" y="126" fill="#111827" font-size="27">INTACT does exactly that, turning LeWM into a stronger world model.</text>
+    <text x="700" y="160" fill="#111827" font-size="24">INTACT 正是实现了这一目标，将 LeWM 提升为一个更强大的世界模型。</text>
+    <text x="700" y="214" fill="#e53935" font-size="24">Issues and pull requests are welcome. Join our community!</text>
+    <text x="700" y="248" fill="#e53935" font-size="24">欢迎大家提交 Issue、PR，并加入我们的 Community！</text>
+  </g>
+</svg>

@@ -1,0 +1,49 @@
+name: Experiment report
+description: Propose or record a controlled INTACT evaluation cell.
+title: "[Experiment]: "
+labels:
+  - experiment
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Record enough identity to reproduce the cell. Do not include credentials, internal hostnames, or private dataset URIs.
+  - type: input
+    id: question
+    attributes:
+      label: Scientific question
+      description: What claim or confound does this experiment test?
+    validations:
+      required: true
+  - type: textarea
+    id: model
+    attributes:
+      label: Model and objective
+      description: Architecture, sharing pattern, loss weights, epoch, and checkpoint hash.
+    validations:
+      required: true
+  - type: textarea
+    id: protocol
+    attributes:
+      label: Evaluation protocol
+      description: Task, evaluator version, seeds, episodes, inference interface, and planner budget.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Result and interpretation
+      description: Machine-readable artifact path plus a concise interpretation.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: The result is labelled as pilot, controlled, or post-selection evidence.
+          required: true
+        - label: Official and CLEAR-LeWM scores are not pooled.
+          required: true
+        - label: The report contains no sensitive infrastructure information.
+          required: true

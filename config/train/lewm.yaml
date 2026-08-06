@@ -1,0 +1,15 @@
+defaults:
+  - intact_goal
+  - _self_
+
+output_model_name: lewm_pusht_s3072
+variant: lewm
+
+model:
+  actor_warmstart: false
+  intent_actor: null
+
+loss:
+  intent:
+    local_weight: 0.0
+    goal_weight: 0.0

@@ -1,0 +1,36 @@
+{
+  "checkpoints": 72,
+  "episodes_per_eval": 100,
+  "eval_jobs": 216,
+  "evaluation_source_commit": "9e7978a48bda61ac038553e9bcc8961d49844aef",
+  "layouts": [
+    "five_slot",
+    "four_slot"
+  ],
+  "macro_cells": 6,
+  "protocols": {
+    "p66": {
+      "goal_start": 1,
+      "goal_steps": 6,
+      "local_start": 1,
+      "local_steps": 6
+    },
+    "p75": {
+      "goal_start": 2,
+      "goal_steps": 5,
+      "local_start": 0,
+      "local_steps": 7
+    },
+    "p77": {
+      "goal_start": 0,
+      "goal_steps": 7,
+      "local_start": 0,
+      "local_steps": 7
+    }
+  },
+  "status": "PASS",
+  "task_cells": 24,
+  "total_evaluated_episodes": 21600,
+  "training_jobs": 72,
+  "training_source_commit": "d9fc89095d936672088d81b8241c2fa89fcb2b7e"
+}

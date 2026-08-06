@@ -1,0 +1,836 @@
+{
+  "schema_version": 1,
+  "release": {
+    "provider": "huggingface",
+    "repository": "INTACT-JEPA/INTACT",
+    "revision": "paper-e5-goal-v1"
+  },
+  "protocol": {
+    "name": "Controlled Math-SDPA shared-encoder E5 matrix",
+    "epoch": 5,
+    "training_seeds": [
+      0,
+      42,
+      3072
+    ],
+    "evaluation_seeds": [
+      0,
+      1,
+      42
+    ],
+    "episodes_per_evaluation_seed": 100,
+    "tasks": [
+      "pusht",
+      "cube",
+      "reacher",
+      "tworoom"
+    ],
+    "evaluator_fingerprint_sha256": "1e475a069338bdad6c9e6a38b8ea4e2d5557ecc4cff88844e5efee79121a9fc7"
+  },
+  "cells": [
+    {
+      "id": "lewm",
+      "name": "LeWM",
+      "native_interface": "CEM 300x30",
+      "aggregate_official_sr_percent": {
+        "pusht": {
+          "mean": 74.56,
+          "sample_std": 3.67
+        },
+        "cube": {
+          "mean": 67.33,
+          "sample_std": 1.86
+        },
+        "reacher": {
+          "mean": 83.11,
+          "sample_std": 0.96
+        },
+        "tworoom": {
+          "mean": 39.67,
+          "sample_std": 8.39
+        },
+        "macro": {
+          "mean": 66.17,
+          "sample_std": 2.67
+        }
+      },
+      "training_seeds": [
+        {
+          "seed": 0,
+          "asset": "paper-e5-lewm-seed0.tar.gz",
+          "shared_state_sha256": "91c0a461862524a8fd60e2aca15e5c4c543608ac845a7d650df7045c3a4f0cbf",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_lewm_pusht_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "cddfa64f268f19774f716db1501e2c54bccd44ca0cd6f0995d23d115fc574c45",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_lewm_cube_s0/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "9e5964f379b8fe0cb578b4fb14332f90e19eb14b1103c0050be08e362ac8f6d5",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_lewm_reacher_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "a2733bc3ad7f7bede38960e92f4aa4a000adf5530c58bc33e2eb366749a8b7f7",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_lewm_tworoom_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "e9e613324a6e9e115fb62531f7ead92c2ad232b80f2e640bae5ebb2073e90692",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        },
+        {
+          "seed": 42,
+          "asset": "paper-e5-lewm-seed42.tar.gz",
+          "shared_state_sha256": "93bf828094a3a42c39ace2573303ead33d2dd1153d42bb53ad6478cc816c6b0d",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_lewm_pusht_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "2e3839ec2ae5e0e702b646fca2f7d86e06b97f1c4f01e2dcfd095a8278eaef42",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_lewm_cube_s42/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "4a2e49e300c4baffd2c758861cb95205d2129ca0408ac31c06e554871677a293",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_lewm_reacher_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "71cb932dd2a0e10da6f1b8e9faab3c2c1e70686049bd1130e210e794917f7abe",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_lewm_tworoom_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "04753f218c257cfbce2ae74949c2c585b47c170c910b7966d7dc107ae08d628a",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        },
+        {
+          "seed": 3072,
+          "asset": "paper-e5-lewm-seed3072.tar.gz",
+          "shared_state_sha256": "ecac1a92350588be010b07da5b72ec43c29f927830e94beb75fa82ce5d0edd7a",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_lewm_pusht_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "ca7dce83105678668f7d300ad34bb860aae5a0976f553441ff13a2a3819bb3a9",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_lewm_cube_s3072/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "cba5cce3f78ccffcb9781f6113e4788c94bdfc8a3d83725ff4b1dc40bcd22757",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_lewm_reacher_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "09083771148dfb49a49934473eafcb5664b8e71d39c49075d05d79b0281e8d0a",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_lewm_tworoom_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "56591e083b68c48d26c9f0b792940376ddc27cb2125fe3aee75e3ac9050fd0d7",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inverse_only",
+      "name": "Inverse only",
+      "native_interface": "Direct",
+      "aggregate_official_sr_percent": {
+        "pusht": {
+          "mean": 35.0,
+          "sample_std": 1.45
+        },
+        "cube": {
+          "mean": 61.89,
+          "sample_std": 1.26
+        },
+        "reacher": {
+          "mean": 61.0,
+          "sample_std": 0.58
+        },
+        "tworoom": {
+          "mean": 68.78,
+          "sample_std": 3.83
+        },
+        "macro": {
+          "mean": 56.67,
+          "sample_std": 0.22
+        }
+      },
+      "training_seeds": [
+        {
+          "seed": 0,
+          "asset": "paper-e5-inverse-only-seed0.tar.gz",
+          "shared_state_sha256": "7f91114f987e80d26d5c00ee3c7bcc956d2d771621c54e068d498b34ff21d90b",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_inverse_only_pusht_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "72be14804aade90c4f97d3aec4412d6e7aca0b29163739fc3bab0871c9f9112e",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_inverse_only_cube_s0/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "2b05f65acbc9c8a7310eb6fe09eeabe140224dba66c1cfef2099925918c5b416",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_inverse_only_reacher_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "d4d489f961bc694832628ab9408ea97b07d5d60f6a3f127c3a17f172d26ab45a",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_inverse_only_tworoom_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "c0981915fdf21922a126606c64fdfad259bb88b0fe285f17f697d6afbe667d88",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        },
+        {
+          "seed": 42,
+          "asset": "paper-e5-inverse-only-seed42.tar.gz",
+          "shared_state_sha256": "6b1d5dd53266f0a26dddff12f6aaa1c0f3874465c851430e73be4ba50b61ee07",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_inverse_only_pusht_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "350d616be633085968c1e387c2289ee5db3c01646af554837e95a687a4f3215b",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_inverse_only_cube_s42/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "e3e1bc400ca7e8c09d89da2af633adc00d9ccf261bddae839878a3734097ae73",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_inverse_only_reacher_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "7ec1712bc71e304669bbdcc7f90dcffd647428e83478164b81f9d3a337915215",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_inverse_only_tworoom_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "7b60933b8480017291612bcfc4c7bbefd343dc608ebb3ae21f244fa5af253cc6",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        },
+        {
+          "seed": 3072,
+          "asset": "paper-e5-inverse-only-seed3072.tar.gz",
+          "shared_state_sha256": "0cd266d67092993c646f2d5ef3f81b007e294891873fc68a1d10ad9ba4937b4f",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_inverse_only_pusht_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "8275a6e231805e8f6d4f164fa6c59a7beb78808b2cdd276ed0634a22ec5f5d74",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_inverse_only_cube_s3072/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "459b5b31d7bd70a2f605ed618e69d7a88a4a56e13f7568c6b69b340545afcc28",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_inverse_only_reacher_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "3385b403829048c0fe5bef3e3971702a8ba683377322a22f9093f4fa4743a4de",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_inverse_only_tworoom_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "b1e1cf1b34c72f21ce4af941383da471aa376e8b8e937d5266bc6ccd67d6e6f8",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "waypoint_intent",
+      "name": "Waypoint intent only",
+      "native_interface": "Direct",
+      "aggregate_official_sr_percent": {
+        "pusht": {
+          "mean": 58.89,
+          "sample_std": 0.69
+        },
+        "cube": {
+          "mean": 100.0,
+          "sample_std": 0.0
+        },
+        "reacher": {
+          "mean": 65.89,
+          "sample_std": 6.71
+        },
+        "tworoom": {
+          "mean": 72.11,
+          "sample_std": 9.83
+        },
+        "macro": {
+          "mean": 74.22,
+          "sample_std": 3.23
+        }
+      },
+      "training_seeds": [
+        {
+          "seed": 0,
+          "asset": "paper-e5-waypoint-intent-only-seed0.tar.gz",
+          "shared_state_sha256": "0cc8a792adf857bc1f9d2b9579861a36a40d51200951b158cad9fb3d2ca800e0",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_query_only_pusht_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "af987d8f0035f1abd455e03e3324d2c2ff266ef991308a1b57a173c35bd9fa33",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_query_only_cube_s0/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "eb15f3b7ae2688c1b3aaaf7957d208702fa562013f9c5853ca7152be5a1e2941",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_query_only_reacher_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "69eea075be82715f4d40f6c8b88e4ca2f1e74742861e03277a04d921b86f11d0",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_query_only_tworoom_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "3a291aa747c4b585bfa493a5b70ee82ec03a4690be06aa46911490e1cfd9b778",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        },
+        {
+          "seed": 42,
+          "asset": "paper-e5-waypoint-intent-only-seed42.tar.gz",
+          "shared_state_sha256": "8db87dfe169abf481661237cc199fea02048fc389357e6d08ad1d7fa103cb0df",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_query_only_pusht_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "0a55d63ec82cd279fa596c0f6cabe1b9a0115dd9d07519eaca3a830165e9b027",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_query_only_cube_s42/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "b4006593d887993ba05086d68e955e5819a5965bded01a32e41e717b0f400226",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_query_only_reacher_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "d6af422a98836e34e8b55eaadb12cf04217fd9654be631519eef515e64de0e0b",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_query_only_tworoom_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "33221ced3c1512509436f7e09853c534b8439d3c57fde1c1862f2af13766ae5d",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        },
+        {
+          "seed": 3072,
+          "asset": "paper-e5-waypoint-intent-only-seed3072.tar.gz",
+          "shared_state_sha256": "c31f820e9ac636e2a96266c0128dcc8d3cd0741678e4423dc597634d700e301b",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_query_only_pusht_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "0a53fbc375c0f1622192a041a628c65d1e0d7f8f4b6fdbdc60a283d41d2367a7",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_query_only_cube_s3072/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "4256b9c307e94f08eaed6817e2cd25ec368fc219d0e8de23b3e902934b66d9be",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_query_only_reacher_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "b426612f6f71af07c85099949f89294b969d3fc8e6aab327152d021538593bb1",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_query_only_tworoom_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "f8b36c5d9c17d705faae37f4da9c41dbc4e7d509c6e22ec5e592675418a94e3c",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "goal_intent",
+      "name": "Goal intent only",
+      "native_interface": "Direct",
+      "aggregate_official_sr_percent": {
+        "pusht": {
+          "mean": 70.67,
+          "sample_std": 1.76
+        },
+        "cube": {
+          "mean": 100.0,
+          "sample_std": 0.0
+        },
+        "reacher": {
+          "mean": 82.33,
+          "sample_std": 3.18
+        },
+        "tworoom": {
+          "mean": 69.44,
+          "sample_std": 6.75
+        },
+        "macro": {
+          "mean": 80.61,
+          "sample_std": 2.11
+        }
+      },
+      "training_seeds": [
+        {
+          "seed": 0,
+          "asset": "paper-e5-goal-intent-only-seed0.tar.gz",
+          "shared_state_sha256": "fb667916a99b7278d52ecdcb29ca2e70755dbe31d814ac22c5c126a4669831d3",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_delta_query_only_pusht_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "edcc755148ef6db7b162f40c6a3a8ad7e37020236abc7ae7a31eec3b3ef98b3f",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_delta_query_only_cube_s0/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "56ef387e5d7117a7dda9ec207d31f1940db3a897f0823ee04aeee1d235e7e004",
+              "config_sha256": "0425c622ba7f6c40b0af9259cf6266dec358d21acb55846f9ac77223ab92b708"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_delta_query_only_reacher_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "7850f69a12fdb7ce52afd1d3a0bb9caa9f1e5c7e60ee4e1acf9b1a9a401286ae",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_delta_query_only_tworoom_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "c5b3e31147b15c18e3a592d0baf7dee174bb083dbcf15495b9339621bcfc7486",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            }
+          ]
+        },
+        {
+          "seed": 42,
+          "asset": "paper-e5-goal-intent-only-seed42.tar.gz",
+          "shared_state_sha256": "c53aab8eb3684fefdea10971213e06c8f91d8d21fa4e17b37f544e69ff1ad494",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_delta_query_only_pusht_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "c7fc4748e76c87e002c46e06275963285ac43cf031d9cdb6c8973b15dddb2c6b",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_delta_query_only_cube_s42/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "89cfee11ed761696d84f9d21bd3917c82fe76ee02e7f7cae107bc09ddff82282",
+              "config_sha256": "0425c622ba7f6c40b0af9259cf6266dec358d21acb55846f9ac77223ab92b708"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_delta_query_only_reacher_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "ff2d69af3fd62d0b0762318a3b19003e382b317ed4a8257d0ce1e5cbbfc58362",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_delta_query_only_tworoom_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "381417ac0e65fd405147e0f00ba993561e726e8fe4bcfdb027d900675bc314dc",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            }
+          ]
+        },
+        {
+          "seed": 3072,
+          "asset": "paper-e5-goal-intent-only-seed3072.tar.gz",
+          "shared_state_sha256": "25a5756f14e6693228bd9552380cf6f04d89ac7664ef8a68ea2b1b865dc9eea2",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_delta_query_only_pusht_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "3c3ed8a7b2a5012b469a7d06d91fb84cc1697276e6862cc10a1f0f1d1ad281c1",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_delta_query_only_cube_s3072/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "98649456beb2e342b4a5f0bf81a8d03de6dba571234ab49e76bd86cbbfed68ed",
+              "config_sha256": "0425c622ba7f6c40b0af9259cf6266dec358d21acb55846f9ac77223ab92b708"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_delta_query_only_reacher_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "607b0c4843efad56646d970873c1f9bc543aefa63e94dd6cb1a7273998166a19",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_delta_query_only_tworoom_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "16d1915ec14478bded8f5cd71c754ebfd8f5aa8745fddf7b1ea7dc92f7991050",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "waypoint_intact",
+      "name": "Waypoint INTACT",
+      "native_interface": "Direct",
+      "aggregate_official_sr_percent": {
+        "pusht": {
+          "mean": 71.22,
+          "sample_std": 3.36
+        },
+        "cube": {
+          "mean": 99.0,
+          "sample_std": 0.67
+        },
+        "reacher": {
+          "mean": 58.22,
+          "sample_std": 9.1
+        },
+        "tworoom": {
+          "mean": 77.22,
+          "sample_std": 2.52
+        },
+        "macro": {
+          "mean": 76.42,
+          "sample_std": 2.32
+        }
+      },
+      "training_seeds": [
+        {
+          "seed": 0,
+          "asset": "paper-e5-waypoint-intact-seed0.tar.gz",
+          "shared_state_sha256": "6f28f27680da7096fac50df6386f81447c4ec33fde21051a79e8ee1e010516ee",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_full_pusht_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "b04d2bf54386fb5fbdb6db86caf670588889f67b3851cda09c0931ee043923d5",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_full_cube_s0/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "781b00f7735a7391ded0132d396a2a8b7e3c604e97b5ae03f4fd1f228446ef9d",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_full_reacher_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "33f0620a6538974c58992e448c69a9f4dd70d271af882f5b91a53dbb322c22bb",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_full_tworoom_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "4c69ac2fa87261e1b4d15e388430a9541a320ade8b7425895fb1484e9d370c48",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        },
+        {
+          "seed": 42,
+          "asset": "paper-e5-waypoint-intact-seed42.tar.gz",
+          "shared_state_sha256": "97fddeb8093dda403c62c150b7a2c67e14fdaad43b2506d5f86d4e72c1acf319",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_full_pusht_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "70012aeda7b6a40adebc22d8ced586f46dd63c63318bcb70a465ff65094bda5c",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_full_cube_s42/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "fb197fc24a598fac305d2274c847c05977eab5b20d5e9cbc0dc009934d25c584",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_full_reacher_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "1c4c71af9b43d130ea1554ce4860845869f7eff079aa3fcd3d5174482596da89",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_full_tworoom_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "dde3b5e2982455837b59c9d30e0ca9acf8fb40549341e912469ea502c19ae6fe",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        },
+        {
+          "seed": 3072,
+          "asset": "paper-e5-waypoint-intact-seed3072.tar.gz",
+          "shared_state_sha256": "16c91079abf6f224ea8069fb3dec44c15c6482994cd4aabab5dc4a557b43708e",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_full_pusht_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "297391316aab04f73e3cffa8161c86621a07da2075ff4c7a2980369e4726fccd",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_full_cube_s3072/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "1a3bf3c4709ca687e1862e1cf15a1af74d4f9399ed11e090895dfe01c50fb556",
+              "config_sha256": "48df13ac36e4df3d2f522c55242f4f00f0619e0274969b92e3bf8c65f6b3bc45"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_full_reacher_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "2c5399df963d6f6a2befcc5ffee4407ff7ef6acbdc698b3df9bd4d8ecdb3ba51",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_full_tworoom_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "f25e80c520627a54b9401cb280b24015ee8750a16fbac5e2caa51a98f97f1088",
+              "config_sha256": "7fd90cb00c895efaf17e2fc743a1456bb5457d6d480a5130ccbbab1e0bce95f4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "goal_intact",
+      "name": "Goal-displacement INTACT",
+      "native_interface": "Direct",
+      "aggregate_official_sr_percent": {
+        "pusht": {
+          "mean": 80.22,
+          "sample_std": 1.26
+        },
+        "cube": {
+          "mean": 99.56,
+          "sample_std": 0.77
+        },
+        "reacher": {
+          "mean": 95.67,
+          "sample_std": 1.76
+        },
+        "tworoom": {
+          "mean": 82.11,
+          "sample_std": 4.11
+        },
+        "macro": {
+          "mean": 89.39,
+          "sample_std": 0.77
+        }
+      },
+      "training_seeds": [
+        {
+          "seed": 0,
+          "asset": "intact-goal-e5-seed0.tar.gz",
+          "shared_state_sha256": "05c6b2f030c11698038134789e02ad00bc6d01e50aebb56910de05dfaf2d5178",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_delta_full_pusht_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "80312771c15e50ba4b3eb3eb9a910fe6dc0a3bd140f7df1396eea306bf89d012",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_delta_full_cube_s0/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "96a4d525e996c2b78fa384873496396024364850ad4af0003274b8c1426ea270",
+              "config_sha256": "0425c622ba7f6c40b0af9259cf6266dec358d21acb55846f9ac77223ab92b708"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_delta_full_reacher_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "9b2d77168f269f0e13a1aa719548a7054dd57bd78cf6c8da6553ec5b33d049fe",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_delta_full_tworoom_s0/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "93ed1ef36e59075f39fb5d2ea9f4e25ded824ee2d57496b39bbdb372bad0392a",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            }
+          ]
+        },
+        {
+          "seed": 42,
+          "asset": "intact-goal-e5-seed42.tar.gz",
+          "shared_state_sha256": "e8adcbe1c27a564b3be8193c1ce0737a50247686e647e544f9985856d635661d",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_delta_full_pusht_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "fbcf4dd23eb1ffefdde3ec133609ff00eba4774bd8a697ef3e1586b0fdca917d",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_delta_full_cube_s42/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "d155d9d0c71cc48614d822b14456f341748a25524c7a899b959a54312755e94a",
+              "config_sha256": "0425c622ba7f6c40b0af9259cf6266dec358d21acb55846f9ac77223ab92b708"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_delta_full_reacher_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "3ff3fc512185451728c97b63b66272a584989c01834267463107cd95f845f5f9",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_delta_full_tworoom_s42/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "5b86d5ca2f45ac65873c578553d683305478d6d5fe38a72f4d5b93d1a5027082",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            }
+          ]
+        },
+        {
+          "seed": 3072,
+          "asset": "intact-goal-e5-seed3072.tar.gz",
+          "shared_state_sha256": "7cf4b0ca65011c7f54bcabdfe6664e9c82fe650e13656fbb4fe0351c582e65b8",
+          "shards": [
+            {
+              "task": "pusht",
+              "path": "checkpoints/recovery_delta_full_pusht_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "24a598acac5faa1e6e548e84c4d17bd79d9e9e48aae38eee384a92ce3269b590",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "cube",
+              "path": "checkpoints/recovery_delta_full_cube_s3072/weights_epoch_5.pt",
+              "bytes": 84858432,
+              "sha256": "d2abfd5d907491cf770cc9d3f5bd003f53d0d16f01ac4732111b9dc459895f07",
+              "config_sha256": "0425c622ba7f6c40b0af9259cf6266dec358d21acb55846f9ac77223ab92b708"
+            },
+            {
+              "task": "reacher",
+              "path": "checkpoints/recovery_delta_full_reacher_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "5d0cdd0e9ce2fa187b552cc0ef8930c7ead6bdaaf04cc9bb4d2381b720ab0009",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            },
+            {
+              "task": "tworoom",
+              "path": "checkpoints/recovery_delta_full_tworoom_s3072/weights_epoch_5.pt",
+              "bytes": 84734848,
+              "sha256": "42eea9823bbb13ed3779c25dcc3f18cb9a461f1c7dff9dc803c741fa321b4a6e",
+              "config_sha256": "5e46a485b314c2124c55ade2c0415a5ee22910efb9113e8736af45dbdb0a9d85"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
