@@ -88,13 +88,13 @@
 
         <section id="project-film" class="project-film-section">
           <figure class="hero-film reveal">
-            <video autoplay muted loop playsinline preload="auto" data-autoplay-film poster="assets/intact-hero-film-poster.jpg?v=20260730-8" aria-label="INTACT project film with synchronized four-task control, shared-encoder alignment, isomorphic local and goal calls, evolving latent geometry, controlled success rates, and headline results">
-              <source src="assets/intact-hero-film.mp4?v=20260730-8" type="video/mp4">
+            <video autoplay muted loop playsinline preload="auto" data-autoplay-film poster="assets/intact-hero-film-poster.jpg?v=20260914-latency-timing" aria-label="INTACT project film with synchronized four-task control, shared-encoder alignment, isomorphic local and goal calls, evolving latent geometry, controlled success rates, and headline results">
+              <source src="assets/intact-hero-film.mp4?v=20260914-latency-frame-window" type="video/mp4">
             </video>
             <button class="film-play-fallback" type="button" data-film-play hidden aria-label="Play the INTACT project film" title="Play">▶</button>
             <figcaption>
               <strong>INTACT in one loop.</strong> Synchronized failures and recoveries lead into the intent-to-action interface, E1–E5 correspondence, controlled shared-encoder results, and the paper's headline operating point. Demo identities and quantitative frames come from audited artifacts.
-              <span class="film-resolution-links" aria-label="Download the project film without a sharing card"><a href="assets/intact-hero-film-2k.mp4">2K</a><a href="assets/intact-hero-film-4k.mp4">4K</a></span>
+              <span class="film-resolution-links" aria-label="Download the project film"><a href="assets/intact-hero-film-2k.mp4?v=20260914-latency-frame-window">2K</a><a href="assets/intact-hero-film-4k.mp4?v=20260914-latency-frame-window">4K</a></span>
             </figcaption>
           </figure>
         </section>
@@ -163,6 +163,10 @@
           <div class="reading-shell geometry-note">
             <p><strong>Measurement note.</strong> Every colored point tracks the same fixed observation through training. Each projected frame is robustly normalized to expose morphology, so absolute projected radius is not compared. t-SNE is qualitative evidence about local neighborhoods; effective rank and mean pairwise cosine are computed in the original high-dimensional latent space.</p>
           </div>
+          <figure class="wide-figure page-shell geometry-snapshot reveal">
+            <img src="assets/tsne-e1-e5-c021.png" alt="Fixed-observation INTACT latent geometry across E1 to E5 in 2D and 3D t-SNE">
+            <figcaption><strong>Fixed observations through training.</strong> The same 2,073 measured snapshots are shown at E1–E5 in paired 2D and 3D projections; the plotted coordinates are a qualitative view of evolving geometry, not an additional evaluator.</figcaption>
+          </figure>
         </section>
 
         <section id="idea" class="story-section reading-shell reveal">
@@ -182,15 +186,15 @@
         </section>
 
         <figure class="wide-figure page-shell reveal">
-          <img src="assets/intact-teaser-v31.png" alt="INTACT v31 teaser showing matched Cube control, representation geometry, direct success rate, latency, and action-family alignment">
+          <img src="assets/intact-teaser-v31.svg" alt="INTACT v31 teaser showing matched Cube control, representation geometry, direct success rate, latency, and action-family alignment">
           <figcaption><strong>INTACT turns action-aligned latent intent into search-free control.</strong> The matched Cube audit, one-epoch macro result, latency study, and representation correlations are distinct evaluations and are not pooled.</figcaption>
         </figure>
 
         <section class="metric-band reveal" aria-label="Headline metrics">
           <div><strong>1</strong><span>full-data epoch</span></div>
-          <div><strong>95.33%</strong><span>Direct macro SR</span></div>
+          <div><strong>95.61%</strong><span>Direct macro SR</span></div>
           <div><strong>0</strong><span>Direct candidates</span></div>
-          <div><strong>2.9–5.5 ms</strong><span>planner latency</span></div>
+          <div><strong>3.9–4.8 ms</strong><span>planner latency</span></div>
           <div><strong>23.44×</strong><span>fewer verification samples</span></div>
         </section>
 
@@ -216,8 +220,8 @@
         </section>
 
         <figure class="wide-figure page-shell reveal">
-          <img src="assets/shared-encoder-method.png" alt="One visual encoder shared across four domains with task-specific forward and INTACT head pairs">
-          <figcaption><strong>Shared-encoder INTACT.</strong> Four visual domains update one encoder, while task-specific head pairs preserve domain dynamics. Direct control emits an action chunk; world rollout is retained for recurrent replanning and optional verification.</figcaption>
+          <img src="assets/shared-encoder-method.png" alt="INTACT inference and deployment: LeWM rollout, shared encoder, direct actor, and optional local search">
+          <figcaption><strong>Inference and deployment.</strong> The four-task INTACT model shares one visual encoder and retains lightweight, task-specific forward/action heads. LeWM keeps latent rollout and terminal goal cost; INTACT adds a search-free actor that emits a direct action chunk, while Local CEM remains an optional verifier.</figcaption>
         </figure>
 
         <section class="concept-band reveal">
@@ -242,11 +246,11 @@
             <table>
               <thead><tr><th>Task</th><th>Direct · 0</th><th>Guarded A · 384</th><th>Published LeWM</th></tr></thead>
               <tbody>
-                <tr><th>PushT</th><td>85.78 ± 1.54</td><td><strong>92.22 ± 0.69</strong></td><td>96.0 ± 4.0</td></tr>
-                <tr><th>Cube</th><td><strong>100.00 ± 0.00</strong></td><td>99.78 ± 0.19</td><td>74.0 ± 3.0</td></tr>
-                <tr><th>Reacher</th><td><strong>97.67 ± 0.00</strong></td><td>97.44 ± 0.77</td><td>86.0 ± 5.0</td></tr>
-                <tr><th>TwoRoom</th><td>97.89 ± 1.26</td><td><strong>98.00 ± 1.15</strong></td><td>87.0 ± 2.5</td></tr>
-                <tr class="macro"><th>Macro</th><td><strong>95.33 ± 0.58</strong></td><td><strong>96.86 ± 0.38</strong></td><td>85.75</td></tr>
+                <tr><th>PushT</th><td>87.44 ± 1.26</td><td><strong>91.56 ± 0.69</strong></td><td>96.0 ± 4.0</td></tr>
+                <tr><th>Cube</th><td><strong>100.00 ± 0.00</strong></td><td>99.67 ± 0.33</td><td>74.0 ± 3.0</td></tr>
+                <tr><th>Reacher</th><td><strong>97.33 ± 0.00</strong></td><td>97.56 ± 0.51</td><td>86.0 ± 5.0</td></tr>
+                <tr><th>TwoRoom</th><td><strong>97.67 ± 1.20</strong></td><td>97.56 ± 1.26</td><td>87.0 ± 2.5</td></tr>
+                <tr class="macro"><th>Macro</th><td><strong>95.61 ± 0.59</strong></td><td><strong>96.58 ± 0.44</strong></td><td>85.75</td></tr>
               </tbody>
             </table>
           </div>
@@ -266,26 +270,27 @@
             <section class="controller-bar-panel" aria-label="Search-free success rate by task">
               <div class="controller-panel-title">
                 <span>01</span>
-                <div><strong>No candidate search</strong><small>Success rate (%) · one epoch</small></div>
+                <div><strong>Control interface comparison</strong><small>Task-specific checkpoints · published LeWM uses CEM</small></div>
               </div>
               <div class="controller-legend" aria-label="Methods">
-                <span><i class="inverse-swatch"></i>Physical inverse only</span>
-                <span><i class="intact-swatch"></i>Goal-displacement INTACT</span>
+                <span><i class="lewm-swatch"></i>Published LeWM · CEM</span>
+                <span><i class="inverse-swatch"></i>INTACT Direct</span>
+                <span><i class="intact-swatch"></i>INTACT Guarded A</span>
               </div>
               <div class="native-bar-chart">
                 <div class="bar-grid" aria-hidden="true"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
                 <div class="bar-groups">
-                  <div class="bar-group" aria-label="PushT: physical inverse only 35.78 percent, INTACT 85.78 percent">
-                    <div class="bars"><i class="bar inverse" style="--value:35.78%"><b>35.8</b></i><i class="bar intact" style="--value:85.78%"><em>+50.0</em><b>85.8</b></i></div><span>PushT</span>
+                  <div class="bar-group" aria-label="PushT: published LeWM 96 percent, INTACT Direct 87.44 percent, Guarded A 91.56 percent">
+                    <div class="bars"><i class="bar lewm" style="--value:96%"><b>96.0</b></i><i class="bar inverse" style="--value:87.44%"><b>87.4</b></i><i class="bar intact" style="--value:91.56%"><em>+4.1</em><b>91.6</b></i></div><span>PushT</span>
                   </div>
-                  <div class="bar-group" aria-label="Cube: physical inverse only 64.56 percent, INTACT 100 percent">
-                    <div class="bars"><i class="bar inverse" style="--value:64.56%"><b>64.6</b></i><i class="bar intact" style="--value:100%"><em>+35.4</em><b>100</b></i></div><span>Cube</span>
+                  <div class="bar-group" aria-label="Cube: published LeWM 74 percent, INTACT Direct 100 percent, Guarded A 99.67 percent">
+                    <div class="bars"><i class="bar lewm" style="--value:74%"><b>74.0</b></i><i class="bar inverse" style="--value:100%"><b>100</b></i><i class="bar intact" style="--value:99.67%"><em>−0.3</em><b>99.7</b></i></div><span>Cube</span>
                   </div>
-                  <div class="bar-group" aria-label="Reacher: physical inverse only 74.22 percent, INTACT 97.67 percent">
-                    <div class="bars"><i class="bar inverse" style="--value:74.22%"><b>74.2</b></i><i class="bar intact" style="--value:97.67%"><em>+23.4</em><b>97.7</b></i></div><span>Reacher</span>
+                  <div class="bar-group" aria-label="Reacher: published LeWM 86 percent, INTACT Direct 97.33 percent, Guarded A 97.56 percent">
+                    <div class="bars"><i class="bar lewm" style="--value:86%"><b>86.0</b></i><i class="bar inverse" style="--value:97.33%"><b>97.3</b></i><i class="bar intact" style="--value:97.56%"><em>+0.2</em><b>97.6</b></i></div><span>Reacher</span>
                   </div>
-                  <div class="bar-group" aria-label="TwoRoom: physical inverse only 80.44 percent, INTACT 97.89 percent">
-                    <div class="bars"><i class="bar inverse" style="--value:80.44%"><b>80.4</b></i><i class="bar intact" style="--value:97.89%"><em>+17.4</em><b>97.9</b></i></div><span>TwoRoom</span>
+                  <div class="bar-group" aria-label="TwoRoom: published LeWM 87 percent, INTACT Direct 97.67 percent, Guarded A 97.56 percent">
+                    <div class="bars"><i class="bar lewm" style="--value:87%"><b>87.0</b></i><i class="bar inverse" style="--value:97.67%"><b>97.7</b></i><i class="bar intact" style="--value:97.56%"><em>−0.1</em><b>97.6</b></i></div><span>TwoRoom</span>
                   </div>
                 </div>
               </div>
@@ -294,9 +299,9 @@
             <section class="controller-search-panel" aria-label="PushT success rate against candidate sequences per solve">
               <div class="controller-panel-title">
                 <span>02</span>
-                <div><strong>Verify locally</strong><small>Same goal-displacement checkpoints</small></div>
+                <div><strong>Verify locally</strong><small>Same PushT goal-displacement checkpoints</small></div>
               </div>
-              <svg class="native-search-chart" viewBox="0 0 640 410" role="img" aria-label="Direct reaches 85.8 percent with zero candidates, Guarded A reaches 92.2 percent with 384 candidates, and raw CEM reaches 88.4 percent with 9000 candidates">
+              <svg class="native-search-chart" viewBox="0 0 640 410" role="img" aria-label="Direct reaches 87.4 percent with zero candidates, Guarded A reaches 91.6 percent with 384 candidates, and actor-on CEM reaches 93.9 percent with 9000 candidates">
                 <g class="search-grid" aria-hidden="true">
                   <line x1="64" y1="330" x2="606" y2="330"></line>
                   <line x1="64" y1="248" x2="606" y2="248"></line>
@@ -304,18 +309,18 @@
                   <line x1="64" y1="84" x2="606" y2="84"></line>
                   <text x="48" y="335">84</text><text x="48" y="253">88</text><text x="48" y="171">92</text><text x="48" y="89">96</text>
                 </g>
-                <path class="search-trend" d="M92 292 C180 258 242 186 318 161 S492 214 574 236"></path>
+                <path class="search-trend" d="M92 264 C180 240 242 178 318 170 S492 142 574 123"></path>
                 <g class="search-point direct-point">
-                  <line x1="92" y1="264" x2="92" y2="320"></line><line x1="84" y1="264" x2="100" y2="264"></line><line x1="84" y1="320" x2="100" y2="320"></line>
-                  <circle cx="92" cy="292" r="10"></circle><text x="112" y="278">Direct</text><text x="112" y="298">85.8%</text>
+                  <line x1="92" y1="238" x2="92" y2="290"></line><line x1="84" y1="238" x2="100" y2="238"></line><line x1="84" y1="290" x2="100" y2="290"></line>
+                  <circle cx="92" cy="264" r="10"></circle><text x="112" y="250">Direct</text><text x="112" y="270">87.4%</text>
                 </g>
                 <g class="search-point guarded-point">
-                  <line x1="318" y1="138" x2="318" y2="184"></line><line x1="310" y1="138" x2="326" y2="138"></line><line x1="310" y1="184" x2="326" y2="184"></line>
-                  <circle cx="318" cy="161" r="11"></circle><text x="318" y="113" text-anchor="middle">Guarded A</text><text x="318" y="132" text-anchor="middle">92.2%</text>
+                  <line x1="318" y1="147" x2="318" y2="193"></line><line x1="310" y1="147" x2="326" y2="147"></line><line x1="310" y1="193" x2="326" y2="193"></line>
+                  <circle cx="318" cy="170" r="11"></circle><text x="318" y="126" text-anchor="middle">Guarded A</text><text x="318" y="145" text-anchor="middle">91.6%</text>
                 </g>
                 <g class="search-point cem-point">
-                  <line x1="574" y1="208" x2="574" y2="264"></line><line x1="566" y1="208" x2="582" y2="208"></line><line x1="566" y1="264" x2="582" y2="264"></line>
-                  <circle cx="574" cy="236" r="10"></circle><text x="554" y="282" text-anchor="end">Raw CEM</text><text x="554" y="302" text-anchor="end">88.4%</text>
+                  <line x1="574" y1="95" x2="574" y2="151"></line><line x1="566" y1="95" x2="582" y2="95"></line><line x1="566" y1="151" x2="582" y2="151"></line>
+                  <circle cx="574" cy="123" r="10"></circle><text x="554" y="171" text-anchor="end">Actor-on CEM</text><text x="554" y="191" text-anchor="end">93.9%</text>
                 </g>
                 <g class="search-axis" aria-hidden="true">
                   <line x1="64" y1="350" x2="606" y2="350"></line>
@@ -323,16 +328,16 @@
                   <text x="335" y="404" text-anchor="middle">candidate sequences per solve</text>
                 </g>
               </svg>
-              <div class="search-verdict"><strong>23.44× fewer</strong><span>candidates than broad CEM</span></div>
+              <div class="search-verdict"><strong>0 → 384 → 9,000</strong><span>candidate sequences per solve</span></div>
             </section>
           </div>
-          <figcaption><strong>Controller first, search second.</strong> Broad actor-on CEM spends 9,000 sequences yet trails zero-search Direct; 384-sequence local verification raises the same checkpoint family to 96.86% macro SR.</figcaption>
+          <figcaption><strong>Controller first, search second.</strong> Direct is the primary zero-search interface; Guarded A is a bounded local verifier, while actor-on CEM remains the broad-search reference.</figcaption>
         </figure>
 
         <section class="story-section reading-shell reveal">
           <div class="section-kicker">Unified learning</div>
           <h2>One visual encoder, four control domains.</h2>
-          <p class="lead">At E5, Goal-displacement INTACT reaches 89.39 ± 0.77% Direct macro SR with one encoder shared across PushT, Cube, Reacher, and TwoRoom. The matched shared LeWM baseline reaches 66.17 ± 2.67% using CEM 300×30.</p>
+          <p class="lead">At E5, Goal-displacement INTACT reaches 91.22 ± 0.51% Direct macro SR with one encoder shared across PushT, Cube, Reacher, and TwoRoom. The matched shared LeWM baseline reaches 66.17 ± 2.67% using CEM 300×30.</p>
           <p>Disabling every INTACT action head still raises actor-off pure-CEM macro to 70.08 ± 1.13%. Representation shaping is measurable before direct readout, while restoring the learned interface supplies most of the closed-loop gain.</p>
         </section>
 
@@ -351,16 +356,14 @@
               </thead>
               <tbody>
                 <tr style="--method-color:#8f99a8"><th><span class="method-swatch"></span><strong>LeWM</strong><small>CEM 300×30</small></th><td style="--score:74.6">74.6</td><td style="--score:67.3">67.3</td><td style="--score:83.1">83.1</td><td style="--score:39.7">39.7</td><td><strong>66.18</strong></td></tr>
-                <tr style="--method-color:#527fae"><th><span class="method-swatch"></span><strong>Inverse only</strong><small>Direct</small></th><td style="--score:35.0">35.0</td><td style="--score:61.9">61.9</td><td style="--score:61.0">61.0</td><td style="--score:68.8">68.8</td><td><strong>56.68</strong></td></tr>
-                <tr style="--method-color:#a98bd0"><th><span class="method-swatch"></span><strong>Waypoint intent only</strong><small>Direct</small></th><td style="--score:58.9">58.9</td><td style="--score:100">100.0</td><td style="--score:65.9">65.9</td><td style="--score:72.1">72.1</td><td><strong>74.23</strong></td></tr>
-                <tr style="--method-color:#f0a656"><th><span class="method-swatch"></span><strong>Goal intent only</strong><small>Direct</small></th><td style="--score:70.7">70.7</td><td style="--score:100">100.0</td><td style="--score:82.3">82.3</td><td style="--score:69.4">69.4</td><td><strong>80.60</strong></td></tr>
-                <tr style="--method-color:#3b9e91"><th><span class="method-swatch"></span><strong>Waypoint INTACT</strong><small>Direct</small></th><td style="--score:71.2">71.2</td><td style="--score:99">99.0</td><td style="--score:58.2">58.2</td><td style="--score:77.2">77.2</td><td><strong>76.40</strong></td></tr>
-                <tr class="primary-result" style="--method-color:#e65358"><th><span class="method-swatch"></span><strong>Goal-displacement INTACT</strong><small>Direct · 0 candidates</small></th><td style="--score:80.2">80.2</td><td style="--score:99.6">99.6</td><td style="--score:95.7">95.7</td><td style="--score:82.1">82.1</td><td><strong>89.39</strong></td></tr>
-                <tr style="--method-color:#913a79"><th><span class="method-swatch"></span><strong>Goal-displacement INTACT</strong><small>Guarded A · 128×3</small></th><td style="--score:85">85.0</td><td style="--score:99">99.0</td><td style="--score:97.9">97.9</td><td style="--score:80">80.0</td><td><strong>90.48</strong></td></tr>
+                <tr style="--method-color:#527fae"><th><span class="method-swatch"></span><strong>Inverse only</strong><small>Direct</small></th><td style="--score:36.1">36.1</td><td style="--score:67.6">67.6</td><td style="--score:90.6">90.6</td><td style="--score:78.6">78.6</td><td><strong>68.19</strong></td></tr>
+                <tr style="--method-color:#f0a656"><th><span class="method-swatch"></span><strong>Goal intent only</strong><small>Direct</small></th><td style="--score:81.8">81.8</td><td style="--score:100">100.0</td><td style="--score:88.7">88.7</td><td style="--score:69.2">69.2</td><td><strong>84.92</strong></td></tr>
+                <tr class="primary-result" style="--method-color:#e65358"><th><span class="method-swatch"></span><strong>Goal-displacement INTACT</strong><small>Direct · 0 candidates</small></th><td style="--score:86.1">86.1</td><td style="--score:100">100.0</td><td style="--score:97.2">97.2</td><td style="--score:81.6">81.6</td><td><strong class="headline-score">91.22</strong></td></tr>
+                <tr style="--method-color:#913a79"><th><span class="method-swatch"></span><strong>Goal-displacement INTACT</strong><small>Guarded A · 128×3</small></th><td style="--score:85.4">85.4</td><td style="--score:99.2">99.2</td><td style="--score:97.0">97.0</td><td style="--score:80.4">80.4</td><td><strong>90.53</strong></td></tr>
               </tbody>
             </table>
           </div>
-          <figcaption><strong>Controlled E5 shared-encoder result.</strong> Goal-displacement INTACT improves all four tasks over matched jointly trained LeWM and exceeds its goal-intent-only control by 8.78 macro points.</figcaption>
+          <figcaption><strong>Controlled E5 shared-encoder result.</strong> Goal-displacement INTACT improves all four tasks over matched jointly trained LeWM and exceeds its goal-intent-only control by 6.31 macro points.</figcaption>
         </figure>
 
         <section id="evidence" class="story-section reading-shell reveal">
@@ -369,11 +372,11 @@
           <p class="lead">At a fixed current state, two endpoint conditions are equivalent when they induce the same expert action law. This conditional action quotient predicts that local and global agreement between predicted and expert action families should track control.</p>
 
           <div class="evidence-list">
-            <div><strong>0.954</strong><span>predicted–expert kNN ↔ Direct SR across 45 eligible checkpoints</span></div>
-            <div><strong>0.897</strong><span>predicted–expert linear CKA ↔ Direct SR</span></div>
-            <div><strong>0.815</strong><span>pointwise action R² ↔ Direct SR</span></div>
+            <div><strong>0.968</strong><span>predicted–expert local kNN ↔ Direct SR across 15 fixed-history checkpoints</span></div>
+            <div><strong>0.988</strong><span>predicted–expert linear CKA ↔ Direct SR</span></div>
+            <div><strong>0.983</strong><span>pointwise action R² ↔ Direct SR</span></div>
           </div>
-          <p>The v31 teaser shows the matched 15-checkpoint goal-displacement cohort: INTACT kNN alignment rises with Direct SR at r = 0.981, whereas the analogous LeWM–CEM relation is negative at r = −0.873. The broader 45-checkpoint analysis above asks a distinct pooled question.</p>
+          <p>The fixed-history diagnostic cohort contains three training seeds at each E1–E5 checkpoint. These correlations are post-hoc measurements of representation-to-control agreement; they are not additional training objectives.</p>
         </section>
 
         <figure class="correspondence-viz page-shell reveal" data-correlation-viz>
@@ -408,13 +411,13 @@
             </div>
             <div class="correspondence-readout" aria-live="polite">
               <span>Through epoch</span><strong>E<span data-correlation-current>5</span></strong>
-              <div><span>Macro SR</span><strong data-correlation-sr>89.39%</strong></div>
+            <div><span>Macro SR</span><strong data-correlation-sr>91.22%</strong></div>
               <div><span>Mean CKA</span><strong data-correlation-cka>0.529</strong></div>
-              <div><span>Pearson r</span><strong data-correlation-r>+0.986</strong></div>
+              <div><span>Pearson r</span><strong data-correlation-r>+0.988</strong></div>
               <small data-correlation-note>Cumulative n = 15 checkpoints</small>
             </div>
           </div>
-          <figcaption><strong>Native, inspectable measurement.</strong> Each epoch adds three independently trained Goal-INTACT checkpoints. Select E1–E5 to inspect Direct macro SR, mean linear CKA, and their cumulative Pearson relation; the three-point E1 estimate is marked provisional.</figcaption>
+          <figcaption><strong>Native, inspectable measurement.</strong> Each epoch adds three independently trained Goal-INTACT checkpoints under the fixed-history protocol. Select E1–E5 to inspect Direct macro SR, mean linear CKA, and their cumulative Pearson relation; the three-point E1 estimate is marked provisional.</figcaption>
         </figure>
 
         <figure id="action-alignment" class="action-alignment-viz page-shell reveal" data-action-alignment>
@@ -448,7 +451,7 @@
         </figure>
 
         <figure class="wide-figure page-shell reveal">
-          <img src="assets/action-family-alignment.png" alt="Action-family alignment diagnostics correlated with direct success rate">
+          <img src="assets/action-family-alignment.png" alt="Fixed-history action and representation metrics correlated with direct success rate">
           <figcaption><strong>Intent–action relation, rather than task clustering, tracks control.</strong> Higher rank or cleaner task clusters do not certify a useful control representation.</figcaption>
         </figure>
 

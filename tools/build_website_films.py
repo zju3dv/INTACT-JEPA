@@ -53,11 +53,11 @@ TASK_COLORS = (PURPLE, TEAL, GOLD, CORAL)
 EPISODES = {"pusht": 99, "cube": 36, "reacher": 78, "tworoom": 66}
 
 LEWM_SR = (96.0, 74.0, 86.0, 87.0)
-INTACT_SR = (85.78, 100.0, 97.67, 97.89)
-GUARDED_SR = (92.22, 99.78, 97.44, 98.0)
+INTACT_SR = (87.44, 100.0, 97.33, 97.67)
+GUARDED_SR = (91.56, 99.67, 97.56, 97.56)
 LEWM_MACRO = 85.75
-INTACT_MACRO = 95.33
-GUARDED_MACRO = 96.86
+INTACT_MACRO = 95.61
+GUARDED_MACRO = 96.58
 
 PROJECT_URL = "https://zju3dv.github.io/INTACT-JEPA/"
 GITHUB_URL = "https://github.com/zju3dv/INTACT-JEPA"
@@ -437,10 +437,10 @@ def scene_demos(t: float, pairs: list[RolloutPair]) -> Image.Image:
     )
     rounded(draw, (1088, 42, 1450, 112), 8, "#10273D", "#295B86", 2)
     text(draw, (1112, 60), "PLANNER LATENCY", 14, "#8FBCE2", "bold")
-    text(draw, (1112, 80), "≈300× lower · 2.9–5.5 ms", 22, BLUE_BRIGHT, "bold")
+    text(draw, (1112, 80), "≈300× lower · 3.9–4.8 ms", 22, BLUE_BRIGHT, "bold")
     rounded(draw, (1472, 42, 1836, 112), 8, "#2A1721", "#7A313D", 2)
     text(draw, (1496, 60), "STABLE DIRECT CONTROL", 14, "#F3A3A8", "bold")
-    text(draw, (1496, 80), "95.33 ± 0.58% macro SR", 22, CORAL, "bold")
+    text(draw, (1496, 80), "95.61 ± 0.59% macro SR", 22, CORAL, "bold")
     draw.line((84, 137, 1836, 137), fill="#20324A", width=2)
     progress = smooth((t - 0.75) / 7.7)
     locations = ((72, 180), (996, 180), (72, 605), (996, 605))
@@ -1258,9 +1258,9 @@ def scene_headlines(
 
     def paint_red(layer_draw: ImageDraw.ImageDraw, _overlay: Image.Image) -> None:
         layer_draw.ellipse((right_x - 23, baseline_y - 23, right_x + 23, baseline_y + 23), fill=CORAL, outline=WHITE, width=4)
-        text(layer_draw, (right_x, 678), "95.33%", 43, CORAL, "bold", "ma")
+        text(layer_draw, (right_x, 678), "95.61%", 43, CORAL, "bold", "ma")
         text(layer_draw, (right_x, 726), "DIRECT · 0 search", 17, CORAL, "bold", "ma")
-        text(layer_draw, (right_x, latency_y - 22), "2.9–5.5 ms", 34, CORAL, "bold", "mm")
+        text(layer_draw, (right_x, latency_y - 22), "3.9–4.8 ms", 34, CORAL, "bold", "mm")
         text(layer_draw, (right_x, latency_y + 22), "INTACT Direct", 16, CORAL, "medium", "mm")
 
     frame = alpha_layer(frame, paint_red, red_alpha)

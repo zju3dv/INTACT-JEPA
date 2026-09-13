@@ -672,6 +672,10 @@ h3 {
   color: #175e91;
 }
 
+.shared-results-table .headline-score {
+  color: var(--coral);
+}
+
 .shared-results-table .primary-result th,
 .shared-results-table .primary-result td:not(:last-child) {
   background: #fff2f2;
@@ -2866,6 +2870,10 @@ tbody .macro td {
   background: var(--coral);
 }
 
+.lewm-swatch {
+  background: #667383;
+}
+
 .native-bar-chart {
   position: relative;
   height: 350px;
@@ -2961,6 +2969,10 @@ tbody .macro td {
 
 .bar.inverse {
   background: linear-gradient(180deg, #1197d5, #096a9d);
+}
+
+.bar.lewm {
+  background: linear-gradient(180deg, #788596, #4c5867);
 }
 
 .bar.intact {
