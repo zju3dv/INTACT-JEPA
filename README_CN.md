@@ -25,14 +25,19 @@
   </p>
 </div>
 
+## 最新动态
+
+- **[2026-09-14] 评测与模型更新：** 修复带 Actor 评测中 previous-action 被重复写入历史缓冲的问题。在修正后的因果历史协议下，单任务 E1 INTACT 的 Official Direct Macro SR 为 **95.61 +/- 0.59%**，可选 Guarded A 达到 **96.58 +/- 0.44%**。同时将[无历史 INTACT checkpoint 与结果](https://huggingface.co/INTACT-JEPA/INTACT/tree/main/INTACT-no-previous-action)作为独立消融发布。
+- **[2026-08-06] 代码开源：** 发布训练与评测代码、单任务与共享 Encoder 配置、复现工具和模型文档。
+- **[2026-07-28] 项目发布：** 发布[论文](https://arxiv.org/abs/2607.26056)、[项目主页](https://zju3dv.github.io/INTACT-JEPA/)与项目视频。
+
 <p align="center">
   <img src="assets/intact-teaser.png" width="100%" alt="INTACT 方法与结果概览">
 </p>
 
 <p align="center">
-  <a href="https://zju3dv.github.io/INTACT-JEPA/community/">
-    <img src="assets/intact-manifesto.svg" width="100%" alt="强大的信息传递机制能够确保重要信息不被遗漏。INTACT 正是实现了这一目标，将 LeWM 提升为一个更强大的世界模型。欢迎提交 Issue、PR，并加入我们的 Community。">
-  </a>
+  <strong>好的表征能够完整保留真正重要的信息。</strong><br>
+  <strong>INTACT 做到了这一点，并将 LeWM 变成了更强的世界模型。</strong>
 </p>
 
 ## 为什么叫 INTACT？
@@ -60,8 +65,9 @@
 
 ## 代码与复现
 
-训练/评估源码、单任务与四任务共享训练配置、Direct/Pure-CEM/Actor-CEM
-接口、Official/CLEAR-LeWM 评估入口、checkpoint 清单和 CUDA 12.4 依赖锁已经
+训练/评估源码、单任务与四任务共享训练配置、统一的
+`scripts/eval.sh`（Direct/CEM/Guarded A）、Official/CLEAR-LeWM v0.8 判分适配、
+checkpoint 清单和 CUDA 12.4 依赖锁已经
 公开。完整的 72 个 paper checkpoint 已在
 [Hugging Face `INTACT-JEPA/INTACT`](https://huggingface.co/INTACT-JEPA/INTACT/tree/paper-e5-goal-v1)
 公开，下载脚本会固定版本并逐项校验 SHA-256。
@@ -71,37 +77,41 @@ git clone https://github.com/zju3dv/INTACT-JEPA.git
 cd INTACT-JEPA
 bash scripts/install.sh cu124
 source .venv/bin/activate
-cp .env.example .env                 # 设置 STABLEWM_HOME 和 LOCAL_DATASET_DIR
+cp .env.example .env                 # 填写本机数据与输出目录
+source scripts/fleet_env.sh
+"$INTACT_PYTHON" scripts/verify_install.py --require-cuda
+"$INTACT_PYTHON" scripts/verify_data.py
 
-# 单任务预检查与训练
-python scripts/preflight_check.py train-single \
-  --task pusht --train-seed 3072
-CUDA_VISIBLE_DEVICES=0 bash scripts/train_single.sh \
-  pusht 3072 displacement
+# 单任务真实路径 smoke
+CUDA_VISIBLE_DEVICES=0 bash scripts/train.sh goal pusht \
+  --smoke --run-name smoke_goal_pusht
 
-# 四任务共享 encoder 预检查与训练（每个任务一张 GPU）
-CUDA_VISIBLE_DEVICES=0,1,2,3 \
-python scripts/preflight_check.py train-multitask --train-seed 3072
+# 四任务共享 encoder smoke（每个任务一张 GPU）
 CUDA_VISIBLE_DEVICES=0,1,2,3 bash scripts/train_multitask.sh \
-  3072 displacement "$STABLEWM_HOME/checkpoints" \
-  outputs/intact_multitask_goal_s3072_e5
+  --smoke --run-name smoke_multitask_goal
 ```
-
-单任务命令中，将 `pusht` 替换为 `cube`、`reacher` 或 `tworoom` 即可训练
-其他任务；将 `displacement` 替换为 `waypoint` 可运行匹配的坐标意图控制。
-
-当前根目录实现采用修正后的 previous-action 边界和 7/7 监督协议：physical
-与 goal 均从 index 0 开始覆盖七个 transition。episode 中间窗口使用真实前一
-action chunk；episode 起点只对不可用的历史使用 raw zero，再执行 z-score。
-精确定义与旧 checkpoint 的兼容边界见
-[`docs/PREVIOUS_ACTION_BOUNDARY_20260804.md`](docs/PREVIOUS_ACTION_BOUNDARY_20260804.md)。
-已发布的旧 paper checkpoint 只能使用隔离的 `paper_runtime/`，不能通过当前
-根目录运行时直接加载。
 
 完整的数据布局、正式训练、Official/CLEAR 评估和 paper checkpoint 命令见英文
 主页的 [Implementation and Reproduction](README.md#implementation-and-reproduction)、
 [安装文档](docs/INSTALL.md)与 [checkpoint 映射](docs/PAPER_CHECKPOINTS.md)。
 详细发布边界见 [`docs/RELEASE.md`](docs/RELEASE.md)。
+
+标准评测统一使用因果 continuation history：采样起点 `t` 首次输入
+`rows[t-5:t]`，仅在真实 episode 起点前做 raw-zero 左填充；之后持续移入控制器
+实际执行的动作。`row[t]` 和目标动作不会作为 actor 输入。Official 与 CLEAR
+只是不同 benchmark 判分协议，不是不同的 history 模式。
+
+### 当前结果与模型
+
+| 设置 | 推理方式 | Macro SR | 模型 / 详情 |
+|---|---|---:|---|
+| 单任务 E1 INTACT | Direct，零搜索 | **95.61 +/- 0.59** | [`INTACT`](https://huggingface.co/INTACT-JEPA/INTACT/tree/main/INTACT) |
+| 单任务 E1 INTACT | Guarded A 128x3 | **96.58 +/- 0.44** | [审计结果](docs/RESULTS.md#task-specific-models) |
+| 四任务共享 Encoder E5 | Direct，零搜索 | **91.22 +/- 0.51** | [`INTACT-unified`](https://huggingface.co/INTACT-JEPA/INTACT/tree/main/INTACT-unified) |
+| 无历史 E1 消融 | Direct，零搜索 | **94.25 +/- 0.08** | [`INTACT-no-previous-action`](https://huggingface.co/INTACT-JEPA/INTACT/tree/main/INTACT-no-previous-action) |
+
+无历史结果是独立消融，不应与可选 Guarded A 结果混为一谈。各任务数值、方差
+和评测协议见[审计结果](docs/RESULTS.md)。
 
 ## 核心思想：一种输入形式，两种意图实例
 
@@ -145,14 +155,17 @@ INTACT 不直接最小化 local 与 goal endpoint 或 displacement 之间的距�
   <img src="assets/direct-control-results.png" width="100%" alt="单 epoch 直接控制与局部验证成功率">
 </p>
 
-- 单任务端到端训练仅 **1 epoch**，零搜索 Direct 达到四任务 **95.33%** macro SR。
-- 可选 Guarded A 仅评估 **384** 条候选序列，达到 **96.86%** macro SR；相比
-  CEM 300x30 的 9,000 条候选减少 **23.44 倍**。
-- Direct planner-side latency 为 **2.9-5.5 ms**。
-- 四任务共享一个视觉 encoder 时，E5 Direct 达到 **89.39%** macro SR；匹配的
+- 单任务端到端训练仅 **1 epoch**，零搜索 Direct 达到四任务 **95.61%** macro SR。
+- 可选 Guarded A 使用 `H=5`、`RH=5`、128x3、raw-action `sigma=0.25` 和
+  top-k 16；其 **384** 条采样候选达到 **96.58%** macro SR，相比 CEM
+  300x30 的 9,000 条候选减少 **23.44 倍**。额外一次确定性的最终均值复评分
+  单独记录，不计入采样候选数。
+- Direct planner-side latency 为 **3.9-4.8 ms**。
+- 四任务共享一个视觉 encoder 时，E5 Direct 达到 **91.22%** macro SR；匹配的
   shared LeWM + CEM 300x30 为 **66.17%**。
-- 45 个 checkpoint 上，predicted-expert action-family kNN 与 Direct SR 的相关性
-  为 **r=0.954**，高于逐点动作 $R^2$ 的 **r=0.815**。
+- 15 个 goal-displacement checkpoint 上，predicted-expert action-family kNN 与
+  Direct SR 的相关性为 **r=0.968**；linear CKA 为 **r=0.988**，逐点动作
+  $R^2$ 为 **r=0.983**。
 
 <p align="center">
   <img src="assets/shared-encoder-results.png" width="100%" alt="四任务共享编码器的成功率对比">
@@ -160,4 +173,4 @@ INTACT 不直接最小化 local 与 goal endpoint 或 displacement 之间的距�
 
 各任务精确数值、方差和协议说明见[审计结果](docs/RESULTS.md)。
 
-问题咨询：<luoliibaqi4747@gmail.com> · [欢迎提交 Issue](https://github.com/zju3dv/INTACT-JEPA/issues)
+联系邮箱：<luoliibaqi4747@gmail.com>

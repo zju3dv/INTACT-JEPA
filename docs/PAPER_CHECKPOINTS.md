@@ -11,11 +11,11 @@ shards. The complete bundle therefore contains `6 x 3 x 4 = 72` checkpoints.
 | Cell ID | Paper name | Native interface | PushT | Cube | Reacher | TwoRoom | Macro |
 |---|---|---|---:|---:|---:|---:|---:|
 | `lewm` | LeWM | CEM 300x30 | 74.56 | 67.33 | 83.11 | 39.67 | 66.17 |
-| `inverse_only` | Inverse only | Direct | 35.00 | 61.89 | 61.00 | 68.78 | 56.67 |
+| `inverse_only` | Inverse only | Direct | 36.11 | 67.56 | 90.56 | 78.56 | 68.19 |
 | `waypoint_intent` | Waypoint intent only | Direct | 58.89 | 100.00 | 65.89 | 72.11 | 74.22 |
-| `goal_intent` | Goal intent only | Direct | 70.67 | 100.00 | 82.33 | 69.44 | 80.61 |
+| `goal_intent` | Goal intent only | Direct | 81.78 | 100.00 | 88.67 | 69.22 | 84.92 |
 | `waypoint_intact` | Waypoint INTACT | Direct | 71.22 | 99.00 | 58.22 | 77.22 | 76.42 |
-| `goal_intact` | Goal-displacement INTACT | Direct | **80.22** | **99.56** | **95.67** | **82.11** | **89.39** |
+| `goal_intact` | Goal-displacement INTACT | Direct | **86.11** | **100.00** | **97.22** | **81.56** | **91.22** |
 
 Values are official SR percentages averaged over three training seeds. Full
 sample standard deviations and every asset/shard hash are recorded in
@@ -25,10 +25,10 @@ sample standard deviations and every asset/shard hash are recorded in
 
 | Train seed | PushT | Cube | Reacher | TwoRoom | Macro |
 |---:|---:|---:|---:|---:|---:|
-| 0 | 79.33 | 100.00 | 93.67 | 86.67 | 89.92 |
-| 42 | 81.67 | 100.00 | 96.33 | 81.00 | 89.75 |
-| 3072 | 79.67 | 98.67 | 97.00 | 78.67 | 88.50 |
-| **Mean +/- sample std** | **80.22 +/- 1.26** | **99.56 +/- 0.77** | **95.67 +/- 1.76** | **82.11 +/- 4.11** | **89.39 +/- 0.77** |
+| 0 | 85.00 | 100.00 | 96.33 | 85.33 | 91.67 |
+| 42 | 86.67 | 100.00 | 97.33 | 81.33 | 91.33 |
+| 3072 | 86.67 | 100.00 | 98.00 | 78.00 | 90.67 |
+| **Mean +/- sample std** | **86.11 +/- 0.96** | **100.00 +/- 0.00** | **97.22 +/- 0.84** | **81.56 +/- 3.67** | **91.22 +/- 0.51** |
 
 These are Goal-displacement INTACT official Direct SR values. Each training-seed cell averages 100
 episodes for evaluation seeds `0`, `1`, and `42`. CLEAR-LeWM scores are a
@@ -36,22 +36,42 @@ separate audit and are not mixed into this table.
 
 ## Download
 
-Download the required assets from the pinned
-[`paper-e5-goal-v1`](https://huggingface.co/INTACT-JEPA/INTACT/tree/paper-e5-goal-v1)
-revision. Verify every downloaded archive and `.pt` shard against the SHA-256
-values in the machine-readable source of truth:
+Download and verify one headline training seed without authentication:
+
+```bash
+bash scripts/download_paper_checkpoints.sh 0
+```
+
+This backward-compatible form downloads the `goal_intact` cell. Select another
+cell, all seeds, or all 72 checkpoints with:
+
+```bash
+bash scripts/download_paper_checkpoints.sh inverse_only 42
+bash scripts/download_paper_checkpoints.sh waypoint_intact all
+bash scripts/download_paper_checkpoints.sh matrix all /path/to/stable-wm-cache
+```
+
+Every archive and every `.pt` shard is checked against SHA256 before use. The
+machine-readable source of truth is
 [`checkpoints/PAPER_E5_MATRIX_MANIFEST.json`](../checkpoints/PAPER_E5_MATRIX_MANIFEST.json).
-The smaller headline manifest is
-[`checkpoints/PAPER_E5_GOAL_MANIFEST.json`](../checkpoints/PAPER_E5_GOAL_MANIFEST.json).
+The default host is `INTACT-JEPA/INTACT`; mirrors can be selected with
+`INTACT_HF_REPO`, `INTACT_CHECKPOINT_REVISION`, or
+`INTACT_CHECKPOINT_BASE_URL`. Downloads use resumable `curl` by default; set
+`INTACT_USE_ARIA2=1` only on a host where Hugging Face redirects have been
+validated with `aria2c`.
 
 ## Evaluate
 
-The current repository-root launchers evaluate checkpoints trained with the
-corrected 7/7 previous-action contract. They must not be used for this frozen
-paper matrix. This merge retains `paper_runtime/` for checkpoint compatibility
-but intentionally removes the legacy paper download and evaluation wrappers.
-Reproducing a published matrix cell therefore requires an adapter that loads
-the frozen runtime and exactly matches the evaluator fingerprint below.
+```bash
+bash scripts/eval_paper_direct.sh pusht 0 0 100
+bash scripts/eval_paper_direct.sh cube 42 1 100
+bash scripts/eval_paper_matrix.sh waypoint_intent pusht 0 0 100
+bash scripts/eval_paper_matrix.sh lewm reacher 3072 42 100
+```
+
+The matrix wrapper takes `CELL TASK TRAIN_SEED EVAL_SEED NUM_EVAL`. It
+automatically uses CEM 300x30 for LeWM and zero-search Direct for the other
+five cells.
 
 ## Compatibility Boundary
 
@@ -61,7 +81,9 @@ clean runtime removes its constant-zero relation slot and uses the four-slot
 Fig. 1 grammar. Both train local and goal likelihoods together, but their Actor
 parameter shapes remain incompatible.
 The exact audited runtime is pinned under [`paper_runtime/`](../paper_runtime/README.md).
-Keep it byte-for-byte unchanged when reproducing reported numbers.
+The evaluation wrapper prepends that runtime to `PYTHONPATH`, enables the
+recorded deterministic Math-SDPA policy, and then calls stable-worldmodel.
 
-The recorded evaluator fingerprint is
-`1e475a069338bdad6c9e6a38b8ea4e2d5557ecc4cff88844e5efee79121a9fc7`.
+The current result revision uses `official_expert_continuation_v1`: a sampled
+continuation receives its causal expert action prefix, while only a true
+episode boundary is left-padded with normalized raw-zero actions.

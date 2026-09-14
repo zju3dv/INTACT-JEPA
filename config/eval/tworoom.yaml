@@ -10,6 +10,7 @@ world:
 
 seed: 42
 policy: random # ckpt name or random
+sdpa_backend: math
 
 dataset:
   stats: ${eval.dataset_name}
@@ -29,7 +30,8 @@ eval:
   eval_budget: 50
   img_size: 224
   dataset_name: tworoom
-  actor_warmstart: true
+  protocol: official
+  inference_mode: direct
   callables:
     # -- set state
     - method: _set_state

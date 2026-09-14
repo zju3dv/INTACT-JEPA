@@ -163,10 +163,6 @@
           <div class="reading-shell geometry-note">
             <p><strong>Measurement note.</strong> Every colored point tracks the same fixed observation through training. Each projected frame is robustly normalized to expose morphology, so absolute projected radius is not compared. t-SNE is qualitative evidence about local neighborhoods; effective rank and mean pairwise cosine are computed in the original high-dimensional latent space.</p>
           </div>
-          <figure class="wide-figure page-shell geometry-snapshot reveal">
-            <img src="assets/tsne-e1-e5-c021.png" alt="Fixed-observation INTACT latent geometry across E1 to E5 in 2D and 3D t-SNE">
-            <figcaption><strong>Fixed observations through training.</strong> The same 2,073 measured snapshots are shown at E1–E5 in paired 2D and 3D projections; the plotted coordinates are a qualitative view of evolving geometry, not an additional evaluator.</figcaption>
-          </figure>
         </section>
 
         <section id="idea" class="story-section reading-shell reveal">
@@ -186,7 +182,7 @@
         </section>
 
         <figure class="wide-figure page-shell reveal">
-          <img src="assets/intact-teaser-v31.svg" alt="INTACT v31 teaser showing matched Cube control, representation geometry, direct success rate, latency, and action-family alignment">
+          <img src="assets/intact-teaser-v31.png" alt="INTACT v31 teaser showing matched Cube control, representation geometry, direct success rate, latency, and action-family alignment">
           <figcaption><strong>INTACT turns action-aligned latent intent into search-free control.</strong> The matched Cube audit, one-epoch macro result, latency study, and representation correlations are distinct evaluations and are not pooled.</figcaption>
         </figure>
 
@@ -220,8 +216,8 @@
         </section>
 
         <figure class="wide-figure page-shell reveal">
-          <img src="assets/shared-encoder-method.png" alt="INTACT inference and deployment: LeWM rollout, shared encoder, direct actor, and optional local search">
-          <figcaption><strong>Inference and deployment.</strong> The four-task INTACT model shares one visual encoder and retains lightweight, task-specific forward/action heads. LeWM keeps latent rollout and terminal goal cost; INTACT adds a search-free actor that emits a direct action chunk, while Local CEM remains an optional verifier.</figcaption>
+          <img src="assets/shared-encoder-method.png" alt="INTACT inference and deployment pipeline">
+          <figcaption><strong>Shared-encoder INTACT.</strong> Four visual domains update one encoder, while task-specific head pairs preserve domain dynamics. Direct control emits an action chunk; world rollout is retained for recurrent replanning and optional verification.</figcaption>
         </figure>
 
         <section class="concept-band reveal">
@@ -355,10 +351,12 @@
                 <tr><th>Method</th><th>PushT</th><th>Cube</th><th>Reacher</th><th>TwoRoom</th><th>Macro</th></tr>
               </thead>
               <tbody>
-                <tr style="--method-color:#8f99a8"><th><span class="method-swatch"></span><strong>LeWM</strong><small>CEM 300×30</small></th><td style="--score:74.6">74.6</td><td style="--score:67.3">67.3</td><td style="--score:83.1">83.1</td><td style="--score:39.7">39.7</td><td><strong>66.18</strong></td></tr>
+                <tr style="--method-color:#8f99a8"><th><span class="method-swatch"></span><strong>LeWM</strong><small>CEM 300×30</small></th><td style="--score:74.6">74.6</td><td style="--score:67.3">67.3</td><td style="--score:83.1">83.1</td><td style="--score:39.7">39.7</td><td><strong>66.17</strong></td></tr>
                 <tr style="--method-color:#527fae"><th><span class="method-swatch"></span><strong>Inverse only</strong><small>Direct</small></th><td style="--score:36.1">36.1</td><td style="--score:67.6">67.6</td><td style="--score:90.6">90.6</td><td style="--score:78.6">78.6</td><td><strong>68.19</strong></td></tr>
+                <tr style="--method-color:#a98bd0"><th><span class="method-swatch"></span><strong>Waypoint intent only</strong><small>Direct</small></th><td style="--score:58.9">58.9</td><td style="--score:100">100.0</td><td style="--score:65.9">65.9</td><td style="--score:72.1">72.1</td><td><strong>74.23</strong></td></tr>
                 <tr style="--method-color:#f0a656"><th><span class="method-swatch"></span><strong>Goal intent only</strong><small>Direct</small></th><td style="--score:81.8">81.8</td><td style="--score:100">100.0</td><td style="--score:88.7">88.7</td><td style="--score:69.2">69.2</td><td><strong>84.92</strong></td></tr>
-                <tr class="primary-result" style="--method-color:#e65358"><th><span class="method-swatch"></span><strong>Goal-displacement INTACT</strong><small>Direct · 0 candidates</small></th><td style="--score:86.1">86.1</td><td style="--score:100">100.0</td><td style="--score:97.2">97.2</td><td style="--score:81.6">81.6</td><td><strong class="headline-score">91.22</strong></td></tr>
+                <tr style="--method-color:#3b9e91"><th><span class="method-swatch"></span><strong>Waypoint INTACT</strong><small>Direct</small></th><td style="--score:71.2">71.2</td><td style="--score:99">99.0</td><td style="--score:58.2">58.2</td><td style="--score:77.2">77.2</td><td><strong>76.40</strong></td></tr>
+                <tr class="primary-result" style="--method-color:#e65358"><th><span class="method-swatch"></span><strong>Goal-displacement INTACT</strong><small>Direct · 0 candidates</small></th><td style="--score:86.1">86.1</td><td style="--score:100">100.0</td><td style="--score:97.2">97.2</td><td style="--score:81.6">81.6</td><td><strong>91.22</strong></td></tr>
                 <tr style="--method-color:#913a79"><th><span class="method-swatch"></span><strong>Goal-displacement INTACT</strong><small>Guarded A · 128×3</small></th><td style="--score:85.4">85.4</td><td style="--score:99.2">99.2</td><td style="--score:97.0">97.0</td><td style="--score:80.4">80.4</td><td><strong>90.53</strong></td></tr>
               </tbody>
             </table>
@@ -372,11 +370,11 @@
           <p class="lead">At a fixed current state, two endpoint conditions are equivalent when they induce the same expert action law. This conditional action quotient predicts that local and global agreement between predicted and expert action families should track control.</p>
 
           <div class="evidence-list">
-            <div><strong>0.968</strong><span>predicted–expert local kNN ↔ Direct SR across 15 fixed-history checkpoints</span></div>
+            <div><strong>0.968</strong><span>predicted–expert kNN ↔ Direct SR across 15 eligible checkpoints</span></div>
             <div><strong>0.988</strong><span>predicted–expert linear CKA ↔ Direct SR</span></div>
             <div><strong>0.983</strong><span>pointwise action R² ↔ Direct SR</span></div>
           </div>
-          <p>The fixed-history diagnostic cohort contains three training seeds at each E1–E5 checkpoint. These correlations are post-hoc measurements of representation-to-control agreement; they are not additional training objectives.</p>
+          <p>The v31 teaser shows the matched 15-checkpoint goal-displacement cohort used in the audited readout above. Across this cohort, predicted–expert kNN overlap, linear CKA, and pointwise action R² correlate with Direct SR at r = 0.968, 0.988, and 0.983, respectively; SRS reaches r = 0.940.</p>
         </section>
 
         <figure class="correspondence-viz page-shell reveal" data-correlation-viz>
@@ -411,13 +409,13 @@
             </div>
             <div class="correspondence-readout" aria-live="polite">
               <span>Through epoch</span><strong>E<span data-correlation-current>5</span></strong>
-            <div><span>Macro SR</span><strong data-correlation-sr>91.22%</strong></div>
-              <div><span>Mean CKA</span><strong data-correlation-cka>0.529</strong></div>
+              <div><span>Macro SR</span><strong data-correlation-sr>91.22%</strong></div>
+              <div><span>Mean CKA</span><strong data-correlation-cka>0.505</strong></div>
               <div><span>Pearson r</span><strong data-correlation-r>+0.988</strong></div>
               <small data-correlation-note>Cumulative n = 15 checkpoints</small>
             </div>
           </div>
-          <figcaption><strong>Native, inspectable measurement.</strong> Each epoch adds three independently trained Goal-INTACT checkpoints under the fixed-history protocol. Select E1–E5 to inspect Direct macro SR, mean linear CKA, and their cumulative Pearson relation; the three-point E1 estimate is marked provisional.</figcaption>
+          <figcaption><strong>Native, inspectable measurement.</strong> Each epoch adds three independently trained Goal-INTACT checkpoints. Select E1–E5 to inspect Direct macro SR, mean linear CKA, and their cumulative Pearson relation; the three-point E1 estimate is marked provisional.</figcaption>
         </figure>
 
         <figure id="action-alignment" class="action-alignment-viz page-shell reveal" data-action-alignment>
@@ -451,7 +449,7 @@
         </figure>
 
         <figure class="wide-figure page-shell reveal">
-          <img src="assets/action-family-alignment.png" alt="Fixed-history action and representation metrics correlated with direct success rate">
+          <img src="assets/action-family-alignment.png" alt="Action-family alignment diagnostics correlated with direct success rate">
           <figcaption><strong>Intent–action relation, rather than task clustering, tracks control.</strong> Higher rank or cleaner task clusters do not certify a useful control representation.</figcaption>
         </figure>
 
@@ -465,7 +463,7 @@
             </div>
             <a class="community-band-qr" href="community/" aria-label="Open the permanent INTACT World Model Community page">
               <img src="assets/intact-community-page-qr.png" alt="Permanent QR code for the INTACT World Model Community page">
-              <span><strong>Permanent entry</strong><small>Personal WeChat and email invitation routes live behind this page.</small></span>
+              <span><strong>Permanent entry</strong><small>Current WeChat invitation lives behind this page.</small></span>
             </a>
           </div>
         </section>

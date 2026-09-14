@@ -1,14 +1,3 @@
-# Credentials and local configuration
-.env
-.env.*
-!.env.example
-*.local
-*.pem
-*.key
-credentials*
-secrets*
-private/
-
 # Python
 __pycache__/
 *.py[cod]
@@ -19,9 +8,13 @@ __pycache__/
 .coverage
 htmlcov/
 
-# Environments
+# Environments and local configuration
 .venv/
 venv/
+.env
+.env.*
+!.env.example
+*.local
 
 # Editors and operating systems
 .idea/
@@ -30,36 +23,20 @@ venv/
 *~
 .DS_Store
 
-# Datasets and caches
-/data/
-/datasets/
-/feature_cache/
-/stable-wm-cache/
-cache/
-*.h5
-*.hdf5
-*.lance
-*.npz
-
-# Runtime outputs
+# Research outputs
 checkpoints/*
 !checkpoints/*.json
 outputs/
-runs/
 results/raw/
 logs/
-lightning_logs/
 wandb/
-*.log
-*.txt.json
-.release-staging/
-paper-artifacts/
-
-# Model artifacts are distributed separately.
+cache/
+*.ckpt
 *.pt
 *.pth
-*.ckpt
-*.safetensors
+*.h5
+*.hdf5
+*.npz
 
 # Paper build products
 paper/build/
@@ -70,8 +47,14 @@ paper/*.log
 paper/*.out
 paper/*.pdf
 
-# Local build and export artifacts
+# Local and sensitive artifacts
+*.pem
+*.key
+secrets/
+private/
+scratch/
+
+# Local export artifacts (film/geometry build logs and PID files)
 artifacts/
 .build/
-scratch/
 *.pid

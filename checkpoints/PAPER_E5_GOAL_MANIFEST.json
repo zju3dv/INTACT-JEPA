@@ -22,17 +22,19 @@
   },
   "evaluation": {
     "interface": "Direct",
+    "result_revision": "2026-09-14",
+    "evaluation_protocol": "official_expert_continuation_v1",
     "candidate_sequences": 0,
     "terminal_cost_calls": 0,
     "evaluation_seeds": [0, 1, 42],
     "episodes_per_evaluation_seed": 100,
-    "evaluator_fingerprint_sha256": "1e475a069338bdad6c9e6a38b8ea4e2d5557ecc4cff88844e5efee79121a9fc7",
+    "history_boundary": "strictly pre-start actions only; append each policy-executed action exactly once",
     "aggregate_official_sr_percent": {
-      "pusht": {"mean": 80.2222222222, "sample_std": 1.2619796324},
-      "cube": {"mean": 99.5555555556, "sample_std": 0.7698003589},
-      "reacher": {"mean": 95.6666666667, "sample_std": 1.7638342074},
-      "tworoom": {"mean": 82.1111111111, "sample_std": 4.1141130181},
-      "macro": {"mean": 89.3888888889, "sample_std": 0.7742977703}
+      "pusht": {"mean": 86.1111111111, "sample_std": 0.96},
+      "cube": {"mean": 100.0, "sample_std": 0.0},
+      "reacher": {"mean": 97.2222222222, "sample_std": 0.84},
+      "tworoom": {"mean": 81.5555555556, "sample_std": 3.67},
+      "macro": {"mean": 91.2222222222, "sample_std": 0.51}
     }
   },
   "training_seeds": [
@@ -40,7 +42,7 @@
       "seed": 0,
       "asset": "intact-goal-e5-seed0.tar.gz",
       "shared_state_sha256": "05c6b2f030c11698038134789e02ad00bc6d01e50aebb56910de05dfaf2d5178",
-      "official_direct_sr_percent": {"pusht": 79.3333333333, "cube": 100.0, "reacher": 93.6666666667, "tworoom": 86.6666666667, "macro": 89.9166666667},
+      "official_direct_sr_percent": {"pusht": 85.0, "cube": 100.0, "reacher": 96.3333333333, "tworoom": 85.3333333333, "macro": 91.6666666667},
       "shards": [
         {"task": "pusht", "path": "checkpoints/recovery_delta_full_pusht_s0/weights_epoch_5.pt", "bytes": 84734848, "sha256": "80312771c15e50ba4b3eb3eb9a910fe6dc0a3bd140f7df1396eea306bf89d012"},
         {"task": "cube", "path": "checkpoints/recovery_delta_full_cube_s0/weights_epoch_5.pt", "bytes": 84858432, "sha256": "96a4d525e996c2b78fa384873496396024364850ad4af0003274b8c1426ea270"},
@@ -52,7 +54,7 @@
       "seed": 42,
       "asset": "intact-goal-e5-seed42.tar.gz",
       "shared_state_sha256": "e8adcbe1c27a564b3be8193c1ce0737a50247686e647e544f9985856d635661d",
-      "official_direct_sr_percent": {"pusht": 81.6666666667, "cube": 100.0, "reacher": 96.3333333333, "tworoom": 81.0, "macro": 89.75},
+      "official_direct_sr_percent": {"pusht": 86.6666666667, "cube": 100.0, "reacher": 97.3333333333, "tworoom": 81.3333333333, "macro": 91.3333333333},
       "shards": [
         {"task": "pusht", "path": "checkpoints/recovery_delta_full_pusht_s42/weights_epoch_5.pt", "bytes": 84734848, "sha256": "fbcf4dd23eb1ffefdde3ec133609ff00eba4774bd8a697ef3e1586b0fdca917d"},
         {"task": "cube", "path": "checkpoints/recovery_delta_full_cube_s42/weights_epoch_5.pt", "bytes": 84858432, "sha256": "d155d9d0c71cc48614d822b14456f341748a25524c7a899b959a54312755e94a"},
@@ -64,7 +66,7 @@
       "seed": 3072,
       "asset": "intact-goal-e5-seed3072.tar.gz",
       "shared_state_sha256": "7cf4b0ca65011c7f54bcabdfe6664e9c82fe650e13656fbb4fe0351c582e65b8",
-      "official_direct_sr_percent": {"pusht": 79.6666666667, "cube": 98.6666666667, "reacher": 97.0, "tworoom": 78.6666666667, "macro": 88.5},
+      "official_direct_sr_percent": {"pusht": 86.6666666667, "cube": 100.0, "reacher": 98.0, "tworoom": 78.0, "macro": 90.6666666667},
       "shards": [
         {"task": "pusht", "path": "checkpoints/recovery_delta_full_pusht_s3072/weights_epoch_5.pt", "bytes": 84734848, "sha256": "24a598acac5faa1e6e548e84c4d17bd79d9e9e48aae38eee384a92ce3269b590"},
         {"task": "cube", "path": "checkpoints/recovery_delta_full_cube_s3072/weights_epoch_5.pt", "bytes": 84858432, "sha256": "d2abfd5d907491cf770cc9d3f5bd003f53d0d16f01ac4732111b9dc459895f07"},

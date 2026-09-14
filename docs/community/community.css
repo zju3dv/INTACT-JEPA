@@ -151,46 +151,76 @@
 
 .community-invite-frame {
   display: grid;
-  min-height: 340px;
-  padding: 14px;
+  min-height: 360px;
+  padding: 18px;
   place-items: center;
   border: 1px solid var(--line);
-  background: #eef2f6;
+  background: #f8fafc;
 }
 
 .community-invite-frame img {
   width: 100%;
   max-height: 520px;
-  border-radius: 16px;
   object-fit: contain;
 }
 
-.community-contact-note {
-  padding: 14px 2px 2px;
+.community-invite-frame img[hidden] {
+  display: none;
 }
 
-.community-contact-note span,
-.community-contact-note strong,
-.community-contact-note small {
+.community-placeholder {
+  max-width: 260px;
+  text-align: center;
+}
+
+.community-placeholder strong,
+.community-placeholder span {
   display: block;
 }
 
-.community-contact-note span {
-  color: #e53935;
+.community-placeholder strong {
+  color: #162033;
+  font-size: 18px;
+}
+
+.community-placeholder strong[lang="zh-CN"] {
+  margin-top: 22px;
+}
+
+.community-placeholder span {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.community-invite-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin-top: 14px;
+  background: var(--line);
+}
+
+.community-invite-meta div {
+  padding: 11px 12px;
+  background: #fff;
+}
+
+.community-invite-meta span,
+.community-invite-meta strong {
+  display: block;
+}
+
+.community-invite-meta span {
+  color: var(--muted);
   font-size: 10px;
-  font-weight: 780;
+  font-weight: 760;
   text-transform: uppercase;
 }
 
-.community-contact-note strong {
-  margin-top: 4px;
-  color: #162033;
-  font-size: 15px;
-}
-
-.community-contact-note small {
+.community-invite-meta strong {
   margin-top: 3px;
-  color: var(--muted);
+  color: #162033;
   font-size: 13px;
 }
 
@@ -206,26 +236,8 @@
   text-decoration: none;
 }
 
-.community-contact span,
-.community-contact strong {
-  display: block;
-}
-
-.community-contact strong {
-  margin-top: 3px;
-  color: #fff;
-  font-size: 13px;
-}
-
 .community-contact:hover {
   background: #e53935;
-}
-
-.community-contact-disclaimer {
-  margin: 12px 0 0 !important;
-  color: #718096 !important;
-  font-size: 11px !important;
-  line-height: 1.5;
 }
 
 .community-permalink {

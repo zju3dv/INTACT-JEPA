@@ -218,9 +218,9 @@ def render_cover(repo: Path) -> Image.Image:
     metric_centers = (550, 1440, 2350, 3290)
     metrics = (
         ("1", "FULL-DATA EPOCH", WHITE),
-        ("95.33%", "DIRECT MACRO SR", CORAL),
+        ("95.61%", "DIRECT MACRO SR", CORAL),
         ("0", "SEARCH", WHITE),
-        ("2.9–5.5 ms", "INFERENCE", BLUE_BRIGHT),
+        ("3.9–4.8 ms", "INFERENCE", BLUE_BRIGHT),
     )
     draw.line((240, 1484, 3600, 1484), fill=INK_LINE, width=3)
     draw.line((240, 1746, 3600, 1746), fill=INK_LINE, width=3)

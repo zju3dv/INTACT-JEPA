@@ -1,5 +1,6 @@
 import hashlib
 import json
+import time
 from pathlib import Path
 
 import numpy as np
@@ -29,35 +30,6 @@ class ZScoreNormalizer:
         return ((x - self.mean) / self.std).float()
 
 
-class RawZeroActionProcessor:
-    """Z-score actions while mapping missing history to a raw zero command."""
-
-    def __init__(self, mean: np.ndarray, std: np.ndarray):
-        self.mean_ = np.asarray(mean)
-        self.scale_ = np.asarray(std)
-        if not np.isfinite(self.mean_).all():
-            raise ValueError("Action mean must be finite")
-        if not np.isfinite(self.scale_).all() or np.any(self.scale_ <= 0):
-            raise ValueError("Action standard deviation must be finite and positive")
-
-    @classmethod
-    def fit(cls, values: np.ndarray) -> "RawZeroActionProcessor":
-        values = np.asarray(values)
-        valid = values[~np.isnan(values).any(axis=1)]
-        if valid.shape[0] < 2:
-            raise ValueError("At least two finite actions are required")
-        return cls(valid.mean(axis=0), valid.std(axis=0, ddof=1))
-
-    def transform(self, values: np.ndarray) -> np.ndarray:
-        values = np.asarray(values)
-        values = np.where(np.isnan(values), 0.0, values)
-        return (values - self.mean_) / self.scale_
-
-    def inverse_transform(self, values: np.ndarray) -> np.ndarray:
-        values = np.asarray(values)
-        return values * self.scale_ + self.mean_
-
-
 def _trajectory_index_source(dataset):
     """Find the dataset that owns clip starts and episode offsets."""
     if hasattr(dataset, "clip_indices") and hasattr(dataset, "offsets"):
@@ -74,12 +46,7 @@ def _trajectory_index_source(dataset):
 
 
 class PreviousActionDataset(torch.utils.data.Dataset):
-    """Attach a boundary-aware previous action chunk to every training clip.
-
-    The source files remain unchanged. Missing primitive actions before an episode
-    begins are raw-zero padded and then normalized with statistics fitted only on
-    real actions. Interior clips always receive their true preceding action chunk.
-    """
+    """Attach the causal previous-action block to every training clip."""
 
     def __init__(self, dataset, action_mean: torch.Tensor, action_std: torch.Tensor):
         self.dataset = dataset
@@ -102,8 +69,6 @@ class PreviousActionDataset(torch.utils.data.Dataset):
         return len(self.dataset)
 
     def __getattr__(self, name):
-        # Never proxy pickle/data-model hooks: doing so would serialize the
-        # wrapped reader's state in place of this wrapper's own __dict__.
         if name.startswith("__") or name in {
             "dataset",
             "index_source",
@@ -144,16 +109,10 @@ class PreviousActionDataset(torch.utils.data.Dataset):
         if rows:
             if history is None:
                 history = self._load_action_rows(rows)
-            history = torch.as_tensor(
-                history,
-                dtype=self.action_mean.dtype,
-            )
-            # Some collection formats encode the missing reset action as NaN.
-            # In raw coordinates that boundary convention is the neutral command.
+            history = torch.as_tensor(history, dtype=self.action_mean.dtype)
             history = torch.nan_to_num(history, nan=0.0)
-            raw[-len(rows):] = history
-        normalized = (raw - self.action_mean) / self.action_std
-        return normalized.reshape(-1).to(dtype=dtype)
+            raw[-len(rows) :] = history
+        return ((raw - self.action_mean) / self.action_std).reshape(-1).to(dtype=dtype)
 
     def _attach(
         self,
@@ -163,15 +122,13 @@ class PreviousActionDataset(torch.utils.data.Dataset):
     ) -> dict:
         action = item.get("action")
         if not torch.is_tensor(action) or action.ndim != 2:
-            raise ValueError("Expected normalized action chunks with shape [T,D]")
+            raise ValueError("Expected normalized action blocks with shape [T,D]")
         if not torch.isfinite(action).all():
-            raise ValueError("Target action chunks must be finite after preprocessing")
-        first = self._preceding_chunk(
-            index, dtype=action.dtype, history=history
-        )
+            raise ValueError("Target action blocks must be finite after preprocessing")
+        first = self._preceding_chunk(index, dtype=action.dtype, history=history)
         if first.numel() != action.size(-1):
             raise ValueError(
-                "Previous action chunk dimension does not match target chunks: "
+                "Previous-action width does not match target-action width: "
                 f"{first.numel()} != {action.size(-1)}"
             )
         result = dict(item)
@@ -200,7 +157,7 @@ class PreviousActionDataset(torch.utils.data.Dataset):
         ]
         return [
             self._attach(index, item, history)
-            for index, item, history in zip(indices, items, histories)
+            for index, item, history in zip(indices, items, histories, strict=True)
         ]
 
 
@@ -386,31 +343,6 @@ def select_episode_rows(dataset, values, internal_episode_ids):
     return values[mask]
 
 
-def get_column_stats(
-    dataset,
-    source: str,
-    episode_ids: np.ndarray | None = None,
-) -> tuple[torch.Tensor, torch.Tensor]:
-    """Compute finite-only z-score statistics for a dataset column."""
-    col_data = dataset.get_col_data(source)
-    if episode_ids is not None:
-        col_data = select_episode_rows(dataset, col_data, episode_ids)
-    data = np.asarray(col_data)
-    invalid = np.isnan(data).any(axis=1)
-    if invalid.any():
-        data = data[~invalid]
-    if data.shape[0] < 2:
-        raise ValueError(f"Column {source!r} has fewer than two finite rows")
-    # Compute directly in NumPy to avoid a second full-column Torch allocation.
-    mean = torch.from_numpy(
-        np.asarray(data.mean(axis=0, keepdims=True)).copy()
-    )
-    std = torch.from_numpy(
-        np.asarray(data.std(axis=0, ddof=1, keepdims=True)).copy()
-    )
-    return mean, std
-
-
 def get_column_normalizer(
     dataset,
     source: str,
@@ -430,6 +362,25 @@ def get_column_normalizer(
         source=source,
         target=target,
     )
+
+
+def get_column_stats(
+    dataset,
+    source: str,
+    episode_ids: np.ndarray | None = None,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Compute finite-only z-score statistics for one dataset column."""
+    values = np.asarray(dataset.get_col_data(source))
+    if episode_ids is not None:
+        values = select_episode_rows(dataset, values, episode_ids)
+    values = values[~np.isnan(values).any(axis=1)]
+    if values.shape[0] < 2:
+        raise ValueError(f"Column {source!r} has fewer than two finite rows")
+    mean = torch.from_numpy(np.asarray(values.mean(axis=0, keepdims=True)).copy())
+    std = torch.from_numpy(
+        np.asarray(values.std(axis=0, ddof=1, keepdims=True)).copy()
+    )
+    return mean, std
 
 class SaveCkptCallback(Callback):
     """Callback to save model checkpoint after each epoch using save_pretrained."""
@@ -456,3 +407,104 @@ class SaveCkptCallback(Callback):
             config=self.cfg,
             filename=f'weights_epoch_{epoch}.pt',
         )
+
+
+class RunMetadataCallback(Callback):
+    """Atomically track whether a configured training run actually completed."""
+
+    def __init__(self, path):
+        super().__init__()
+        self.path = Path(path)
+
+    def _update(self, **updates):
+        payload = json.loads(self.path.read_text())
+        payload.update(updates)
+        temporary = self.path.with_suffix(self.path.suffix + ".tmp")
+        temporary.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+        temporary.replace(self.path)
+
+    def on_fit_start(self, trainer, pl_module):
+        if trainer.is_global_zero:
+            self._update(status="running")
+
+    def on_fit_end(self, trainer, pl_module):
+        if trainer.is_global_zero:
+            self._update(
+                status="complete",
+                completed_epochs=int(trainer.current_epoch),
+                global_step=int(trainer.global_step),
+            )
+
+    def on_exception(self, trainer, pl_module, exception):
+        if trainer.is_global_zero:
+            self._update(
+                status="failed",
+                failure_type=type(exception).__name__,
+                completed_epochs=int(trainer.current_epoch),
+                global_step=int(trainer.global_step),
+            )
+
+
+class TrainingProgressCallback(Callback):
+    """Write concise, machine-readable single-task training progress."""
+
+    def __init__(self, path, interval_steps: int = 100, task: str | None = None):
+        super().__init__()
+        if int(interval_steps) < 1:
+            raise ValueError("interval_steps must be positive")
+        self.path = Path(path)
+        self.interval_steps = int(interval_steps)
+        self.task = task
+        self.started = None
+
+    def on_fit_start(self, trainer, pl_module):
+        if not trainer.is_global_zero:
+            return
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        if self.path.exists():
+            raise FileExistsError(
+                f"Refusing to append to an existing progress log: {self.path}"
+            )
+        self.path.touch()
+        self.started = time.time()
+
+    def on_train_batch_end(
+        self, trainer, pl_module, outputs, batch, batch_idx
+    ):
+        if not trainer.is_global_zero:
+            return
+        global_step = int(trainer.global_step)
+        total_steps = max(1, int(trainer.estimated_stepping_batches))
+        should_log = (
+            global_step == 1
+            or global_step % self.interval_steps == 0
+            or global_step == total_steps
+        )
+        if not should_log:
+            return
+
+        elapsed = time.time() - (self.started or time.time())
+        steps_per_second = global_step / max(elapsed, 1e-9)
+        record = {
+            "epoch": int(trainer.current_epoch) + 1,
+            "step": int(batch_idx) + 1,
+            "global_step": global_step,
+            "total_steps": total_steps,
+            "task": self.task,
+            "rank": int(getattr(trainer, "global_rank", 0)),
+            "lr": float(trainer.optimizers[0].param_groups[0]["lr"]),
+            "steps_per_second": steps_per_second,
+            "eta_seconds": (total_steps - global_step)
+            / max(steps_per_second, 1e-9),
+        }
+        if isinstance(outputs, dict):
+            record.update(
+                {
+                    key: float(value.detach())
+                    for key, value in outputs.items()
+                    if torch.is_tensor(value) and value.ndim == 0
+                }
+            )
+        with self.path.open("a", encoding="utf-8") as stream:
+            stream.write(json.dumps(record, sort_keys=True) + "\n")
+        print("TRAIN_PROGRESS=" + json.dumps(record, sort_keys=True), flush=True)

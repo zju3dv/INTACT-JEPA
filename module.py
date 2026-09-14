@@ -197,14 +197,11 @@ class MLP(nn.Module):
 
 
 class IntentActionActor(nn.Module):
-    """Shared local/goal action law with an explicit INTACT feature grammar.
+    """Shared local/goal action law with INTACT's exact four-slot grammar.
 
-    ``five_slot`` uses ``[z_t, m_t, 0, z_t*m_t, A(a_{t-1})]``. ``four_slot``
-    removes only the constant-zero slot. Both local and goal intents use this
-    same module and differ only in how ``m_t`` is constructed.
+    The slots are ``[z_t, m_t, z_t * m_t, A(a_{t-1})]``. Both local and goal
+    intents use this same module and differ only in how ``m_t`` is constructed.
     """
-
-    VALID_FEATURE_LAYOUTS = {"five_slot", "four_slot"}
 
     def __init__(
         self,
@@ -217,7 +214,6 @@ class IntentActionActor(nn.Module):
         dropout: float = 0.0,
         min_log_std: float = -5.0,
         max_log_std: float = 2.0,
-        feature_layout: str = "four_slot",
     ) -> None:
         super().__init__()
         if depth < 1:
@@ -227,16 +223,9 @@ class IntentActionActor(nn.Module):
         self.action_dim = action_dim
         self.min_log_std = min_log_std
         self.max_log_std = max_log_std
-        if feature_layout not in self.VALID_FEATURE_LAYOUTS:
-            raise ValueError(
-                f"feature_layout must be one of {sorted(self.VALID_FEATURE_LAYOUTS)}, "
-                f"got {feature_layout}"
-            )
-        self.feature_layout = feature_layout
-        latent_slots = 4 if feature_layout == "five_slot" else 3
 
         layers: list[nn.Module] = [
-            nn.Linear(latent_slots * embed_dim + action_emb_dim, hidden_dim),
+            nn.Linear(3 * embed_dim + action_emb_dim, hidden_dim),
             nn.LayerNorm(hidden_dim),
             nn.GELU(),
         ]
@@ -258,10 +247,6 @@ class IntentActionActor(nn.Module):
         if z.shape != intent.shape:
             raise ValueError(
                 f"z and intent must have the same shape, got {z.shape} and {intent.shape}"
-            )
-        if self.feature_layout == "five_slot":
-            return torch.cat(
-                [z, intent, torch.zeros_like(z), z * intent, prev_act_emb], dim=-1
             )
         return torch.cat([z, intent, z * intent, prev_act_emb], dim=-1)
 

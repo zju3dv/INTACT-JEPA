@@ -1,0 +1,24 @@
+# Four-task Fig. 1 training: shared encoder/projector, task-specific heads.
+tasks:
+  pusht: pusht
+  cube: ogb
+  reacher: dmc
+  tworoom: tworoom
+
+single_task_config: intact_goal
+output_model_name: intact_multitask_goal_s3072_e5
+seed: 3072
+# Paper shared-encoder recipe: N=3 history + H=5 teacher steps, E5.
+epochs: 5
+max_steps: null
+batch_size: 256
+num_workers: 6
+train_split: 0.9
+learning_rate: 5e-4
+weight_decay: 1e-3
+gradient_clip_val: 1.0
+sigreg_weight: 0.03
+teacher_horizon: 5
+log_interval_steps: 100
+deterministic_algorithms: true
+sdpa_backend: math

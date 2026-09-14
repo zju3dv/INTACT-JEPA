@@ -159,7 +159,7 @@ async function initializeCorrelationViz() {
   const root = document.querySelector('[data-correlation-viz]');
   if (!root) return;
 
-  const response = await fetch('assets/goal-intact-alignment.json?v=20260913-fixed-history');
+  const response = await fetch('assets/goal-intact-alignment.json?v=20260729-4');
   if (!response.ok) throw new Error(`Alignment data request failed: ${response.status}`);
   const { points } = await response.json();
   const pointLayer = root.querySelector('[data-correlation-points]');

@@ -23,9 +23,15 @@ class JEPA(nn.Module):
         intent_actor: nn.Module | None = None,
         intent_mode: str = "goal_displacement",
         predict_residual: bool = False,
-        actor_warmstart: bool = True,
+        **legacy_kwargs,
     ) -> None:
         super().__init__()
+        # v0 checkpoint configs may contain this removed ablation flag. Accept
+        # it only for deserialization; it is never stored or consulted.
+        legacy_kwargs.pop("actor_warmstart", None)
+        if legacy_kwargs:
+            unexpected = ", ".join(sorted(legacy_kwargs))
+            raise TypeError(f"Unexpected JEPA configuration fields: {unexpected}")
         if intent_mode not in self.VALID_INTENT_MODES:
             raise ValueError(
                 f"intent_mode must be one of {sorted(self.VALID_INTENT_MODES)}, got {intent_mode}"
@@ -38,7 +44,6 @@ class JEPA(nn.Module):
         self.intent_actor = intent_actor
         self.intent_mode = intent_mode
         self.predict_residual = predict_residual
-        self.actor_warmstart = actor_warmstart
 
     def encode(self, info: dict) -> dict:
         pixels = info["pixels"].float()
@@ -63,9 +68,6 @@ class JEPA(nn.Module):
 
     def has_intent_actor(self) -> bool:
         return self.intent_actor is not None
-
-    def set_actor_warmstart(self, enabled: bool) -> None:
-        self.actor_warmstart = bool(enabled)
 
     def get_action_dim(self, fallback: int | None = None) -> int:
         if self.intent_actor is not None:
@@ -140,19 +142,19 @@ class JEPA(nn.Module):
     ) -> torch.Tensor:
         if action is None:
             raise ValueError(
-                "Action history is required; initialize reset history as raw "
-                "zero before applying the action normalizer"
+                "A real action history is required by the Fig. 1 actor grammar"
             )
         action = action.to(device=device, dtype=dtype)
         if not torch.isfinite(action).all():
-            raise ValueError(
-                "Action history contains non-finite values; initialize missing "
-                "history as raw zero before action normalization"
-            )
+            raise ValueError("Action history contains non-finite values")
         if action.ndim == 2:
             action = action[:, None]
         if action.ndim != 3:
             raise ValueError(f"Expected action history [B,T,D], got {action.shape}")
+        if action.size(0) != batch_size or action.size(1) < 1:
+            raise ValueError(
+                "Action history must contain at least one real action per batch item"
+            )
         if action.size(-1) == action_dim:
             return action
         if action_dim % action.size(-1) == 0:
@@ -213,10 +215,8 @@ class JEPA(nn.Module):
             fallback = info["action"].size(-1)
         action_dim = self.get_action_dim(fallback)
 
-        if not self.actor_warmstart or self.intent_actor is None:
-            return torch.zeros(
-                batch_size, horizon, action_dim, device=device, dtype=dtype
-            )
+        if self.intent_actor is None:
+            raise RuntimeError("Direct and Actor CEM require an intent_actor")
 
         initial = {key: value for key, value in info.items() if torch.is_tensor(value)}
         initial["action"] = self._coerce_action_history(

@@ -38,6 +38,12 @@
   </p>
 </div>
 
+## News
+
+- **[2026-09-14] Evaluation and model update:** Fixed duplicate previous-action insertion during actor-backed evaluation. Under the corrected causal-history protocol, task-specific E1 INTACT reaches **95.61 +/- 0.59%** Official Direct macro SR and **96.58 +/- 0.44%** with optional Guarded A. We also released [history-free INTACT checkpoints and results](https://huggingface.co/INTACT-JEPA/INTACT/tree/main/INTACT-no-previous-action) as a separate ablation.
+- **[2026-08-06] Code release:** Open-sourced training and evaluation code, task-specific and shared-encoder configurations, reproducibility tools, and model documentation.
+- **[2026-07-28] Project release:** Released the [paper](https://arxiv.org/abs/2607.26056), [project page](https://zju3dv.github.io/INTACT-JEPA/), and project film.
+
 ## Project Film
 
 <p align="center">
@@ -46,6 +52,8 @@
   </a>
 </p>
 <p align="center">
+  <a href="docs/assets/intact-project-film-share.mp4">Download the share edition with project QR</a>
+  &nbsp;&middot;&nbsp;
   <a href="https://zju3dv.github.io/INTACT-JEPA/#project-film">Open the interactive project page</a>
 </p>
 
@@ -54,9 +62,8 @@
 </p>
 
 <p align="center">
-  <a href="https://zju3dv.github.io/INTACT-JEPA/community/">
-    <img src="assets/intact-manifesto.svg" width="100%" alt="A strong representation keeps the information that matters intact. INTACT does exactly that, turning LeWM into a stronger world model. Issues and pull requests are welcome; join our community.">
-  </a>
+  <strong>A strong representation keeps the information that matters intact.</strong><br>
+  <strong>INTACT does exactly that, turning LeWM into a stronger world model.</strong>
 </p>
 
 ## Why INTACT?
@@ -95,47 +102,41 @@ extra policy-training stage, or globally linear latent dynamics is required.
 
 <p align="center">
   <strong>1 epoch</strong> training &nbsp;&middot;&nbsp;
-  <strong>95.33%</strong> Direct macro &nbsp;&middot;&nbsp;
+  <strong>95.61%</strong> Direct macro &nbsp;&middot;&nbsp;
   <strong>0</strong> search &nbsp;&middot;&nbsp;
-  <strong>2.9-5.5 ms</strong> latency
+  <strong>3.9-4.8 ms</strong> latency
 </p>
 <p align="center">
-  <strong>89.39%</strong> Shared E5 Direct &nbsp;&middot;&nbsp;
-  <strong>96.86%</strong> Guarded &nbsp;&middot;&nbsp;
+  <strong>91.22%</strong> Shared E5 Direct &nbsp;&middot;&nbsp;
+  <strong>96.58%</strong> Guarded &nbsp;&middot;&nbsp;
   <strong>23.44x</strong> fewer candidates
 </p>
 
-## Paper, Website, and Code
+## Current Results and Models
 
-This repository is a **public research release**. The method record, audited
-result tables, attribution, reproducibility contract, training code, and
-evaluation code are organized here. Model assets are distributed separately
-through the public
-[INTACT Hugging Face repository](https://huggingface.co/INTACT-JEPA/INTACT).
+| Setting | Inference | Macro SR | Model / details |
+|---|---|---:|---|
+| Task-specific E1 INTACT | Direct, zero search | **95.61 +/- 0.59** | [`INTACT`](https://huggingface.co/INTACT-JEPA/INTACT/tree/main/INTACT) |
+| Task-specific E1 INTACT | Guarded A 128x3 | **96.58 +/- 0.44** | [Audited results](docs/RESULTS.md#task-specific-models) |
+| Shared-encoder E5 INTACT | Direct, zero search | **91.22 +/- 0.51** | [`INTACT-unified`](https://huggingface.co/INTACT-JEPA/INTACT/tree/main/INTACT-unified) |
+| History-free E1 ablation | Direct, zero search | **94.25 +/- 0.08** | [`INTACT-no-previous-action`](https://huggingface.co/INTACT-JEPA/INTACT/tree/main/INTACT-no-previous-action) |
 
-| Artifact | Status |
-|---|---|
-| Method and result documentation | Available in this repository |
-| Reproducibility contract | Available in [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md) |
-| Training and evaluation code | Available in this repository |
-| Configurations and checkpoint manifests | Available in `config/` and `checkpoints/` |
-| Model checkpoints | [Available on Hugging Face](https://huggingface.co/INTACT-JEPA/INTACT) |
-| Paper | arXiv preprint [2607.26056](https://arxiv.org/abs/2607.26056) (2026-07-28) |
-| Project website | [zju3dv.github.io/INTACT-JEPA](https://zju3dv.github.io/INTACT-JEPA/) |
-
-The current artifact status is tracked in [Release Status](docs/RELEASE.md).
+The history-free row is a separate ablation and should not be confused with
+the optional Guarded A result. Exact task values, variances, and evaluation
+contracts are recorded in [Audited Results](docs/RESULTS.md).
 
 ## Implementation and Reproduction
 
 The released implementation includes task-specific training, four-task
-shared-encoder training, Direct/Pure-CEM/Actor-CEM/Guarded-A inference,
-Official LeWM and CLEAR-LeWM v0.5.1 evaluation entrypoints, checkpoint
-manifests, and an isolated compatibility runtime for the published paper
-checkpoints.
+shared-encoder training, Direct/CEM/Guarded-A inference, Official LeWM and
+CLEAR-LeWM v0.8 scoring adapters, checkpoint manifests, and a
+checkpoint-compatible paper evaluation runtime. Smoke mode exercises the real
+data, model, optimizer, and checkpoint path; it is a code-path check, not an
+accuracy claim.
 
 ### Installation
 
-The CUDA environment was validated on Ubuntu 22.04, Python 3.10,
+The locked CUDA environment was validated on Ubuntu 22.04, Python 3.10,
 PyTorch 2.6.0, and CUDA 12.4:
 
 ```bash
@@ -144,9 +145,9 @@ cd INTACT-JEPA
 bash scripts/install.sh cu124
 source .venv/bin/activate
 cp .env.example .env
-# Edit .env so STABLEWM_HOME and LOCAL_DATASET_DIR point to the cache root.
-python scripts/preflight_check.py train-single \
-  --task pusht --train-seed 3072
+# Edit .env with local dataset and output roots.
+source scripts/fleet_env.sh
+"$INTACT_PYTHON" scripts/verify_install.py --require-cuda
 ```
 
 Use `bash scripts/install.sh cpu` only for import and configuration checks on
@@ -156,10 +157,9 @@ conversion, and first-run diagnostics.
 
 ### Data
 
-INTACT uses the official datasets in the
-[LeWM Hugging Face collection](https://huggingface.co/collections/quentinll/lewm).
-Existing data are reused in place and are never downloaded implicitly by the
-training scripts. Configure this layout through `.env`:
+INTACT uses the official LeWM datasets. Existing data are reused in place and
+are never downloaded implicitly by the training scripts. Configure this layout
+through `.env`:
 
 ```text
 $LOCAL_DATASET_DIR/
@@ -170,31 +170,31 @@ $LOCAL_DATASET_DIR/
     └── tworoom.h5
 ```
 
-All four published sources yield HDF5 files after download and extraction.
-The canonical training configuration converts only PushT to Lance for compact,
-batched random clip access; evaluation continues to use the original HDF5 file.
-After placing `pusht_expert_train.h5` in `datasets/`, convert it once with:
+The public PushT archive is HDF5. Convert it once to the Lance training layout
+after placing `pusht_expert_train.h5` in `datasets/`:
 
 ```bash
-python -m stable_worldmodel.cli convert \
+"$INTACT_PYTHON" -m stable_worldmodel.cli convert \
   pusht_expert_train pusht_expert_train.lance \
   --source-format hdf5 --dest-format lance
+"$INTACT_PYTHON" scripts/verify_data.py
+bash scripts/check_fleet.sh
 ```
 
-### Preflight checks
+### Smoke tests
 
 ```bash
-# Validate one-task training before launch.
-python scripts/preflight_check.py train-single \
-  --task pusht --train-seed 3072
+# One task, one GPU, one optimizer step.
+CUDA_VISIBLE_DEVICES=0 bash scripts/train.sh goal pusht \
+  --smoke --run-name smoke_goal_pusht
 
-# Validate four-task shared-encoder training.
-CUDA_VISIBLE_DEVICES=0,1,2,3 \
-python scripts/preflight_check.py train-multitask --train-seed 3072
+# Shared encoder, one task per GPU, one synchronized optimizer step.
+CUDA_VISIBLE_DEVICES=0,1,2,3 bash scripts/train_multitask.sh \
+  --smoke --run-name smoke_multitask_goal
 ```
 
-The launchers run the matching preflight automatically. Set
-`INTACT_SKIP_PREFLIGHT=1` only after running it separately.
+Run directories are immutable by default: an existing log or non-empty output
+directory causes an actionable failure instead of silent overwriting.
 
 ### Training
 
@@ -206,31 +206,29 @@ The task-specific paper setting trains one model per task for one full-data
 epoch:
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 bash scripts/train_single.sh \
-  pusht 3072 displacement
+CUDA_VISIBLE_DEVICES=0 bash scripts/train.sh goal pusht \
+  --run-name intact_goal_pusht_s3072_e1 \
+  seed=3072 trainer.max_epochs=1
 ```
 
-Replace `pusht` with `cube`, `reacher`, or `tworoom`. Replace `displacement`
-with `waypoint` for the matched coordinate-intent control.
+Replace `pusht` with `cube`, `reacher`, or `tworoom`, and replace `goal` with
+`waypoint` for the matched coordinate control.
 
 Each effective eight-frame window trains all seven physical and all seven goal
-transitions, both starting at index 0. An interior clip uses its true preceding
-action chunk. At an episode boundary, only unavailable primitive history is
-filled with raw neutral commands before applying the action z-score. Evaluation
-uses the same reset convention. See
-[Previous-Action Boundary Correction](docs/PREVIOUS_ACTION_BOUNDARY_20260804.md)
-for the exact contract and compatibility warning.
+transitions. On every index, the same demonstrated action is evaluated under
+the attached successor condition and the detached deployment-goal condition.
+An interior clip uses its true preceding action block; only unavailable history
+before a real episode boundary is raw-zero padded and then normalized.
 
 #### **Joint Multi-Task Training**
 
-The four-task E5 setting uses the same 7/7 objective in four processes, one task
+The four-task E5 setting uses the same seven-local/seven-goal objective in four processes, one task
 per GPU, with one shared encoder/projector and task-specific Forward/action
 heads:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0,1,2,3 bash scripts/train_multitask.sh \
-  3072 displacement "$STABLEWM_HOME/checkpoints" \
-  outputs/intact_multitask_goal_s3072_e5
+  --run-name intact_multitask_goal_s3072_e5
 ```
 
 Its released default is fused AdamW, constant `lr=5e-4`, weight decay `1e-3`,
@@ -247,47 +245,51 @@ MULTITASK_PROGRESS={"task": "pusht", "rank": 0, "global_step": 100, ...}
 
 ### Evaluation
 
-The evaluation modes are separate solver interfaces, not hidden ablation
-flags:
+INTACT has one policy-evaluation entrypoint. `MODE` selects the controller; it
+does not select a different history protocol:
 
 | Mode | Actor | Search | Role |
 |---|---|---|---|
 | `direct` | yes | none | Native search-free controller |
-| `pure_cem` | no | CEM | Actor-disabled representation/control baseline |
-| `actor_cem` | initialization | CEM | Actor-centered optional verification |
-| `guarded_a` | yes (Direct reference) | local CEM (128x3) | Direct-centered guarded verification |
-
-Official LeWM and CLEAR-LeWM v0.5.1 are both supported evaluation protocols.
-Their results are reported separately because their reset distributions and
-success criteria differ.
-
-#### **Official LeWM**
+| `cem` | no | broad CEM | Actor-disabled representation/control baseline |
+| `guarded_a` | yes | local CEM 128x3 | H5/RH5, sigma=0.25, top-k 16 around Direct |
 
 ```bash
-bash scripts/eval_official.sh direct pusht \
+bash scripts/eval.sh direct pusht \
   intact_goal_pusht_s3072_e1/weights_epoch_1.pt 42 100
-bash scripts/eval_official.sh pure_cem pusht \
+bash scripts/eval.sh cem pusht \
+  intact_goal_pusht_s3072_e1/weights_epoch_1.pt 42 100
+bash scripts/eval.sh guarded_a pusht \
   intact_goal_pusht_s3072_e1/weights_epoch_1.pt 42 100
 ```
 
-#### **CLEAR-LeWM v0.5.1**
+All actor-backed modes use the same causal continuation contract. At a sampled
+start step `t`, the initial actor input is `rows[t-5:t]`; missing rows before
+the true episode boundary are raw-zero padded. After reset, the history shifts
+in actions actually executed by the controller. The current dataset action
+`row[t]` and target action are never exposed.
 
-Install [CLEAR-LeWM](https://github.com/DavidSunok/CLEAR-LeWM) using its v0.5.1
-setup guide, then point the adapter to that environment:
+The command above uses Official LeWM scoring. CLEAR-LeWM v0.8 is a different
+benchmark protocol, not a different INTACT history mode. Install its pinned
+environment and invoke the scoring adapter directly:
 
 ```bash
-export CLEAR_LEWM_ROOT=/path/to/CLEAR-LeWM-v0.5.1
+export CLEAR_LEWM_ROOT=/path/to/CLEAR-LeWM-v0.8
 export CLEAR_LEWM_PYTHON="$CLEAR_LEWM_ROOT/.venv/bin/python"
+MANIFEST="$CLEAR_LEWM_ROOT/manifests/v0.8/pusht/moderate-seed42-n100.json"
 CHECKPOINT=intact_goal_pusht_s3072_e1/weights_epoch_1.pt
 
-bash scripts/eval_clear_v051.sh direct pusht \
-  "$CHECKPOINT" "$STABLEWM_HOME/datasets/pusht_expert_train.h5" \
-  "$CLEAR_LEWM_ROOT" /path/to/LeWM 42 \
-  results/pusht-clear-direct.json
+"$CLEAR_LEWM_PYTHON" clear_eval.py \
+  --clear-root "$CLEAR_LEWM_ROOT" \
+  --manifest "$MANIFEST" \
+  --policy "$CHECKPOINT" \
+  --output results/pusht-clear-direct.json \
+  --mode direct
 ```
 
-Replace `direct` with `pure_cem`, `actor_cem`, or `guarded_a` for the other
-explicit interfaces.
+Use `--mode pure_cem` or `--mode guarded_a` for the corresponding CLEAR run.
+Official and CLEAR results must be reported separately because their reset
+manifests and success criteria differ.
 
 ### Paper checkpoints
 
@@ -295,11 +297,17 @@ The checked-in manifests define six controlled shared-encoder E5 cells, three
 training seeds, and four task shards per seed (72 checkpoints). The immutable
 `paper-e5-goal-v1` model revision is publicly hosted at
 [`INTACT-JEPA/INTACT`](https://huggingface.co/INTACT-JEPA/INTACT/tree/paper-e5-goal-v1).
-Download the desired assets from the pinned Hugging Face revision and verify
-them against the checked-in manifests. Paper checkpoints use the bundled,
-read-only compatibility runtime in `paper_runtime/`; they must not be loaded by
-the corrected repository-root runtime. Exact cell mappings, expected paper
-scores, hashes, and compatibility boundaries are documented in
+These commands anonymously download and verify one cell or the full matrix:
+
+```bash
+bash scripts/download_paper_checkpoints.sh waypoint_intact all
+bash scripts/download_paper_checkpoints.sh matrix all
+bash scripts/eval_paper_matrix.sh goal_intact pusht 3072 42 100
+```
+
+Paper checkpoints use the bundled compatibility runtime in `paper_runtime/`.
+Exact cell mappings, expected paper scores, hash verification, and
+compatibility boundaries are documented in
 [Paper Checkpoints](docs/PAPER_CHECKPOINTS.md).
 
 ### Reproduction record
@@ -381,7 +389,7 @@ The four-domain model shares one visual encoder and keeps lightweight,
 task-specific forward/action heads:
 
 <p align="center">
-  <img src="assets/shared-encoder-method.png" width="100%" alt="Shared encoder and task-specific INTACT heads across four visual control domains">
+  <img src="assets/shared-encoder-method.png" width="100%" alt="INTACT inference and deployment pipeline">
 </p>
 
 See [Method Notes](docs/METHOD.md) for the statistical construction, gradient
@@ -400,16 +408,18 @@ protocol.
   <img src="assets/direct-control-results.png" width="100%" alt="One-epoch direct control and local verification results">
 </p>
 
-One epoch of goal-displacement INTACT reaches **95.33 +/- 0.58%** Direct macro
-SR with no candidate search. The same checkpoints reach **96.86 +/- 0.38%**
-with 384-sequence local verification. Published LeWM numbers use its separate
+One epoch of goal-displacement INTACT reaches **95.61 +/- 0.59%** Direct macro
+SR with no candidate search. The same checkpoints reach **96.58 +/- 0.44%**
+with Guarded A (`H=5`, `RH=5`, 128x3, raw-action `sigma=0.25`, top-k 16).
+Its 384 sampled candidates are distinct from the one deterministic final-mean
+rescore. Published LeWM numbers use its separate
 10-epoch CEM protocol and serve only as landscape context, not paired
 significance controls. Exact task values and the full matched inference matrix
 remain available in [Audited Results](docs/RESULTS.md).
 
 ### One Shared Encoder
 
-At epoch 5, Goal-displacement INTACT reaches **89.39 +/- 0.77%** Direct macro SR
+At epoch 5, Goal-displacement INTACT reaches **91.22 +/- 0.51%** Direct macro SR
 with one encoder shared across all four visual domains. The matched shared LeWM
 baseline reaches **66.17 +/- 2.67%** with CEM 300x30. With all INTACT action heads
 disabled, pure-CEM macro still rises to **70.08 +/- 1.13%**, separating
@@ -430,9 +440,9 @@ $$
 
 This conditional action quotient predicts that control should track the
 relation between predicted and expert action-law families, not task clustering
-or latent rank alone. Across 45 eligible shared-encoder checkpoints,
-predicted-expert kNN overlap correlates with Direct SR at **r = 0.954** and
-linear CKA at **r = 0.897**; pointwise action $R^2$ is weaker at **r = 0.815**.
+or latent rank alone. Across 15 eligible goal-displacement checkpoints,
+predicted-expert kNN overlap correlates with Direct SR at **r = 0.968** and
+linear CKA at **r = 0.988**; pointwise action $R^2$ reaches **r = 0.983**.
 
 <p align="center">
   <img src="assets/action-family-alignment.png" width="100%" alt="Action-family alignment diagnostics and their correlation with direct control">
@@ -474,9 +484,4 @@ See [NOTICE.md](NOTICE.md) for provenance and licensing boundaries.
 
 <p align="center">
   Questions: <a href="mailto:luoliibaqi4747@gmail.com">luoliibaqi4747@gmail.com</a>
-  &nbsp;&middot;&nbsp;
-  <a href="https://github.com/zju3dv/INTACT-JEPA/issues">Issues welcome</a><br>
-  问题咨询：<a href="mailto:luoliibaqi4747@gmail.com">luoliibaqi4747@gmail.com</a>
-  &nbsp;&middot;&nbsp;
-  <a href="https://github.com/zju3dv/INTACT-JEPA/issues">欢迎提交 Issue</a>
 </p>

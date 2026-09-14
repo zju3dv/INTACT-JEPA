@@ -11,7 +11,4 @@ update_alpha: 1.0
 std_floor: 1e-4
 std_cap: 10.0
 actor_covariance: false
-actor_cov_target_rms: 0.25
-actor_cov_min: 0.05
-actor_cov_max: 0.5
 trust_lambda: 0.0

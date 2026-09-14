@@ -1,4 +1,5 @@
-_target_: stable_worldmodel.solver.CEMSolver
+# Backward-compatible alias. New commands should use solver=pure_cem explicitly.
+_target_: cem_solvers.PureCEMSolver
 model: ???
 batch_size: 1
 num_samples: 300

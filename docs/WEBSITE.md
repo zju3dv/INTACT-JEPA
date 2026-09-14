@@ -79,11 +79,18 @@ the [Tsinghua University visual identity system](https://vi.tsinghua.edu.cn/gk/x
 Its closing card links to the project page, GitHub repository, InSpatio, and
 RoboParty Lab while preserving the QR quiet zone.
 
-The permanent Community entry point lives at `community/`. The WeChat group has
-more than 200 members and therefore requires a person-to-person invitation.
-The page publishes Junhan's personal WeChat contact card and the public contact
-email rather than a short-lived group QR code. The permanent Community-page QR
-remains the recommended share target.
+The permanent Community entry point lives at `community/`. Public pages and
+README files link to that stable URL rather than to a short-lived WeChat group
+code. Refresh the current invitation with:
+
+```bash
+python tools/update_community_qr.py /path/to/current-wechat.png \
+  --valid-until YYYY-MM-DD
+```
+
+The script rewrites a fixed public image and its expiry metadata. Re-run the
+manual Pages workflow after each update; when no active code is published, the
+page falls back to the public contact email.
 
 Before each public update:
 

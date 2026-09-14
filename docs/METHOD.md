@@ -131,19 +131,14 @@ Actor. Both intent calls have the exact four-slot grammar
 [z_t, m_t, z_t * m_t, A(a_{t-1})].
 ```
 
-Physical and goal supervision both cover indices 0--6 of the effective
-eight-frame window. On all seven indices, the same demonstrated action
-contributes both a physical and a goal NLL through the shared Actor. The
-implementation folds all 7+7 rows into one vectorized Actor call.
-
 `A(a_{t-1})` follows the boundary-aware previous-action contract. An interior
-clip uses the real primitive action chunk immediately before its start. At a
+clip uses the real primitive action block immediately before its start. At a
 true episode boundary, only unavailable history is left-padded with raw zero
-commands; those commands are then transformed using statistics fitted only on
-real demonstration actions. Evaluation applies the same raw-coordinate reset
-rule before z-scoring. The full definition and the incompatibility with older
-paper checkpoints are recorded in
-[`PREVIOUS_ACTION_BOUNDARY_20260804.md`](PREVIOUS_ACTION_BOUNDARY_20260804.md).
+commands and then normalized. Physical and goal supervision both cover all
+seven adjacent transitions of the eight-frame window. On every index, the same
+demonstrated action contributes a physical and a goal NLL through the shared
+Actor. The implementation folds all seven-local/seven-goal rows into one
+vectorized Actor call.
 
 The task-specific baseline objective is
 
@@ -157,6 +152,6 @@ fused AdamW with constant learning rate `5e-4`, weight decay `1e-3`, batch 256
 per task, five epochs, and Math SDPA. The Forward loss covers all seven
 adjacent transitions in the eight-frame window.
 
-Direct and Actor-CEM require a real action history. Pure CEM does not call the
+Direct and Guarded A require a real action history. Actor-disabled CEM does not call the
 Actor; its zero-mean proposal is only a search distribution and is never
 inserted into an Actor input or stored as a checkpoint ablation option.

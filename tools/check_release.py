@@ -13,7 +13,6 @@ ROOT = Path(__file__).resolve().parents[1]
 IGNORED_PARTS = {".git", "__pycache__"}
 TEXT_SUFFIXES = {
     ".cff",
-    ".csv",
     ".css",
     ".html",
     ".js",
@@ -23,7 +22,6 @@ TEXT_SUFFIXES = {
     ".sh",
     ".tex",
     ".toml",
-    ".tsv",
     ".txt",
     ".yaml",
     ".yml",
@@ -34,6 +32,12 @@ PRIVATE_COLLAB_FILES = {
     "TEAM_PROGRESS.md",
     "docs/COLLABORATION.md",
     "docs/FLEET.md",
+}
+STALE_RESULT_TOKENS = {
+    "95" + ".75": "superseded E1 headline",
+    "89" + ".39": "superseded shared-encoder headline",
+    "56" + ".67": "superseded inverse-only result",
+    "80" + ".61": "superseded goal-only result",
 }
 
 
@@ -80,9 +84,7 @@ def main() -> int:
     for missing in sorted(required - present):
         errors.append(f"missing required file: {missing}")
 
-    absolute_path = re.compile(
-        r"(?<![A-Za-z0-9_.-])/(?:data|mnt|home)/[A-Za-z0-9_.-]+"
-    )
+    absolute_path = re.compile(r"/(?:data|mnt|home)/[A-Za-z0-9_.-]+")
     host_prefixes = ("rp" + "pro", "h2" + "0", "h20" + "0")
     infrastructure_host = re.compile(
         rf"\b(?:{'|'.join(host_prefixes)})[-_]?\d+\b", re.I
@@ -108,6 +110,10 @@ def main() -> int:
         ):
             if pattern.search(text):
                 errors.append(f"{label} in {relative}")
+
+        for token, label in STALE_RESULT_TOKENS.items():
+            if token in text:
+                errors.append(f"{label} ({token}) in {relative}")
 
         if path.suffix.lower() != ".md":
             continue

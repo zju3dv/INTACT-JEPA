@@ -2,7 +2,6 @@ _target_: jepa.JEPA
 
 intent_mode: goal_displacement
 predict_residual: false
-actor_warmstart: true
 
 encoder:
   _target_: stable_pretraining.backbone.utils.vit_hf
@@ -32,7 +31,6 @@ action_encoder:
 
 intent_actor:
   _target_: module.IntentActionActor
-  feature_layout: four_slot
   embed_dim: ${embed_dim}
   action_emb_dim: ${embed_dim}
   action_dim: ???

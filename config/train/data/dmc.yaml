@@ -1,3 +1,4 @@
+task_name: reacher
 dataset:
   num_steps: ${num_frames}
   frameskip: 5

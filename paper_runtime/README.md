@@ -11,8 +11,8 @@ grammar. The current root runtime uses the zero-free four-slot
 parameter layout, so loading paper checkpoints through the root runtime is not
 supported.
 
-The evaluator files listed in `RUNTIME_SHA256SUMS` exactly match the fingerprint
-recorded by the controlled paper evaluation. Do not edit them when reproducing
-reported numbers. The current repository intentionally omits the legacy paper
-launchers; this directory is retained as read-only compatibility code for an
-external adapter that reproduces the recorded evaluator contract.
+The five evaluator files listed in `RUNTIME_SHA256SUMS` exactly match the
+fingerprint recorded by the controlled paper evaluation. Do not edit them when
+reproducing reported numbers. Use `scripts/eval_paper_matrix.sh` or the
+headline-only `scripts/eval_paper_direct.sh` rather than invoking this directory
+manually.

@@ -36,8 +36,11 @@ Every reported cell must record:
 ## Inference Budgets
 
 - **Direct:** zero candidate sequences and no terminal latent-cost call.
-- **Guarded A:** 128 samples for 3 CEM iterations, 384 candidate sequences per
-  planning solve, centered on the Direct plan.
+- **Guarded A:** `H=5`, `RH=5`, 128 samples for 3 CEM iterations, raw-action
+  initialization `sigma=0.25`, and top-k 16. This is 384 sampled candidate
+  sequences (1,920 candidate action steps) per planning solve, centered on the
+  Direct plan. One deterministic final-mean rescore is recorded separately and
+  is not counted as a sampled candidate.
 - **Matched broad CEM:** 300 samples for 30 iterations, 9,000 candidate
   sequences per planning solve.
 

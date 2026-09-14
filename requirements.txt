@@ -9,7 +9,7 @@ einops==0.8.2
 numpy==2.2.6
 scikit-learn==1.7.2
 
-# Versions used by the four-task release environment.
+# Direct dependency versions used by the four-task release environment.
 gymnasium==1.2.3
 ogbench==1.2.1
 mujoco==3.8.1
@@ -25,3 +25,4 @@ opencv-python-headless==4.13.0.92
 pygame==2.6.1
 pymunk==7.2.0
 wandb==0.27.0
+nvidia-ml-py==13.610.43

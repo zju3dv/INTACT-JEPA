@@ -12,17 +12,8 @@ from stable_worldmodel.solver import CEMSolver
 from stable_worldmodel.solver.utils import prepare_init_action
 
 
-def configure_math_sdpa() -> None:
-    """Use the deterministic attention backend of the paper evaluation."""
-    torch.backends.cuda.enable_flash_sdp(False)
-    torch.backends.cuda.enable_mem_efficient_sdp(False)
-    torch.backends.cuda.enable_math_sdp(True)
-    if hasattr(torch.backends.cuda, "enable_cudnn_sdp"):
-        torch.backends.cuda.enable_cudnn_sdp(False)
-
-
 class GuardedCEMSolver(CEMSolver):
-    """Preserve and locally verify a Direct plan with factorized raw-action CEM."""
+    """Preserve and locally verify a Direct plan with raw-action CEM."""
 
     evaluation_mode = "guarded_a"
 
@@ -33,9 +24,6 @@ class GuardedCEMSolver(CEMSolver):
         std_floor: float = 1e-4,
         std_cap: float = 10.0,
         actor_covariance: bool = False,
-        actor_cov_target_rms: float = 0.25,
-        actor_cov_min: float = 0.05,
-        actor_cov_max: float = 0.5,
         trust_lambda: float = 0.0,
         **kwargs: Any,
     ) -> None:
@@ -52,9 +40,6 @@ class GuardedCEMSolver(CEMSolver):
         self.std_floor = float(std_floor)
         self.std_cap = float(std_cap)
         self.actor_covariance = bool(actor_covariance)
-        self.actor_cov_target_rms = float(actor_cov_target_rms)
-        self.actor_cov_min = float(actor_cov_min)
-        self.actor_cov_max = float(actor_cov_max)
         self.trust_lambda = float(trust_lambda)
         self.timing_history: list[dict[str, float]] = []
 
@@ -87,7 +72,7 @@ class GuardedCEMSolver(CEMSolver):
         ).float()
         if tuple(costs.shape) != tuple(candidates.shape[:2]):
             raise ValueError(
-                f"cost shape mismatch: expected {tuple(candidates.shape[:2])}, "
+                f"Cost shape mismatch: expected {tuple(candidates.shape[:2])}, "
                 f"got {tuple(costs.shape)}"
             )
         if not torch.isfinite(costs).all():
@@ -103,11 +88,13 @@ class GuardedCEMSolver(CEMSolver):
     def solve(
         self, info_dict: dict[str, Any], init_action: torch.Tensor | None = None
     ) -> dict[str, Any]:
-        configure_math_sdpa()
         if not bool(getattr(self.model, "has_intent_actor", lambda: False)()):
-            raise RuntimeError("Guarded A requires a trained intent actor")
-        if not bool(getattr(self.model, "actor_warmstart", False)):
-            raise RuntimeError("Guarded A requires actor_warmstart=true")
+            raise RuntimeError("Guarded A requires a trained INTACT actor")
+        action_history = info_dict.get("action")
+        if not torch.is_tensor(action_history) or action_history.ndim < 2:
+            raise ValueError("Guarded A requires causal action history")
+        if not torch.isfinite(action_history).all():
+            raise ValueError("Guarded A action history contains non-finite values")
 
         started = time.perf_counter()
         total_envs = len(next(iter(info_dict.values())))
@@ -133,18 +120,17 @@ class GuardedCEMSolver(CEMSolver):
                 "configured_std_floor": self.std_floor,
                 "configured_std_cap": self.std_cap,
                 "configured_actor_covariance": float(self.actor_covariance),
-                "configured_actor_cov_target_rms": self.actor_cov_target_rms,
-                "configured_actor_cov_min": self.actor_cov_min,
-                "configured_actor_cov_max": self.actor_cov_max,
                 "configured_trust_lambda": self.trust_lambda,
-                "configured_rollout_budget": float(
+                "configured_candidate_sequences_per_solve": float(
+                    self.num_samples * self.n_steps
+                ),
+                "configured_candidate_action_steps_per_solve": float(
                     self.num_samples * self.n_steps * self.horizon
                 ),
+                "configured_final_mean_rescores_per_solve": 1.0,
                 "reference_forced_every_round": 1.0,
                 "global_best_preserved": 1.0,
                 "final_mean_rescored": 1.0,
-                "returns_observed_choice": 1.0,
-                "sdpa_math_only": 1.0,
             }
         )
 
@@ -210,7 +196,7 @@ class GuardedCEMSolver(CEMSolver):
 
             final_cost = self._score(info, batch_mean[:, None])[:, 0]
             stats["get_cost_calls"] += 1.0
-            stats["final_rescore_calls"] += 1.0
+            stats["final_mean_rescored_sequences"] += float(batch_size)
             improved = final_cost < global_best_cost
             global_best_cost = torch.where(improved, final_cost, global_best_cost)
             global_best = torch.where(
@@ -218,21 +204,15 @@ class GuardedCEMSolver(CEMSolver):
             )
 
             if reference_cost is None:
-                raise RuntimeError("reference plan was never scored")
+                raise RuntimeError("Guarded A reference plan was never scored")
             stats["selected_reference"] += float(
                 (global_best_cost == reference_cost).sum().item()
-            )
-            stats["predicted_non_degrading"] += float(
-                (global_best_cost <= reference_cost + 1e-7).sum().item()
             )
             stats["solved_envs"] += float(batch_size)
             output_actions[start:end] = global_best
             output_costs[start:end] = global_best_cost
 
         stats["solve_time"] = time.perf_counter() - started
-        stats["predicted_non_degrading_fraction"] = (
-            stats["predicted_non_degrading"] / max(stats["solved_envs"], 1.0)
-        )
         self.timing_history.append(dict(stats))
         actions = output_actions.detach().cpu()
         return {

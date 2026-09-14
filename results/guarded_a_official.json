@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "identity": "Guarded A",
+  "status": "frozen_audited",
+  "criterion": "Official LeWM",
+  "protocol": {
+    "name": "official_expert_continuation_v1",
+    "history_slots": 5,
+    "initial_rows": "rows[t-5:t]",
+    "padding": "raw-zero left padding only before episode start",
+    "online_update": "shift in executed primitive actions",
+    "current_dataset_row_action_used": false,
+    "target_action_visible": false
+  },
+  "solver": {
+    "planning_horizon": 5,
+    "receding_horizon": 5,
+    "action_block": 5,
+    "num_samples": 128,
+    "n_steps": 3,
+    "topk": 16,
+    "initial_raw_action_std": 0.25,
+    "update_alpha": 1.0,
+    "std_floor": 0.0001,
+    "std_cap": 10.0,
+    "actor_covariance": false,
+    "trust_lambda": 0.0,
+    "direct_reference_forced_each_round": true,
+    "global_best_preserved": true,
+    "sampled_sequences_per_solve": 384,
+    "sampled_action_steps_per_solve": 1920,
+    "final_mean_rescores_per_solve": 1,
+    "sdpa_backend": "math"
+  },
+  "statistics": {
+    "evaluation_seeds": [0, 1, 42],
+    "episodes_per_evaluation_seed": 100,
+    "pooling": "pool 300 episodes within each training seed; report mean and sample standard deviation over three training seeds"
+  },
+  "cohorts": [
+    {
+      "id": "task_specific_e1",
+      "epoch": 1,
+      "training_seeds": [3072, 3073, 3074],
+      "cell_count": 36,
+      "checkpoint_sha256": {
+        "pusht": {
+          "3072": "5baeec6300e8dbb57b1bf40f7ea036a3cee0f1eb8374f9f42d61acb489ca0e0a",
+          "3073": "2719780a32371d7e5553465aa230e117da2ded70d446db94d6a6d4170debe30f",
+          "3074": "708ef7f72ed55e9967ae19722c62a5f2d1920567a604d4affd35451da1b58f2c"
+        },
+        "cube": {
+          "3072": "fb228a2d161c9b391bd2a43ac9672226b05e7c92e0831975066f5d5fcaf5d629",
+          "3073": "10a78f4fd2a37b11071d9825eeacc6728060444dd49e84d4b2911b499c68c15d",
+          "3074": "29bc8649d63b589d48e624c3865edb6559d78f30576cdbe2615f645d893dbc0a"
+        },
+        "reacher": {
+          "3072": "2e00cfa6da6f17620a77efcc2e79ea62f14b5005a39e7e66f73fcb7dbbed5ecd",
+          "3073": "8329e46fab089f39d34f1706d5e9042f3a0c81465b87adaf3673218ecba9d0eb",
+          "3074": "68ec89276d69975a07a638477ecf4e35a9298308209604b77fb80abc239c4ffc"
+        },
+        "tworoom": {
+          "3072": "c0740c44056bd6e52749b8ae7d353347dc76baab2931805400d807fe1e553ac0",
+          "3073": "bd5862bd23f9d1c4390a45b107a3f2185e78d0d5a54f4e865826abdcfb22af5f",
+          "3074": "64ce94347c9221dc73d68a28c8a8883a258e2dc2c81a91900eb2dcc5c1e9ce6e"
+        }
+      },
+      "success_rate_percent_by_eval_seed": {
+        "pusht": {"3072": [90, 90, 93], "3073": [95, 90, 92], "3074": [91, 92, 91]},
+        "cube": {"3072": [98, 100, 100], "3073": [100, 100, 100], "3074": [99, 100, 100]},
+        "reacher": {"3072": [97, 100, 97], "3073": [98, 97, 96], "3074": [99, 98, 96]},
+        "tworoom": {"3072": [98, 95, 97], "3073": [99, 98, 100], "3074": [100, 95, 96]}
+      },
+      "pooled_success_rate_percent_by_training_seed": {
+        "pusht": {"3072": 91.0, "3073": 92.33333333333333, "3074": 91.33333333333333},
+        "cube": {"3072": 99.33333333333333, "3073": 100.0, "3074": 99.66666666666667},
+        "reacher": {"3072": 98.0, "3073": 97.0, "3074": 97.66666666666667},
+        "tworoom": {"3072": 96.66666666666667, "3073": 99.0, "3074": 97.0}
+      },
+      "aggregate_mean_sample_std_percent": {
+        "pusht": [91.55555555555556, 0.6938886664887091],
+        "cube": [99.66666666666667, 0.3333333333333357],
+        "reacher": [97.55555555555556, 0.509175077217316],
+        "tworoom": [97.55555555555556, 1.2619796324000592],
+        "macro": [96.58333333333333, 0.4409585518440948]
+      }
+    },
+    {
+      "id": "shared_encoder_e5",
+      "epoch": 5,
+      "training_seeds": [0, 42, 3072],
+      "cell_count": 36,
+      "checkpoint_sha256": {
+        "pusht": {
+          "0": "80312771c15e50ba4b3eb3eb9a910fe6dc0a3bd140f7df1396eea306bf89d012",
+          "42": "fbcf4dd23eb1ffefdde3ec133609ff00eba4774bd8a697ef3e1586b0fdca917d",
+          "3072": "24a598acac5faa1e6e548e84c4d17bd79d9e9e48aae38eee384a92ce3269b590"
+        },
+        "cube": {
+          "0": "96a4d525e996c2b78fa384873496396024364850ad4af0003274b8c1426ea270",
+          "42": "d155d9d0c71cc48614d822b14456f341748a25524c7a899b959a54312755e94a",
+          "3072": "d2abfd5d907491cf770cc9d3f5bd003f53d0d16f01ac4732111b9dc459895f07"
+        },
+        "reacher": {
+          "0": "9b2d77168f269f0e13a1aa719548a7054dd57bd78cf6c8da6553ec5b33d049fe",
+          "42": "3ff3fc512185451728c97b63b66272a584989c01834267463107cd95f845f5f9",
+          "3072": "5d0cdd0e9ce2fa187b552cc0ef8930c7ead6bdaaf04cc9bb4d2381b720ab0009"
+        },
+        "tworoom": {
+          "0": "93ed1ef36e59075f39fb5d2ea9f4e25ded824ee2d57496b39bbdb372bad0392a",
+          "42": "5b86d5ca2f45ac65873c578553d683305478d6d5fe38a72f4d5b93d1a5027082",
+          "3072": "42eea9823bbb13ed3779c25dcc3f18cb9a461f1c7dff9dc803c741fa321b4a6e"
+        }
+      },
+      "success_rate_percent_by_eval_seed": {
+        "pusht": {"0": [84, 85, 78], "42": [85, 89, 89], "3072": [86, 88, 85]},
+        "cube": {"0": [99, 100, 100], "42": [98, 100, 99], "3072": [99, 99, 99]},
+        "reacher": {"0": [99, 95, 96], "42": [95, 97, 97], "3072": [100, 99, 95]},
+        "tworoom": {"0": [86, 82, 84], "42": [83, 73, 84], "3072": [80, 73, 79]}
+      },
+      "pooled_success_rate_percent_by_training_seed": {
+        "pusht": {"0": 82.33333333333333, "42": 87.66666666666667, "3072": 86.33333333333333},
+        "cube": {"0": 99.66666666666667, "42": 99.0, "3072": 99.0},
+        "reacher": {"0": 96.66666666666667, "42": 96.33333333333333, "3072": 98.0},
+        "tworoom": {"0": 84.0, "42": 80.0, "3072": 77.33333333333333}
+      },
+      "aggregate_mean_sample_std_percent": {
+        "pusht": [85.44444444444444, 2.7755546659548473],
+        "cube": [99.22222222222223, 0.38490017945975324],
+        "reacher": [97.0, 0.8819171036881978],
+        "tworoom": [80.44444444444444, 3.3554819712314465],
+        "macro": [90.52777777777777, 0.3154949081000217]
+      }
+    }
+  ],
+  "provenance": {
+    "audited_cell_count": 72,
+    "source_summary_sha256": "504bb4e9be6243729cab6fc363b183bfbab52a6996ae61b292e7a4f72d11a157",
+    "official_evaluator_sha256": "39318b81ed151d8556d8540f460a63eedaed0ce4b2211ce0af9f8200e7d83bde",
+    "stable_worldmodel_world_sha256": "39318b81ed151d8556d8540f460a63eedaed0ce4b2211ce0af9f8200e7d83bde",
+    "evaluated_eval_adapter_sha256_by_cohort": {
+      "task_specific_e1": "2b33dcfca7166fcc0e8c22427b21bbdc016c6ab07055be5a1d7646a61f513c56",
+      "shared_encoder_e5": "28f44839e31dae4af5e12bb3f9135b76cd61fa6c92f9d3f4aa89663584248f48"
+    },
+    "evaluated_history_policy_sha256": "f2f00ca016c4899fce1692bc46ca4b781ea0fb198ce05e1100eb4404b7677ff0",
+    "evaluated_guarded_solver_sha256": "49d34be3224130ba57a697d41df04eac202eac3eae785a7f1d5353f6c3d8783d",
+    "release_guarded_solver_sha256": "bb3aecc6129ff729c9f25f3ccc93b2b2e71672ebb3f38a00ccd2f6391a25f951",
+    "evaluated_single_task_model_sha256": "6e4aa18495db40bd8a2e6a9013d2d75dd4083f46710a4c12391ff7c6c0ab6036",
+    "evaluated_shared_model_sha256": "e793e10a2db061492a4b824c0a7bc5493281e419c3eed706ad49fa97bfd1f18a"
+  }
+}

@@ -5,7 +5,6 @@ defaults:
   - _self_
 
 output_model_name: intact_goal_pusht_s3072
-variant: displacement
 seed: 3072
 img_size: 224
 embed_dim: 192
@@ -13,6 +12,8 @@ history_size: 3
 num_frames: 8
 train_split: 0.9
 init_weights_path: null
+sdpa_backend: math
+log_interval_steps: 100
 
 model:
   intent_mode: goal_displacement
@@ -45,10 +46,9 @@ loss:
       knots: 17
       num_proj: 1024
   intent:
+    # Physical and goal NLL both cover transition indices 0--6.
     local_weight: 0.1
     goal_weight: 0.05
-    local_start: 0
-    goal_start: 0
 
 wandb:
   enabled: false

@@ -672,10 +672,6 @@ h3 {
   color: #175e91;
 }
 
-.shared-results-table .headline-score {
-  color: var(--coral);
-}
-
 .shared-results-table .primary-result th,
 .shared-results-table .primary-result td:not(:last-child) {
   background: #fff2f2;

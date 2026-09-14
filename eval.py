@@ -7,7 +7,10 @@ if "MUJOCO_EGL_DEVICE_ID" not in os.environ:
     if visible_device.isdigit():
         os.environ["MUJOCO_EGL_DEVICE_ID"] = visible_device
 
+import hashlib
 import json
+import platform
+import socket
 import time
 from pathlib import Path
 
@@ -20,11 +23,52 @@ from sklearn import preprocessing
 from torchvision.transforms import v2 as transforms
 import stable_worldmodel as swm
 
-from utils import (
-    RawZeroActionProcessor,
-    load_episode_split_manifest,
-    select_episode_rows,
+from evaluation_contract import (
+    audit_checkpoint,
+    build_evaluation_contract,
+    validate_guarded_a_config,
 )
+from history_policy import (
+    BlockStandardScaler,
+    StatefulActionHistoryPolicy,
+    build_initial_history,
+)
+from sdpa_policy import (
+    sdpa_kernel_context,
+    sdpa_policy_metadata,
+    validate_sdpa_backend,
+)
+from utils import load_episode_split_manifest, select_episode_rows
+
+
+def validate_evaluation_contract(cfg: DictConfig) -> dict[str, str]:
+    protocol = str(OmegaConf.select(cfg, "eval.protocol", default="official"))
+    if protocol != "official":
+        raise ValueError(
+            "eval.py implements the official protocol; use clear_eval.py for "
+            "CLEAR-LeWM v0.8"
+        )
+    mode = str(OmegaConf.select(cfg, "eval.inference_mode", default="direct"))
+    target = str(OmegaConf.select(cfg, "solver._target_"))
+    contract = build_evaluation_contract(protocol, mode, target)
+    if mode == "guarded_a":
+        validate_guarded_a_config(
+            {
+                "num_samples": int(cfg.solver.num_samples),
+                "n_steps": int(cfg.solver.n_steps),
+                "topk": int(cfg.solver.topk),
+                "horizon": int(cfg.plan_config.horizon),
+                "receding_horizon": int(cfg.plan_config.receding_horizon),
+                "action_block": int(cfg.plan_config.action_block),
+                "var_scale": float(cfg.solver.var_scale),
+                "update_alpha": float(cfg.solver.update_alpha),
+                "std_floor": float(cfg.solver.std_floor),
+                "std_cap": float(cfg.solver.std_cap),
+                "actor_covariance": bool(cfg.solver.actor_covariance),
+                "trust_lambda": float(cfg.solver.trust_lambda),
+            }
+        )
+    return contract
 
 
 def _json_safe(value):
@@ -41,6 +85,30 @@ def _json_safe(value):
     if isinstance(value, Path):
         return str(value)
     return value
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(8 * 1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def audit_runtime_sources(mode: str) -> dict[str, str]:
+    """Fingerprint the exact local adapter and solver used by an evaluation."""
+    root = Path(__file__).resolve().parent
+    solver_file = {
+        "direct": "direct_solver.py",
+        "pure_cem": "cem_solvers.py",
+        "actor_cem": "cem_solvers.py",
+        "guarded_a": "abcd_solvers.py",
+    }[mode]
+    names = ["eval.py", "evaluation_contract.py", solver_file]
+    if mode != "pure_cem":
+        names.append("history_policy.py")
+    return {name: _sha256_file(root / name) for name in names}
+
 
 def img_transform(cfg):
     transform = transforms.Compose(
@@ -76,7 +144,13 @@ def get_dataset(cfg, dataset_name):
 
 @hydra.main(version_base=None, config_path="./config/eval", config_name="pusht")
 def run(cfg: DictConfig):
-    """Evaluate INTACT Direct control or the optional LeWM-compatible CEM path."""
+    """Evaluate one explicit INTACT inference mode with the official protocol."""
+    evaluation_contract = validate_evaluation_contract(cfg)
+    sdpa_backend = validate_sdpa_backend(
+        OmegaConf.select(cfg, "sdpa_backend", default="auto")
+    )
+    protocol = evaluation_contract["protocol"]
+    inference_mode = evaluation_contract["inference_mode"]
     assert (
         cfg.plan_config.horizon * cfg.plan_config.action_block <= cfg.eval.eval_budget
     ), "Planning horizon must be smaller than or equal to eval_budget"
@@ -110,18 +184,14 @@ def run(cfg: DictConfig):
     for col in cfg.dataset.keys_to_cache:
         if col in ["pixels"]:
             continue
+        processor = preprocessing.StandardScaler()
         col_data = stats_dataset.get_col_data(col)
         if stats_episode_ids is not None:
             col_data = select_episode_rows(
                 stats_dataset, col_data, stats_episode_ids
             )
         col_data = col_data[~np.isnan(col_data).any(axis=1)]
-        if col == "action":
-            # At reset stable-worldmodel exposes a missing action as NaN. Map it
-            # to the raw neutral command before z-scoring, never to normalized 0.
-            processor = RawZeroActionProcessor.fit(col_data)
-        else:
-            processor = preprocessing.StandardScaler().fit(col_data)
+        processor.fit(col_data)
         process[col] = processor
 
         if col != "action":
@@ -132,16 +202,15 @@ def run(cfg: DictConfig):
     solver = None
 
     if policy != "random":
+        checkpoint_audit = audit_checkpoint(
+            cfg.policy,
+            swm.data.utils.get_cache_dir(sub_folder="checkpoints"),
+        )
         model = swm.wm.utils.load_pretrained(cfg.policy)
         model = model.to("cuda")
         model = model.eval()
         model.requires_grad_(False)
         model.interpolate_pos_encoding = True
-        actor_warmstart = bool(OmegaConf.select(cfg, "eval.actor_warmstart", default=True))
-        if hasattr(model, "set_actor_warmstart"):
-            model.set_actor_warmstart(actor_warmstart)
-        elif hasattr(model, "actor_warmstart"):
-            model.actor_warmstart = actor_warmstart
         config = swm.PlanConfig(**cfg.plan_config)
         solver = hydra.utils.instantiate(cfg.solver, model=model)
         policy = swm.policy.WorldModelPolicy(
@@ -149,6 +218,7 @@ def run(cfg: DictConfig):
         )
 
     else:
+        checkpoint_audit = None
         policy = swm.policy.RandomPolicy()
 
     results_path = (
@@ -228,24 +298,45 @@ def run(cfg: DictConfig):
     if len(eval_episodes) < cfg.eval.num_eval:
         raise ValueError("Not enough episodes with sufficient length for evaluation.")
 
+    history_protocol = None
+    if cfg.policy != "random" and inference_mode != "pure_cem":
+        history_slots = int(cfg.plan_config.action_block)
+        initial_history = build_initial_history(
+            dataset,
+            eval_episodes.tolist(),
+            eval_start_idx.tolist(),
+            history_slots,
+        )
+        policy.process["action"] = BlockStandardScaler(policy.process["action"])
+        policy = StatefulActionHistoryPolicy(policy, initial_history)
+        history_protocol = {
+            "mode": "expert_continuation",
+            "slots": history_slots,
+            "initial_rows": "rows[t-slots:t]",
+            "padding": "raw-zero left padding only before episode start",
+            "online_update": "shift in executed primitive actions",
+            "current_dataset_row_action_used": False,
+            "target_action_visible": False,
+        }
+        print("EVAL_ACTION_HISTORY=" + json.dumps(history_protocol, sort_keys=True))
+
     world.set_policy(policy)
 
     results_path.mkdir(parents=True, exist_ok=True)
 
     start_time = time.time()
-    metrics = world.evaluate(
-        dataset=dataset,
-        start_steps=eval_start_idx.tolist(),
-        goal_offset=cfg.eval.goal_offset_steps,
-        eval_budget=cfg.eval.eval_budget,
-        episodes_idx=eval_episodes.tolist(),
-        callables=OmegaConf.to_container(cfg.eval.get("callables"), resolve=True),
-        video=(
-            results_path
-            if bool(OmegaConf.select(cfg, "eval.save_video", default=True))
-            else None
-        ),
-    )
+    with sdpa_kernel_context(sdpa_backend):
+        metrics = world.evaluate(
+            dataset=dataset,
+            start_steps=eval_start_idx.tolist(),
+            goal_offset=cfg.eval.goal_offset_steps,
+            eval_budget=cfg.eval.eval_budget,
+            episodes_idx=eval_episodes.tolist(),
+            callables=OmegaConf.to_container(
+                cfg.eval.get("callables"), resolve=True
+            ),
+            video=results_path,
+        )
     end_time = time.time()
     eval_total_time = end_time - start_time
     if hasattr(solver, "timing_summary"):
@@ -258,13 +349,22 @@ def run(cfg: DictConfig):
                 timing.get("solve_time_sum", 0.0) / max(int(cfg.eval.num_eval), 1)
             )
             metrics["get_cost_calls"] = timing.get("get_cost_calls_sum", 0.0)
-            metrics["rollout_candidates"] = timing.get(
+            metrics["candidate_action_sequences"] = timing.get(
+                "candidate_action_sequences_sum", 0.0
+            )
+            metrics["candidate_action_steps"] = timing.get(
                 "candidate_action_steps_sum", 0.0
             )
-            metrics["configured_rollout_candidates_per_solve"] = timing.get(
-                "configured_rollout_budget_mean", 0.0
+            metrics["configured_candidate_sequences_per_solve"] = timing.get(
+                "configured_candidate_sequences_per_solve_mean", 0.0
             )
-    
+            metrics["configured_candidate_action_steps_per_solve"] = timing.get(
+                "configured_candidate_action_steps_per_solve_mean", 0.0
+            )
+            metrics["final_mean_rescored_sequences"] = timing.get(
+                "final_mean_rescored_sequences_sum", 0.0
+            )
+
     print(metrics)
 
     results_path = results_path / cfg.output.filename
@@ -282,17 +382,42 @@ def run(cfg: DictConfig):
         f.write(f"metrics: {metrics}\n")
         f.write(f"evaluation_time: {eval_total_time} seconds\n")
 
+    resolved_config = OmegaConf.to_yaml(cfg, resolve=True)
+    runtime = {
+        "hostname": socket.gethostname(),
+        "platform": platform.platform(),
+        "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+        "cuda_available": torch.cuda.is_available(),
+        "cuda_device_index": (
+            torch.cuda.current_device() if torch.cuda.is_available() else None
+        ),
+        "cuda_device_name": (
+            torch.cuda.get_device_name() if torch.cuda.is_available() else None
+        ),
+    }
     payload = {
         "policy": cfg.policy,
-        "inference_mode": getattr(solver, "evaluation_mode", None),
-        "actor_warmstart": OmegaConf.select(
-            cfg, "eval.actor_warmstart", default=None
-        ),
+        "protocol": protocol,
+        "inference_mode": inference_mode,
+        "evaluation_contract": evaluation_contract,
+        "action_history_protocol": history_protocol,
+        "checkpoint_audit": checkpoint_audit,
+        "evaluation_seed": int(cfg.seed),
+        "evaluation_config_sha256": hashlib.sha256(
+            resolved_config.encode("utf-8")
+        ).hexdigest(),
+        "sdpa": sdpa_policy_metadata(sdpa_backend),
+        "runtime": runtime,
+        "runtime_source_sha256": audit_runtime_sources(inference_mode),
         "num_eval": cfg.eval.num_eval,
         "num_samples": OmegaConf.select(cfg, "solver.num_samples", default=None),
         "n_steps": OmegaConf.select(cfg, "solver.n_steps", default=None),
         "topk": OmegaConf.select(cfg, "solver.topk", default=None),
+        "initial_action_std": OmegaConf.select(
+            cfg, "solver.var_scale", default=None
+        ),
         "horizon": cfg.plan_config.horizon,
+        "receding_horizon": cfg.plan_config.receding_horizon,
         "action_block": cfg.plan_config.action_block,
         "metrics": _json_safe(metrics),
         "eval_total_time": eval_total_time,

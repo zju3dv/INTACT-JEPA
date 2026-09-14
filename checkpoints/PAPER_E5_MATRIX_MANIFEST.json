@@ -7,6 +7,8 @@
   },
   "protocol": {
     "name": "Controlled Math-SDPA shared-encoder E5 matrix",
+    "result_revision": "2026-09-14",
+    "evaluation_protocol": "official_expert_continuation_v1",
     "epoch": 5,
     "training_seeds": [
       0,
@@ -25,7 +27,7 @@
       "reacher",
       "tworoom"
     ],
-    "evaluator_fingerprint_sha256": "1e475a069338bdad6c9e6a38b8ea4e2d5557ecc4cff88844e5efee79121a9fc7"
+    "history_boundary": "strictly pre-start actions only; append each policy-executed action exactly once"
   },
   "cells": [
     {
@@ -168,24 +170,24 @@
       "native_interface": "Direct",
       "aggregate_official_sr_percent": {
         "pusht": {
-          "mean": 35.0,
-          "sample_std": 1.45
+          "mean": 36.11,
+          "sample_std": 0.19
         },
         "cube": {
-          "mean": 61.89,
-          "sample_std": 1.26
+          "mean": 67.56,
+          "sample_std": 4.03
         },
         "reacher": {
-          "mean": 61.0,
-          "sample_std": 0.58
+          "mean": 90.56,
+          "sample_std": 1.35
         },
         "tworoom": {
-          "mean": 68.78,
-          "sample_std": 3.83
+          "mean": 78.56,
+          "sample_std": 6.68
         },
         "macro": {
-          "mean": 56.67,
-          "sample_std": 0.22
+          "mean": 68.19,
+          "sample_std": 0.67
         }
       },
       "training_seeds": [
@@ -436,24 +438,24 @@
       "native_interface": "Direct",
       "aggregate_official_sr_percent": {
         "pusht": {
-          "mean": 70.67,
-          "sample_std": 1.76
+          "mean": 81.78,
+          "sample_std": 0.96
         },
         "cube": {
           "mean": 100.0,
           "sample_std": 0.0
         },
         "reacher": {
-          "mean": 82.33,
-          "sample_std": 3.18
+          "mean": 88.67,
+          "sample_std": 0.33
         },
         "tworoom": {
-          "mean": 69.44,
-          "sample_std": 6.75
+          "mean": 69.22,
+          "sample_std": 7.04
         },
         "macro": {
-          "mean": 80.61,
-          "sample_std": 2.11
+          "mean": 84.92,
+          "sample_std": 1.86
         }
       },
       "training_seeds": [
@@ -704,24 +706,24 @@
       "native_interface": "Direct",
       "aggregate_official_sr_percent": {
         "pusht": {
-          "mean": 80.22,
-          "sample_std": 1.26
+          "mean": 86.11,
+          "sample_std": 0.96
         },
         "cube": {
-          "mean": 99.56,
-          "sample_std": 0.77
+          "mean": 100.0,
+          "sample_std": 0.0
         },
         "reacher": {
-          "mean": 95.67,
-          "sample_std": 1.76
+          "mean": 97.22,
+          "sample_std": 0.84
         },
         "tworoom": {
-          "mean": 82.11,
-          "sample_std": 4.11
+          "mean": 81.56,
+          "sample_std": 3.67
         },
         "macro": {
-          "mean": 89.39,
-          "sample_std": 0.77
+          "mean": 91.22,
+          "sample_std": 0.51
         }
       },
       "training_seeds": [

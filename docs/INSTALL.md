@@ -1,11 +1,11 @@
-# Installation and Data Setup
+# Installation and data setup
 
-The corrected runtime is validated on Ubuntu 22.04, Python 3.10, PyTorch 2.6,
-and CUDA 12.4. Full training and evaluation require a compatible NVIDIA GPU.
-The CPU environment is intended only for imports, configuration checks, and
-unit tests.
+The release environment was validated on Ubuntu 22.04, Python 3.10, PyTorch
+2.6.0, and CUDA 12.4. The PyTorch wheel bundles its CUDA runtime; a separate
+CUDA toolkit is not required, but the machine needs an NVIDIA driver compatible
+with CUDA 12.4.
 
-## System Packages
+## System packages
 
 On a minimal Ubuntu machine, install the headless rendering libraries once:
 
@@ -15,7 +15,7 @@ sudo apt-get install -y \
   git ffmpeg zstd libegl1 libgl1 libglfw3 libglew2.2 libosmesa6
 ```
 
-## Isolated Python Environment
+## Isolated Python environment
 
 From the repository root:
 
@@ -24,40 +24,44 @@ bash scripts/install.sh cu124
 source .venv/bin/activate
 ```
 
-For CPU-only checks:
+For import and configuration checks on a machine without an NVIDIA GPU:
 
 ```bash
 bash scripts/install.sh cpu
 source .venv/bin/activate
 ```
 
-The installer uses `uv` when available and otherwise uses standard `venv` and
-`pip`. It installs the explicit PyTorch wheel and `requirements-dev.txt`, runs
-`pip check`, and executes the test suite. The checked-in
-`requirements-cu124.lock` documents the earlier public-release environment;
-it is retained for compatibility records but is not consumed by the corrected
-release installer.
+The CPU environment is not intended for full training or evaluation. The
+installer creates `.venv`, installs the explicit PyTorch wheel, consumes the
+fully resolved `requirements-cu124.lock`, runs `pip check`, and checks the
+four environment registrations. `requirements.txt` remains the readable
+direct-dependency contract and is used for the CPU-only check environment. If
+`uv` is unavailable, the installer falls back to Python's standard `venv`
+and `pip`.
 
-## Local Paths
+## Local paths
 
-Copy the template and edit the ignored `.env` file:
+Copy the template and edit only the local, ignored `.env` file:
 
 ```bash
 cp .env.example .env
 ```
 
-Set both cache variables to the same cache root unless the local installation
-requires separate locations:
+The variables have separate responsibilities:
+
+- `INTACT_PYTHON`: Python executable used by all shell launchers.
+- `LOCAL_DATASET_DIR`: cache root containing the `datasets/` directory.
+- `INTACT_OUTPUT_HOME`: output root for logs, checkpoints, and result files.
+- `MUJOCO_GL`: headless rendering backend; `egl` is the tested GPU setting.
+
+Values exported in the current shell take precedence over `.env`. Load and
+inspect the resolved configuration with:
 
 ```bash
-export STABLEWM_HOME=/path/to/stable-wm-cache
-export LOCAL_DATASET_DIR=$STABLEWM_HOME
-export MUJOCO_GL=egl
-export PYOPENGL_PLATFORM=egl
+source scripts/fleet_env.sh
+printf 'Python: %s\nData: %s\nOutput: %s\n' \
+  "$INTACT_PYTHON" "$LOCAL_DATASET_DIR" "$INTACT_OUTPUT_HOME"
 ```
-
-Shell launchers inherit these variables. They never download datasets or
-checkpoints implicitly.
 
 ## Datasets
 
@@ -66,30 +70,28 @@ Download the four public archives from the
 
 | Task | Dataset repository | Published archive |
 |---|---|---|
-| PushT | [`quentinll/lewm-pusht`](https://huggingface.co/datasets/quentinll/lewm-pusht) | `pusht_expert_train.h5.zst` |
-| Cube | [`quentinll/lewm-cube`](https://huggingface.co/datasets/quentinll/lewm-cube) | `cube_single_expert.tar.zst` |
-| Reacher | [`quentinll/lewm-reacher`](https://huggingface.co/datasets/quentinll/lewm-reacher) | `reacher.tar.zst` |
-| TwoRoom | [`quentinll/lewm-tworooms`](https://huggingface.co/datasets/quentinll/lewm-tworooms) | `tworoom.tar.zst` |
+| PushT | `quentinll/lewm-pusht` | `pusht_expert_train.h5.zst` |
+| Cube | `quentinll/lewm-cube` | `cube_single_expert.tar.zst` |
+| Reacher | `quentinll/lewm-reacher` | `reacher.tar.zst` |
+| TwoRoom | `quentinll/lewm-tworooms` | `tworoom.tar.zst` |
 
 Extract them into this layout:
 
 ```text
-$STABLEWM_HOME/
-`-- datasets/
-    |-- pusht_expert_train.h5
-    |-- ogbench/
-    |   `-- cube_single_expert.h5
-    |-- reacher.h5
-    `-- tworoom.h5
+$LOCAL_DATASET_DIR/
+└── datasets/
+    ├── pusht_expert_train.h5
+    ├── ogbench/
+    │   └── cube_single_expert.h5
+    ├── reacher.h5
+    └── tworoom.h5
 ```
 
-All extracted datasets are HDF5 at this stage. The canonical PushT training
-configuration uses Lance because its shuffled pixel clips benefit from compact,
-batched random access; Official and CLEAR evaluation still consume the HDF5
-file. Convert only PushT once:
+PushT training uses Lance. With `fleet_env.sh` loaded, convert the published
+HDF5 file once:
 
 ```bash
-python -m stable_worldmodel.cli convert \
+"$INTACT_PYTHON" -m stable_worldmodel.cli convert \
   pusht_expert_train pusht_expert_train.lance \
   --source-format hdf5 --dest-format lance
 ```
@@ -97,88 +99,67 @@ python -m stable_worldmodel.cli convert \
 The final training layout is:
 
 ```text
-$STABLEWM_HOME/
-`-- datasets/
-    |-- pusht_expert_train.lance/
-    |-- ogbench/cube_single_expert.h5
-    |-- reacher.h5
-    `-- tworoom.h5
+$LOCAL_DATASET_DIR/
+└── datasets/
+    ├── pusht_expert_train.lance/
+    ├── ogbench/cube_single_expert.h5
+    ├── reacher.h5
+    └── tworoom.h5
 ```
 
-The four-task layout measured for the public release occupies roughly 230 GB.
-PushT conversion temporarily needs roughly 45 GB more while both formats are
-present. Verify the available space on the target filesystem.
+The four-task layout measured in the release environment occupies roughly
+230 GB. PushT conversion temporarily needs roughly 45 GB more while both
+formats are present. These figures are planning estimates, not preflight
+checks; verify available space on your filesystem.
 
-## Preflight Verification
+## Verification
 
-The preflight command checks the source fingerprint, canonical hyperparameters,
-environment, CUDA visibility, dataset paths, checkpoints when applicable, and
-the corrected previous-action tests.
+The first command checks imports, pinned package visibility, environment
+registration, and CUDA. The second checks paths only; it does not checksum or
+fully read the datasets. The final command combines the checks expected by the
+training launchers.
 
 ```bash
-python scripts/preflight_check.py train-single \
-  --task pusht --train-seed 3072
-
-CUDA_VISIBLE_DEVICES=0,1,2,3 \
-python scripts/preflight_check.py train-multitask --train-seed 3072
+"$INTACT_PYTHON" scripts/verify_install.py --require-cuda
+"$INTACT_PYTHON" scripts/verify_data.py
+bash scripts/check_fleet.sh
 ```
 
-The training and evaluation launchers run the matching preflight automatically.
-Use `INTACT_SKIP_PREFLIGHT=1` only after the same check has completed separately.
+## First smoke run
 
-## First Training Runs
-
-Single-task training uses one full-data epoch:
+Smoke mode executes the real data, model, optimizer, and checkpoint path on one
+small batch. Use a unique run name because output directories are immutable.
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 bash scripts/train_single.sh \
-  pusht 3072 displacement
+CUDA_VISIBLE_DEVICES=0 bash scripts/train.sh goal pusht \
+  --smoke --run-name smoke_goal_pusht
 ```
 
-Four-task shared-encoder training uses exactly four visible GPUs:
+For the four-task path, provide exactly four visible GPUs:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0,1,2,3 bash scripts/train_multitask.sh \
-  3072 displacement "$STABLEWM_HOME/checkpoints" \
-  outputs/intact_multitask_goal_s3072_e5
+  --smoke --run-name smoke_multitask_goal
 ```
 
-Canonical training seeds are `0`, `42`, and `3072`. See
-[`TRAINING_PROTOCOL.md`](TRAINING_PROTOCOL.md) for the 7/7 objective and
-[`PREVIOUS_ACTION_BOUNDARY_20260804.md`](PREVIOUS_ACTION_BOUNDARY_20260804.md)
-for the corrected boundary contract.
+After smoke validation, use the formal commands and paper settings in the
+main [README](../README.md#training).
 
-## Expected Layout After Setup
+## Manual equivalent
 
-After following the installation, dataset, and first-run instructions, the
-repository and external cache should have the following structure. Generated
-weights stay under `STABLEWM_HOME`; source files remain inside the repository.
+If the installer cannot be used, its CUDA path is equivalent to:
 
-```text
-INTACT-JEPA/
-|-- .env
-|-- .venv/
-|-- checkpoints/                  # checked-in manifests only
-|-- config/
-|-- docs/
-|-- outputs/                      # shared-run logs and metadata, after launch
-|-- scripts/
-|-- train.py
-`-- train_multitask.py
-
-$STABLEWM_HOME/
-|-- datasets/
-|   |-- pusht_expert_train.h5     # Official/CLEAR evaluation
-|   |-- pusht_expert_train.lance/ # canonical PushT training
-|   |-- ogbench/
-|   |   `-- cube_single_expert.h5
-|   |-- reacher.h5
-|   `-- tworoom.h5
-`-- checkpoints/
-    |-- displacement_pusht_s3072/ # created by the single-task example
-    `-- intact_multitask_goal_*/   # task shards created by shared training
+```bash
+python3.10 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install torch==2.6.0 torchvision==0.21.0 \
+  --index-url https://download.pytorch.org/whl/cu124
+python -m pip install -r requirements-cu124.lock \
+  --extra-index-url https://download.pytorch.org/whl/cu124
+python -m pip check
+python scripts/verify_install.py --require-cuda
 ```
 
-Checkpoint archives downloaded from Hugging Face may also be extracted under
-`$STABLEWM_HOME/checkpoints/`; preserve the paths recorded in the checked-in
-manifests when reproducing paper results.
+Do not install a second unpinned PyTorch or torchvision build afterward. A
+CPU/CUDA wheel mismatch is a common cause of missing operators during import.

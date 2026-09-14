@@ -7,13 +7,18 @@ the root README is authoritative.
 
 - paper, project website, method notes, and audited result tables;
 - task-specific and four-task shared-encoder training code;
-- Direct, Pure-CEM, and Actor-CEM evaluation interfaces;
-- Official LeWM and CLEAR-LeWM v0.5.1 evaluation entrypoints;
+- one standard evaluation entrypoint with Direct, CEM, and Guarded-A modes;
+- Official LeWM and CLEAR-LeWM v0.8 scoring adapters;
 - exact training/evaluation configurations and dependency locks;
 - paper checkpoint manifests, SHA-256 records, and the bundled compatibility
   runtime;
+- current E1 single-task releases with and without causal previous-action
+  context, organized under `INTACT/` and `INTACT-no-previous-action/` in the
+  public Hugging Face repository;
 - all 72 paper checkpoint shards under the immutable public Hugging Face
-  revision [`paper-e5-goal-v1`](https://huggingface.co/INTACT-JEPA/INTACT/tree/paper-e5-goal-v1).
+  revision [`paper-e5-goal-v1`](https://huggingface.co/INTACT-JEPA/INTACT/tree/paper-e5-goal-v1),
+  also organized under the current [`INTACT-unified/`](https://huggingface.co/INTACT-JEPA/INTACT/tree/main/INTACT-unified)
+  directory.
 
 ## Distributed Separately
 

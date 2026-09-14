@@ -16,6 +16,7 @@ dataset:
 
 seed: 42
 policy: random # ckpt name or random
+sdpa_backend: math
 
 plan_config:
   horizon: 5
@@ -29,7 +30,8 @@ eval:
   eval_budget: 50
   img_size: 224
   dataset_name: dmc/reacher_random
-  actor_warmstart: true
+  protocol: official
+  inference_mode: direct
   callables:
     # -- set state
     - method: set_state
