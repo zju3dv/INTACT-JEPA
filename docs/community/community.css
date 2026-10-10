@@ -160,6 +160,7 @@
 
 .community-invite-frame img {
   width: 100%;
+  height: auto;
   max-height: 520px;
   object-fit: contain;
 }
@@ -195,7 +196,7 @@
 
 .community-invite-meta {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1px;
   margin-top: 14px;
   background: var(--line);
@@ -267,6 +268,7 @@
   max-width: 700px;
   margin: 0;
   color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
 .community-permalink p + p {
@@ -302,7 +304,7 @@
   }
 
   .community-permalink-inner {
-    grid-template-columns: 110px 1fr;
+    grid-template-columns: 110px minmax(0, 1fr);
     gap: 22px;
   }
 

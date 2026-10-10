@@ -1,11 +1,21 @@
 const inviteImage = document.querySelector("[data-community-invite-image]");
 const invitePlaceholder = document.querySelector("[data-community-placeholder]");
 const inviteUpdated = document.querySelector("[data-community-updated]");
-const inviteExpiry = document.querySelector("[data-community-expiry]");
+let contactEnabled = true;
+
+const showContactImage = (visible) => {
+  inviteImage.hidden = !visible;
+  invitePlaceholder.hidden = visible;
+};
+
+inviteImage.addEventListener("load", () => showContactImage(contactEnabled));
+inviteImage.addEventListener("error", () => showContactImage(false));
+if (inviteImage.complete && !inviteImage.naturalWidth) showContactImage(false);
 
 const formatDate = (value) => {
-  if (!value) return "Available on request / 请邮件联系";
+  if (!value) return "Not available / 暂无信息";
   const date = new Date(`${value}T00:00:00Z`);
+  if (Number.isNaN(date.getTime())) return "Not available / 暂无信息";
   const english = new Intl.DateTimeFormat("en", {
     year: "numeric",
     month: "short",
@@ -23,25 +33,19 @@ const formatDate = (value) => {
 
 fetch("../assets/community-invite.json", { cache: "no-store" })
   .then((response) => {
-    if (!response.ok) throw new Error("Invitation metadata unavailable");
+    if (!response.ok) throw new Error("Contact metadata unavailable");
     return response.json();
   })
-  .then((invite) => {
-    inviteUpdated.textContent = formatDate(invite.updated);
-    inviteExpiry.textContent = formatDate(invite.validUntil);
+  .then((contact) => {
+    inviteUpdated.textContent = formatDate(contact.updated);
+    contactEnabled = contact.status === "active" && contact.contactType === "personal-wechat" && Boolean(contact.image);
+    if (!contactEnabled) {
+      showContactImage(false);
+      return;
+    }
 
-    const today = new Date();
-    const expiry = invite.validUntil
-      ? new Date(`${invite.validUntil}T23:59:59Z`)
-      : null;
-    const active = invite.status === "active" && invite.image && expiry && expiry >= today;
-    if (!active) return;
-
-    inviteImage.src = `${invite.image}?updated=${encodeURIComponent(invite.updated)}`;
-    inviteImage.hidden = false;
-    invitePlaceholder.hidden = true;
+    inviteImage.src = `${contact.image}?updated=${encodeURIComponent(contact.updated)}`;
   })
   .catch(() => {
-    inviteUpdated.textContent = "Check by email / 请邮件联系";
-    inviteExpiry.textContent = "Available on request / 获取新二维码";
+    inviteUpdated.textContent = "Metadata unavailable / 更新信息暂不可用";
   });
